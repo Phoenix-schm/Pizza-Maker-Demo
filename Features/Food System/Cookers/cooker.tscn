@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c8p3gjfpcnykw"]
+
+[ext_resource type="Script" uid="uid://2kvo8g80ijb7" path="res://Features/Food System/Cookers/Cooker.cs" id="1_wntaf"]
+[ext_resource type="Script" uid="uid://cga2bwfdorrdc" path="res://Features/Food System/Cookers/CookerGridTexture.cs" id="2_2vux0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
+size = Vector3(0.75, 0.1, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2vux0"]
+size = Vector2(0.75, 0.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wntaf"]
+viewport_path = NodePath("GridSubviewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptdpq"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_wntaf")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2vux0"]
+size = Vector3(0.75, 0.494, 0.5)
+
+[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport")]
+script = ExtResource("1_wntaf")
+CookerMesh = NodePath("CollisionShape3D/CookerBody")
+CookerGrid = NodePath("GridSubviewport/GridTexture")
+GridViewport = NodePath("GridSubviewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=949194756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_g3b8u")
+
+[node name="CookerBody" type="MeshInstance3D" parent="CollisionShape3D" unique_id=613281164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_2vux0")
+surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
+
+[node name="CookerBody2" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2134262855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20317383, 0)
+mesh = SubResource("BoxMesh_2vux0")
+surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
+
+[node name="GridSubviewport" type="SubViewport" parent="." unique_id=1565629765]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(768, 512)
+
+[node name="GridTexture" type="PanelContainer" parent="GridSubviewport" unique_id=1338595341]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_2vux0")

@@ -37,4 +37,25 @@ public static class StaticFunc
             return a;
         return b + (a - b) * (float)Math.Exp(-decay * dt);
     }
+
+    /// <summary>
+    /// Clamps a Vector within set clamps
+    /// </summary>
+    /// <param name="a"> Vector to clamp</param>
+    /// <param name="toClampMax"></param>
+    /// <param name="toClampMin"></param>
+    /// <returns></returns>
+    public static Vector2I ClampVector(Vector2I a, Vector2I toClampMax, Vector2I toClampMin)
+    {
+        if (a.X < toClampMin.X)
+            a.X = toClampMin.X;
+        if (a.Y < toClampMin.Y)
+            a.Y = toClampMin.Y;
+        if (a.X > toClampMax.X)
+            a.X = toClampMax.X;
+        if (a.Y > toClampMax.Y)
+            a.Y = toClampMax.Y;
+
+        return a;
+    }
 }

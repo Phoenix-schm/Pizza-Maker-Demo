@@ -14,7 +14,7 @@ public static class GameLogger
     {
         var dateTime = DateTime.Now;
         string timeStamp = $"[{dateTime:yyyy-MMM-dd HH:mm:ss}]";
-        var callingMethod = new System.Diagnostics.StackTrace().GetFrame(2).GetMethod();
+        var callingMethod = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod();
         string logMessage = $"{timeStamp} [{level}]: [{callingMethod.DeclaringType.Name}] [{callingMethod.Name}]: ";
 
         string logColor = "WHITE";
