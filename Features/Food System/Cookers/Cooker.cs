@@ -29,6 +29,11 @@ public partial class Cooker : StaticBody3D
         if (@event is not InputEventMouseMotion)
             return;
 
+        // If the mouse isn't hitting an upwards facing part of the collision
+        // (mimics the needed collision of a plane)
+        if (!normal.IsEqualApprox(Basis.Y))
+            return;
+
         GetGridIndexFromInput(eventPosition);
 
         // Don't do extra calculations while on the same cell
