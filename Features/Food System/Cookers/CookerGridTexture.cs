@@ -1,3 +1,5 @@
+using Common;
+using Features.FoodSystem.Ingredients;
 using Godot;
 using System;
 
@@ -15,21 +17,39 @@ public partial class CookerGridTexture : PanelContainer
     [ExportToolButton("Redraw Grid")]
     public Callable RedrawButton => Callable.From(QueueRedraw);
 
-    public Vector2 CellSize;
+    public Vector2 cellSize;    // the size of each cell in the grid relative to the current SubViewport
 
-    public Vector2 inputPos;
+    public Cooker parentCooker;
+    public Vector2I inputPos;
+    public Ingredient SelectedIngredient
+    { get { return selectedIngredient; } 
+      set {
+            selectedIngredient = value;
+
+            if (value != null)
+                itemSize = value.IngredientBase.GetCellSize(value.orientation);
+            else
+                itemSize = -Vector2I.One;
+          } }
+    private Ingredient selectedIngredient;
+    private Vector2I itemSize;
 
     public async override void _Ready()
     {
-        // Wait a from for screen to initialize. Otherwise errors will occur
+        // Wait a from for screen to initialize. Otherwise errors will occur due to SubViewport not having size initialized
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        InitializeGrid();
+        
         QueueRedraw();
     }
 
     public override void _Draw()
     {
-        InitializeGrid();
-        DrawGrid();   
+        if (SelectedIngredient != null)
+            DrawSelectedCells(itemSize, inputPos);
+        
+        // Draw grid on top of selection cells
+        DrawGrid();
     }
 
     private void InitializeGrid()
@@ -38,13 +58,18 @@ public partial class CookerGridTexture : PanelContainer
         if (CellCount.X == 0 || CellCount.Y == 0)
             return;
 
-        CellSize = GetViewportRect().Size / CellCount;
+        cellSize = GetViewportRect().Size / CellCount;
     }
 
+    /// <summary>
+    /// Draws a grid based on the amount of cells in CellCount
+    /// </summary>
     private void DrawGrid()
     {
-        float lineWidth = MainLineWidth;
+        if (cellSize.X <= 0 || cellSize.Y <= 0)
+            return;
 
+        float lineWidth = MainLineWidth;
         // Vertical lines
         for (int x = 0; x <= CellCount.X; x++)
         {
@@ -54,8 +79,8 @@ public partial class CookerGridTexture : PanelContainer
                 lineWidth = MainLineWidth;
 
             DrawLine(
-                new Vector2(x * CellSize.X, 0), // Starting point of line
-                new Vector2(x * CellSize.X, CellSize.Y * CellCount.Y),   // End point of line
+                new Vector2(x * cellSize.X, 0), // Starting point of line
+                new Vector2(x * cellSize.X, cellSize.Y * CellCount.Y),   // End point of line
                 Colors.White,
                 lineWidth
                 );
@@ -70,12 +95,40 @@ public partial class CookerGridTexture : PanelContainer
                 lineWidth = MainLineWidth;
 
             DrawLine(
-                new Vector2(0, y * CellSize.Y), // Starting point of line
-                new Vector2(CellSize.X * CellCount.X, y * CellSize.Y),   // end point of line
+                new Vector2(0, y * cellSize.Y), // Starting point of line
+                new Vector2(cellSize.X * CellCount.X, y * cellSize.Y),   // end point of line
                 Colors.White,
                 lineWidth
                 );
-
         }
+    }
+
+    private void DrawSelectedCells(Vector2I _itemSize, Vector2I _inputPosition)
+    {
+        //if (Engine.IsEditorHint())
+        //    return;
+
+        if (_itemSize.X <= 0 || _itemSize.Y <= 0)
+        {
+            return;
+        }
+
+        
+        // TODO: Create check for if hovering over a filled slot
+
+        for (int i = 0; i < SelectedIngredient.takenSlotsInCooker.Count; i++)
+        {
+            int index = SelectedIngredient.takenSlotsInCooker[i];
+
+            // reverse index into vector coordinates
+            int xCoord = Mathf.FloorToInt(index % CellCount.X);
+            int yCoord = Mathf.FloorToInt(index / CellCount.X);
+
+            DrawRect(
+                new Rect2(new Vector2(xCoord, yCoord) * cellSize, cellSize),
+                Colors.Aqua
+                );
+        }
+
     }
 }

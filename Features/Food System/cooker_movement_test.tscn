@@ -15,6 +15,8 @@ sky = SubResource("Sky_m8b28")
 
 [node name="CookerMovementTest" type="Node3D" unique_id=1502741942]
 
+[node name="DragIngredientManager" type="Node" parent="." unique_id=410826514]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2017015668]
 environment = SubResource("Environment_6woas")
 
@@ -22,11 +24,13 @@ environment = SubResource("Environment_6woas")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Cooker" parent="." unique_id=290454206 instance=ExtResource("1_8lb3h")]
-transform = Transform3D(1, 0, 0, 0, 0.9983257, -0.057842284, 0, 0.057842284, 0.9983257, -0.4, 0, 0)
+[node name="Cooker" parent="." unique_id=290454206 node_paths=PackedStringArray("IngredientsInCooker") instance=ExtResource("1_8lb3h")]
+transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.8878409, -0.4, 0, 0)
+IngredientsInCooker = []
 
-[node name="Cooker2" parent="." unique_id=1453442107 instance=ExtResource("1_8lb3h")]
-transform = Transform3D(1, 0, 0, 0, 0.9983257, -0.057842284, 0, 0.057842284, 0.9983257, 0.4, 0, 0)
+[node name="Cooker2" parent="." unique_id=1453442107 node_paths=PackedStringArray("IngredientsInCooker") instance=ExtResource("1_8lb3h")]
+transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.8878409, 0.4, 0, 0)
+IngredientsInCooker = []
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=80463627]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0.6094412, 0.5586249)
