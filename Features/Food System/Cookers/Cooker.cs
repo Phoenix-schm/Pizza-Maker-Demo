@@ -76,6 +76,7 @@ public partial class Cooker : StaticBody3D
         lastGridCell = curGridCell;
     }
 
+    #region TranslatePositionInformation
     /// <summary>
     /// Translates the 3D event position into a grid based position on the viewport
     /// </summary>
@@ -129,4 +130,13 @@ public partial class Cooker : StaticBody3D
         CookerGrid.inputPos = curGridCell;
         CookerGrid.QueueRedraw();
     }
+    #endregion
+
+    #region IngredientDraggingLogic
+    // On Mouse Enter cooker area, send hover information to DragIngredientManager
+    //      Whether the cell being hovered over contains an ingredient or is null
+    // if null and DragIngredientManager.selectedIngredient != null,
+    //      check if can place ingredient. Return null if can't
+
+    #endregion
 }
