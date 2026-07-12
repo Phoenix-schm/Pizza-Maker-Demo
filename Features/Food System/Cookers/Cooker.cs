@@ -3,12 +3,13 @@ using Features.FoodSystem.Ingredients;
 using Godot;
 using Godot.Collections;
 using System;
+using static Godot.TextServer;
 
 namespace Features.FoodSystem.Cookers;
 public partial class Cooker : StaticBody3D
 {
     public event Action<Ingredient> OnSendIngredient;           // will either send an ingredient or null
-    public event Action<Vector3, bool> OnSendValidPlacement;    // will send a valid placement
+    public event Action<Vector3, bool, Array<int>> OnSendValidPlacement;    // will send a valid placement
 
     [Export] private MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
@@ -34,6 +35,7 @@ public partial class Cooker : StaticBody3D
     // *** Dragging Logic ***
     private Ingredient hoveredIngredient;
     private bool canBePlaced;
+    public Array<int> tempTakenCells = new Array<int>();   // Temporary cells for showing what cells the ingredient is taking up on the grid
 
     public override void _Ready()
     {
@@ -48,13 +50,13 @@ public partial class Cooker : StaticBody3D
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
+        InitializeHoverLogic();
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
         if (!normal.IsEqualApprox(Basis.Y))
             return;
 
         GetGridIndexFromInput(eventPosition);
-        InitializeHoverLogic();
         // Don't do extra calculations while on the same cell
         if (curGridCell == lastGridCell)
             return;
@@ -68,7 +70,7 @@ public partial class Cooker : StaticBody3D
 
             // offset grid position with ingredient size so that it's centered with TakenSlots
             curWorldPos = Get3DPositionFromGridPosition(curGridPosition + (cellSize * curIngredient.IngredientBase.GetCellSize(curIngredient.orientation)) / 2);
-            TryPlaceIngredientInCell();
+            TryPlaceIngredientInCell(curGridIndex, curIngredient);
             UpdateCookerGridTexture();
         }
         else if (DragIngredientManager.Instance != null)
@@ -79,7 +81,7 @@ public partial class Cooker : StaticBody3D
             // Send manager curWorldPos(placing ingredient) and if it can be placed
             Vector3 validGlobalPosition = IngredientHolder.ToGlobal(curWorldPos);
             
-            OnSendValidPlacement?.Invoke(validGlobalPosition, true);
+            OnSendValidPlacement?.Invoke(validGlobalPosition, true, tempTakenCells);
         }
         else
         {
@@ -142,6 +144,14 @@ public partial class Cooker : StaticBody3D
     private void UpdateCookerGridTexture()
     {
         CookerGrid.inputPos = curGridCell;
+        CookerGrid.SelectedIngredient = DragIngredientManager.Instance.draggedIngredient;
+        CookerGrid.QueueRedraw();
+    }
+
+    public void ResetCookerGridTexture()
+    {
+        CookerGrid.inputPos = -Vector2I.Zero;
+        CookerGrid.SelectedIngredient = null;
         CookerGrid.QueueRedraw();
     }
     #endregion
@@ -162,19 +172,36 @@ public partial class Cooker : StaticBody3D
 
         // initialize important hover logic upon entering the cooker collision
         lastGridCell = -Vector2I.One;
-        DragIngredientManager.hoveredCooker = this;
+        DragIngredientManager.Instance.UpdateHoverVariables(this);
     }
 
-    private void TryPlaceIngredientInCell()
+    /// <summary>
+    /// Fills the array TakenSlotsInCooker with index grid cell positions
+    /// Used for highlighting cells and checking which cells an ingredient takes up
+    /// </summary>
+    /// <param name="startingCell"></param>
+    /// <param name="_curIngredient"></param>
+    private void TryPlaceIngredientInCell(int startingCell, Ingredient _curIngredient)
     {
-        Array<int> cells = new Array<int>();
-        // Check cells for if they can be placed.
+        // TODO: Check cells for if they can be placed.
         foreach (Ingredient ingredient in IngredientsInCooker)
         {
             if (ingredient.takenSlotsInCooker.Contains(curGridIndex))
                 GD.Print("Hovering over occupied cell");
         }
-        DragIngredientManager.Instance.draggedIngredient.UpdateTakenCookerSlots(curGridIndex, this);
+
+        tempTakenCells.Clear();
+        for (int x = 0; x < _curIngredient.IngredientBase.GetCellSize(_curIngredient.orientation).X; x++)
+        {
+            for (int y = 0; y < _curIngredient.IngredientBase.GetCellSize(_curIngredient.orientation).Y; y++)
+            {
+                // Calculation for translating a (x, y) coordinate into a flat index position
+                int fauxCurIndex = startingCell + x + (y * CookerGrid.CellCount.X);
+                tempTakenCells.Add(fauxCurIndex);
+            }
+        }
+
+        //DragIngredientManager.Instance.draggedIngredient.UpdateTakenCookerSlots(curGridIndex, this);
     }
 
     private Ingredient TryGetHoveredIngredient()
@@ -189,6 +216,11 @@ public partial class Cooker : StaticBody3D
         return null;
     }
 
+    /// <summary>
+    /// Takes ingredient from cooker
+    /// </summary>
+    /// <param name="takenIngredient"></param>
+    /// <returns></returns>
     public Ingredient TakeIngredient(Ingredient takenIngredient)
     {
         takenIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
@@ -199,12 +231,23 @@ public partial class Cooker : StaticBody3D
         return takenIngredient;
     }
 
-    public void PlaceIngredient(Ingredient placedIngredient)
+    /// <summary>
+    /// Places ingredient on Cooker
+    /// </summary>
+    /// <param name="placedIngredient"></param>
+    public void PlaceIngredient(Ingredient placedIngredient, Array<int> tempCells)
     {
         IngredientsInCooker.Add(placedIngredient);
+        placedIngredient.takenSlotsInCooker = tempCells.Duplicate();
+        tempTakenCells.Clear();
+        // replace parent
+        placedIngredient.parentPackage = null;
+        placedIngredient.parentCooker = this;
+
         placedIngredient.Reparent(IngredientHolder);
         placedIngredient.Position = curWorldPos;
 
+        ResetCookerGridTexture();
         lastGridCell = -Vector2I.One;
     }
 

@@ -22,7 +22,9 @@ public partial class IngredientPackage : StaticBody3D
             return;
 
         if (DragIngredientManager.hoveredPackage != this)
-            DragIngredientManager.hoveredPackage = this;
+        {
+            DragIngredientManager.Instance.UpdateHoverVariables(this);
+        }
     }
 
     public Ingredient SpawnIngredient()
@@ -35,6 +37,11 @@ public partial class IngredientPackage : StaticBody3D
         return newIngredient;
     }
 
+    /// <summary>
+    /// Tries to return ingredient to the called upon package.
+    /// </summary>
+    /// <param name="returnedIngredient"></param>
+    /// <returns></returns>
     public bool TryReturnIngredientToPackage(Ingredient returnedIngredient)
     {
         bool wasReturned = true;

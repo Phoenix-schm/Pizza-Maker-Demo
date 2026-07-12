@@ -20,7 +20,13 @@ sky = SubResource("Sky_m8b28")
 [sub_resource type="Resource" id="Resource_fiisl"]
 script = ExtResource("5_fiisl")
 Name = "Test Ingredient"
-Size = 1
+Size = 2
+metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
+
+[sub_resource type="Resource" id="Resource_r16jn"]
+script = ExtResource("5_fiisl")
+Name = "Test Ingredient"
+Size = 4
 metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
 
 [node name="CookerMovementTest" type="Node3D" unique_id=1502741942]
@@ -55,7 +61,13 @@ transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.88784
 transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.8878409, 0.4, 0, 0)
 
 [node name="IngredientPackage" parent="Node3D" unique_id=963651810 instance=ExtResource("3_44a8c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4748663)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35533786, 0, -1.4748663)
 collision_mask = 0
 StoredIngredient = SubResource("Resource_fiisl")
+IngredientScene = ExtResource("6_cn7bo")
+
+[node name="IngredientPackage2" parent="Node3D" unique_id=1664877906 instance=ExtResource("3_44a8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.999269, 0, -1.4748663)
+collision_mask = 0
+StoredIngredient = SubResource("Resource_r16jn")
 IngredientScene = ExtResource("6_cn7bo")

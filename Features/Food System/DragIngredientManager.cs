@@ -23,6 +23,7 @@ public partial class DragIngredientManager : Node
     public static IngredientPackage hoveredPackage;
     private Ingredient hoveredIngredient;
     private Vector3 hoveredPos;
+    private Array<int> hoveredCells;
     private bool canBePlaced;
 
     public Ingredient draggedIngredient;
@@ -46,7 +47,7 @@ public partial class DragIngredientManager : Node
     {
         AlighObjectWithNormal();
 
-        if (canBePlaced)
+        if (canBePlaced && hoveredCooker != null)
             draggedIngredient.GlobalPosition = hoveredPos;
         else
             draggedIngredient.GlobalPosition = worldMousePos;
@@ -101,7 +102,6 @@ public partial class DragIngredientManager : Node
         else if (hoveredCooker != null && hoveredIngredient != null)
         {
             draggedIngredient = hoveredCooker.TakeIngredient(hoveredIngredient);
-            draggedIngredient.parentCooker = hoveredCooker;
             draggedIngredient.Reparent(IngredientHolder);
         }
 
@@ -113,14 +113,20 @@ public partial class DragIngredientManager : Node
     {
         SetProcess(false);
 
+        // if can place ingredient on cooker
         if (hoveredCooker != null && hoveredIngredient == null & canBePlaced)
-            hoveredCooker.PlaceIngredient(draggedIngredient);
-        else if (draggedIngredient.parentCooker != null)
-            draggedIngredient.parentCooker.PlaceIngredient(draggedIngredient);
+            hoveredCooker.PlaceIngredient(draggedIngredient, hoveredCells);
+        else if (hoveredPackage != null)
+            hoveredPackage.TryReturnIngredientToPackage(draggedIngredient);
+
+        // if 
+        if (draggedIngredient.parentCooker != null)
+            draggedIngredient.parentCooker.PlaceIngredient(draggedIngredient, hoveredCells);
         else if (draggedIngredient.parentPackage != null)
             draggedIngredient.parentPackage.TryReturnIngredientToPackage(draggedIngredient);
 
-        ResetDraggingVariables();
+
+        draggedIngredient = null;
     }
 
     private void SetDraggingVariables()
@@ -161,9 +167,7 @@ public partial class DragIngredientManager : Node
 
         if (result.Count == 0)  // not hitting anything
         {
-            hoveredCooker = null;
-            hoveredPackage = null;
-            canBePlaced = false;
+            UpdateHoverVariables();
 
             Plane draggingPlane = new(dragCamera.GlobalBasis.Z, DraggingPlaneOrigin.GlobalPosition);
             end = dragCamera.ProjectRayNormal(mousePos);
@@ -175,18 +179,14 @@ public partial class DragIngredientManager : Node
         {
             if (result["collider"].Obj is IngredientPackage pacakage)
             {
-                hoveredCooker = null;
                 targetHolderRotation = pacakage.GlobalRotation;
             }
             else if (result["collider"].Obj is Cooker cooker)
             {
-                hoveredPackage = null;
                 targetHolderRotation = cooker.GlobalRotation;
             }
             else // Hitting "something" that's allowed, but don't want it to be interactable
             {
-                hoveredPackage = null;
-                hoveredCooker = null;
                 newNormal = (Vector3)result["normal"];
                 Transform3D newTransform = StaticFunc.AlignWithY(draggedIngredient.GlobalTransform, newNormal);
                 Vector3 newRotation = draggedIngredient.Rotation;
@@ -209,11 +209,48 @@ public partial class DragIngredientManager : Node
         canBePlaced = false;
     }
 
-    public void RecieveIngredientPlacement(Vector3 _validPlacement, bool _canBePlaced)
+    public void RecieveIngredientPlacement(Vector3 _validPlacement, bool _canBePlaced, Array<int> _placementCells)
     {
         hoveredPos = _validPlacement;
+        hoveredCells = _placementCells.Duplicate();
         hoveredIngredient = null;
         canBePlaced = _canBePlaced;
+    }
+
+    /// <summary>
+    /// Updates hover variables based on inputted node. 
+    /// </summary>
+    /// <param name="hoveredNode"></param>
+    public void UpdateHoverVariables(Node3D hoveredNode = null)
+    {
+        switch (hoveredNode)
+        {
+            case IngredientPackage package:
+                hoveredCooker?.ResetCookerGridTexture();
+                canBePlaced = false;
+
+                hoveredCooker = null;
+                hoveredIngredient = null;
+                hoveredPackage = package;
+                break;
+            case Cooker cooker:
+                if (hoveredCooker != cooker)
+                    hoveredCooker?.ResetCookerGridTexture();
+
+                hoveredPackage = null;
+                hoveredCooker = cooker;
+                break;
+            default:
+                hoveredCooker?.ResetCookerGridTexture();
+                canBePlaced = false;
+
+                hoveredCooker = null;
+                hoveredPackage = null;
+                hoveredIngredient = null;
+                break;
+        
+        }
+
     }
 
     public override void _EnterTree()
