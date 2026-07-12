@@ -16,7 +16,7 @@ public partial class Ingredient : Node3D
     [Export] private bool UseDebug { get; set; } = true;
 
     [ExportCategory("Node Communication")]
-    [Export] private MeshInstance3D IngredientMesh { get; set; }
+    [Export] public MeshInstance3D IngredientMesh { get; set; }
 
     private DebugIngredientLogic debugLogic;
     private eIngredientSize ingredientSize;

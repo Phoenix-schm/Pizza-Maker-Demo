@@ -42,11 +42,6 @@ public partial class Cooker : StaticBody3D
     {
         planeSize = (CookerMesh.Mesh as PlaneMesh).Size;
         CookerGrid.parentCooker = this;
-        // TODO: Replace with initializing on selecting an ingredient
-        //DebugIngredient.parentCooker = this;
-
-        // TODO: Replace with only initializing when selecting an ingredient through an ingredient manager
-        //CookerGrid.SelectedIngredient = DebugIngredient;
     }
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)

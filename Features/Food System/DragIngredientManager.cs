@@ -15,7 +15,10 @@ public partial class DragIngredientManager : Node
     [Export(PropertyHint.Layers3DPhysics)] private int CollisionMask { get; set; }
     [Export] private Node3D DraggingPlaneOrigin { get; set; } // for dragging ingredient in front of camera
     [Export] public Node3D IngredientHolder { get; set; } // holds dragged ingredient for smoother movement
-    
+    [ExportCategory("Dragging")]
+    [Export] private float DragSpeed { get; set; } = 2;
+    [Export] private float RaycastRotationSpeed { get; set; } = .75f;
+    [Export(PropertyHint.Range, "10, 150, 10")] private float DragRotationWeight { get; set; } = 85;
 
     // only one cooker can be selected at a time
     // TODO: tell hoveredCooker.CookerGrid about selectedIngredient
@@ -34,6 +37,9 @@ public partial class DragIngredientManager : Node
     private Vector3 worldMousePos;
     private Vector3 targetHolderRotation;
 
+    private bool startedDrag;
+    private Vector3 lastDraggingPosition;
+
     public override void _Ready()
     {
         dragCamera = GetWindow().GetCamera3D();
@@ -48,11 +54,26 @@ public partial class DragIngredientManager : Node
         AlighObjectWithNormal();
 
         if (canBePlaced && hoveredCooker != null)
-            draggedIngredient.GlobalPosition = hoveredPos;
+            draggedIngredient.GlobalPosition = StaticFunc.ExpDecay(draggedIngredient.GlobalPosition, hoveredPos, 16 * DragSpeed, (float)delta);
         else
-            draggedIngredient.GlobalPosition = worldMousePos;
+            draggedIngredient.GlobalPosition = StaticFunc.ExpDecay(draggedIngredient.GlobalPosition, worldMousePos, 16 * DragSpeed, (float)delta);
 
-        draggedIngredient.GlobalRotation = targetHolderRotation;
+        draggedIngredient.GlobalRotation = StaticFunc.ExpDecay(draggedIngredient.GlobalRotation, targetHolderRotation, 16 * RaycastRotationSpeed, (float)delta);
+
+        // soft bug fix to prevent jittery starting movement
+        if (startedDrag)
+        {
+            lastDraggingPosition = draggedIngredient.Position;
+            startedDrag = false;
+        }
+
+        float targetZRotation = Mathf.Clamp((draggedIngredient.Position.X - lastDraggingPosition.X) * DragRotationWeight, -45, 45);
+        if (draggedIngredient.orientation == eIngredientOrientation.Horizontal)
+            draggedIngredient.IngredientMesh.RotationDegrees = StaticFunc.ExpDecay(draggedIngredient.IngredientMesh.RotationDegrees, new Vector3(0, draggedIngredient.IngredientMesh.RotationDegrees.Y, targetZRotation), 16, (float)delta * 12);
+        else
+            draggedIngredient.IngredientMesh.RotationDegrees = StaticFunc.ExpDecay(draggedIngredient.IngredientMesh.RotationDegrees, new Vector3(targetZRotation, draggedIngredient.IngredientMesh.RotationDegrees.Y, 0), 16, (float)delta * 12);
+
+        lastDraggingPosition = draggedIngredient.Position;
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -93,7 +114,10 @@ public partial class DragIngredientManager : Node
         }
 
         if (draggedIngredient != null)
+        {
+            startedDrag = true;
             SetProcess(true);
+        }
     }
 
     private void OnInteractWithIngredient()
@@ -105,6 +129,8 @@ public partial class DragIngredientManager : Node
         else if (hoveredPackage != null)
             hoveredPackage.TryReturnIngredientToPackage(draggedIngredient);
 
+        hoveredCooker?.ResetCookerGridTexture();
+
         // if there is no hovered area, try return to parent
         if (draggedIngredient.parentCooker != null && !canBePlaced)
             draggedIngredient.parentCooker.ReturnIngredientToParent(draggedIngredient);
@@ -114,23 +140,7 @@ public partial class DragIngredientManager : Node
         draggedIngredient = null;
     }
 
-    private void SetDraggingVariables()
-    {
-
-    }
-
-    private void ResetDraggingVariables()
-    {
-        hoveredCooker = null;
-        hoveredPackage = null;
-        hoveredIngredient = null;
-        draggedIngredient = null;
-    }
-
-    // if draggIngredient != null, move it around. Parent it to node3d(?)
-
     // TODO: Create IngredientHolder for holding dragged ingredients
-    // TODO: Create IngredientPackage for spawning ingredient into the world
 
     /// <summary>
     /// Raycast function for positioning ingredient while moving

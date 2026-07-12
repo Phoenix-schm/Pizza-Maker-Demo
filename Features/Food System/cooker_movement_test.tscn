@@ -44,6 +44,7 @@ script = ExtResource("1_m8b28")
 CollisionMask = 3
 DraggingPlaneOrigin = NodePath("../Camera3D/DraggingPlane")
 IngredientHolder = NodePath("../Camera3D")
+DragRotationWeight = 100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" unique_id=2017015668]
 environment = SubResource("Environment_6woas")
