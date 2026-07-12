@@ -14,6 +14,11 @@ public partial class CookerGridTexture : PanelContainer
     [Export] private float MainLineWidth { get; set; } = 2;
     [Export] private float DividerLineWidth { get; set; } = 8;
 
+    [ExportCategory("Colors")]
+    [Export] private Color LineColor { get; set; } = Colors.White;
+    [Export] private Color HighlightColor { get; set; } = Colors.White;
+    [Export] private Color RedHighlightColor { get; set; } = Colors.DarkRed;
+
     [ExportToolButton("Redraw Grid")]
     public Callable RedrawButton => Callable.From(QueueRedraw);
 
@@ -21,6 +26,7 @@ public partial class CookerGridTexture : PanelContainer
 
     public Cooker parentCooker;
     public Vector2I inputPos;
+    public bool canBePlaced;
     public Ingredient SelectedIngredient
     { get { return selectedIngredient; } 
       set {
@@ -46,7 +52,7 @@ public partial class CookerGridTexture : PanelContainer
     public override void _Draw()
     {
         if (SelectedIngredient != null)
-            DrawSelectedCells(itemSize, inputPos);
+            DrawSelectedCells(itemSize, inputPos, canBePlaced);
         
         // Draw grid on top of selection cells
         DrawGrid();
@@ -81,7 +87,7 @@ public partial class CookerGridTexture : PanelContainer
             DrawLine(
                 new Vector2(x * cellSize.X, 0), // Starting point of line
                 new Vector2(x * cellSize.X, cellSize.Y * CellCount.Y),   // End point of line
-                Colors.White,
+                LineColor,
                 lineWidth
                 );
         }
@@ -97,26 +103,19 @@ public partial class CookerGridTexture : PanelContainer
             DrawLine(
                 new Vector2(0, y * cellSize.Y), // Starting point of line
                 new Vector2(cellSize.X * CellCount.X, y * cellSize.Y),   // end point of line
-                Colors.White,
+                LineColor,
                 lineWidth
                 );
         }
     }
 
-    private void DrawSelectedCells(Vector2I _itemSize, Vector2I _inputPosition)
+    private void DrawSelectedCells(Vector2I _itemSize, Vector2I _inputPosition, bool _canBePlaced)
     {
-        //if (Engine.IsEditorHint())
-        //    return;
-
         if (_itemSize.X <= 0 || _itemSize.Y <= 0)
         {
             return;
         }
 
-        
-        // TODO: Create check for if hovering over a filled slot
-
-        // Replace SelectedIngredient with general Array<int> that can be filled in at any time
         for (int i = 0; i < parentCooker.tempTakenCells.Count; i++)
         {
             int index = parentCooker.tempTakenCells[i];
@@ -127,7 +126,7 @@ public partial class CookerGridTexture : PanelContainer
 
             DrawRect(
                 new Rect2(new Vector2(xCoord, yCoord) * cellSize, cellSize),
-                Colors.Aqua
+                _canBePlaced ? HighlightColor : RedHighlightColor
                 );
         }
 

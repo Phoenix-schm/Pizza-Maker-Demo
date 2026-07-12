@@ -63,3 +63,5 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_2vux0")
+HighlightColor = Color(1, 1, 1, 0.56078434)
+RedHighlightColor = Color(0.55, 0, 0, 0.6313726)

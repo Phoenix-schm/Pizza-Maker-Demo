@@ -112,19 +112,17 @@ public partial class DragIngredientManager : Node
     private void OnInteractWithIngredient()
     {
         SetProcess(false);
-
         // if can place ingredient on cooker
         if (hoveredCooker != null && hoveredIngredient == null & canBePlaced)
             hoveredCooker.PlaceIngredient(draggedIngredient, hoveredCells);
         else if (hoveredPackage != null)
             hoveredPackage.TryReturnIngredientToPackage(draggedIngredient);
 
-        // if 
-        if (draggedIngredient.parentCooker != null)
-            draggedIngredient.parentCooker.PlaceIngredient(draggedIngredient, hoveredCells);
-        else if (draggedIngredient.parentPackage != null)
+        // if there is no hovered area, try return to parent
+        if (draggedIngredient.parentCooker != null && !canBePlaced)
+            draggedIngredient.parentCooker.ReturnIngredientToParent(draggedIngredient);
+        else if (draggedIngredient.parentPackage != null && !canBePlaced)
             draggedIngredient.parentPackage.TryReturnIngredientToPackage(draggedIngredient);
-
 
         draggedIngredient = null;
     }
