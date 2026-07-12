@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://2kvo8g80ijb7" path="res://Features/Food System/Cookers/Cooker.cs" id="1_wntaf"]
 [ext_resource type="Script" uid="uid://cga2bwfdorrdc" path="res://Features/Food System/Cookers/CookerGridTexture.cs" id="2_2vux0"]
-[ext_resource type="PackedScene" uid="uid://bxpx42gsogial" path="res://Features/Food System/Ingredients/ingredient.tscn" id="2_46r5c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
 size = Vector3(0.75, 0.1, 0.5)
@@ -23,22 +22,16 @@ size = Vector3(0.75, 0.5, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46r5c"]
 resource_local_to_scene = true
 
-[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport", "DebugIngredient")]
+[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport", "DebugIngredient", "IngredientsInCooker")]
 script = ExtResource("1_wntaf")
 CookerMesh = NodePath("CollisionShape3D/GridPlane")
 CookerGrid = NodePath("GridSubviewport/GridTexture")
 GridViewport = NodePath("GridSubviewport")
-DebugIngredient = NodePath("IngredientHolder/Ingredient")
+DebugIngredient = NodePath("")
+IngredientsInCooker = []
 
 [node name="IngredientHolder" type="Node3D" parent="." unique_id=624685565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-
-[node name="Ingredient" parent="IngredientHolder" unique_id=904508852 instance=ExtResource("2_46r5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13320836, -0.019854605, 0.1270941)
-
-[node name="Ingredient2" parent="IngredientHolder" unique_id=956526350 instance=ExtResource("2_46r5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13320836, -0.019854605, -0.11101632)
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=949194756]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)

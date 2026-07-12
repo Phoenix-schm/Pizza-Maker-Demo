@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dpq5koxk5d8d3"]
 
 [ext_resource type="PackedScene" uid="uid://c8p3gjfpcnykw" path="res://Features/Food System/Cookers/cooker.tscn" id="1_8lb3h"]
+[ext_resource type="Script" uid="uid://dpppcinynivcx" path="res://Features/Food System/DragIngredientManager.cs" id="1_m8b28"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8lb3h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -16,6 +17,7 @@ sky = SubResource("Sky_m8b28")
 [node name="CookerMovementTest" type="Node3D" unique_id=1502741942]
 
 [node name="DragIngredientManager" type="Node" parent="." unique_id=410826514]
+script = ExtResource("1_m8b28")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2017015668]
 environment = SubResource("Environment_6woas")

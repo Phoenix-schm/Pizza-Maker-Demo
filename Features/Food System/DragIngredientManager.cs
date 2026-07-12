@@ -10,16 +10,31 @@ public partial class DragIngredientManager : Node
     public static DragIngredientManager Instance { get; private set; }
 
     // only one cooker can be selected at a time
-    public static Cooker selectedCooker;
+    // TODO: tell hoveredCooker.CookerGrid about selectedIngredient
+    public static Cooker hoveredCooker;
 
-    public Ingredient draggedIngredient; 
+    public Ingredient draggedIngredient;
 
-    // Update with hovered ingredient information
-    // On Mouse Click, if hovered ingredient == null and holding ingredient
-    //      check if can place ingredient (hold logic in Cooker)
-    // On Mouse Click, if hovered ingredient != null
-    //      select ingredient
-    // On Mouse Right Click, rotate ingredient
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed(StaticStringRef.primaryInteraction))
+        {
+            // Update with hovered ingredient information
+            // On Mouse Click, if hovered ingredient == null and holding ingredient
+            //      check if can place ingredient (hold logic in Cooker)
+            // On Mouse Click, if hovered ingredient != null
+            //      select ingredient
+        }
+
+        if (draggedIngredient == null) // other logic should not occur
+            return;
+
+        if (@event.IsActionPressed(StaticStringRef.secondaryInteraction))
+        {
+            // On Mouse Right Click, rotate ingredient
+        }
+    }
+
 
     // if draggIngredient != null, move it around. Parent it to node3d(?)
 

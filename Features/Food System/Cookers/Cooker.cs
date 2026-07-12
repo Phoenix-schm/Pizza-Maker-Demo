@@ -7,6 +7,9 @@ using System;
 namespace Features.FoodSystem.Cookers;
 public partial class Cooker : StaticBody3D
 {
+    public event Action<Ingredient> OnSendIngredient;           // will either send an ingredient or null
+    public event Action<Vector3, bool> OnSendValidPlacement;    // will send a valid placement
+
     [Export] private MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
@@ -20,58 +23,66 @@ public partial class Cooker : StaticBody3D
     Vector2 planeSize;
     Vector2 cellSize;
 
+    //  *** Positioning Information ***
     private Vector2I curGridCell;                   // The Vector2I cell position the mouse is hovering over
     private Vector2I lastGridCell = -Vector2I.One;
 
     private int curGridIndex;                       // The curGridCell flattened to an int
-
     private Vector2 curGridPosition;                // The Vector2 position the mouse takes up within the SubViewport
-
     private Vector3 curWorldPos;                    // the curGridPosition translated into 3D coordinates. Used for the blocky grid movement
+    // ***
+
+    // *** Dragging Logic ***
+    private Ingredient hoveredIngredient;
 
     public override void _Ready()
     {
         planeSize = (CookerMesh.Mesh as PlaneMesh).Size;
         CookerGrid.parentCooker = this;
         // TODO: Replace with initializing on selecting an ingredient
-        DebugIngredient.parentCooker = this;
+        //DebugIngredient.parentCooker = this;
 
         // TODO: Replace with only initializing when selecting an ingredient through an ingredient manager
-        CookerGrid.SelectedIngredient = DebugIngredient;
+        //CookerGrid.SelectedIngredient = DebugIngredient;
     }
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
-        // TODO: Convert to using Input.IsActionPressed for controller inputs
-        if (@event is not InputEventMouseMotion)
-            return;
-
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
         if (!normal.IsEqualApprox(Basis.Y))
             return;
 
         GetGridIndexFromInput(eventPosition);
-
+        InitializeHoverLogic();
         // Don't do extra calculations while on the same cell
         if (curGridCell == lastGridCell)
             return;
 
-        // TODO: Replace with "selected" ingredient
-        // TODO: "Push" starting current position up/left based on size
-        DebugIngredient.UpdateTakenCookerSlots(curGridIndex);
+        if (DragIngredientManager.Instance != null && DragIngredientManager.Instance.draggedIngredient != null)
+        {
+            // multiply back to actual size (within grid subviewport)
+            // TODO: Modify calculation to push ingredient left/up and center it
+            curGridPosition = new Vector2(curGridCell.X * cellSize.X, curGridCell.Y * cellSize.Y);
 
-        // multiply back to actual size (within grid)
-        curGridPosition = new Vector2(curGridCell.X * cellSize.X, curGridCell.Y * cellSize.Y);
+            // offset grid position with ingredient size so that it's centered with TakenSlots
+            curWorldPos = Get3DPositionFromGridPosition(curGridPosition + (cellSize * DebugIngredient.IngredientBase.GetCellSize(DebugIngredient.orientation)) / 2);
+            TryPlaceIngredientInCell();
+            UpdateCookerGridTexture();
+        }
+        else if (DragIngredientManager.Instance != null)
+            hoveredIngredient = TryGetHoveredIngredient();
 
-        // offset grid position with ingredient size so that it's centered with TakenSlots
-        // TODO: Replace calculation iwht "selected" ingredient
-        curWorldPos = Get3DPositionFromGridPosition(curGridPosition + (cellSize * DebugIngredient.IngredientBase.GetCellSize(DebugIngredient.orientation)) / 2);
-
-        //GameLogger.Log(LogLevel.INFO, $"Current Pos: {curWorldPos}");
-        // Position ingredient mesh at translated coordinates.
-        DebugIngredient.Position = curWorldPos;
-        UpdateCookerGridTexture();
+        if (DragIngredientManager.Instance?.draggedIngredient != null)
+        {
+            // Send manager curWorldPos(placing ingredient) and if it can be placed
+            OnSendValidPlacement?.Invoke(curWorldPos, true);
+        }
+        else
+        {
+            // send manager if the cell contains an ingredient or null
+            OnSendIngredient?.Invoke(hoveredIngredient);
+        }
 
         lastGridCell = curGridCell;
     }
@@ -137,6 +148,39 @@ public partial class Cooker : StaticBody3D
     //      Whether the cell being hovered over contains an ingredient or is null
     // if null and DragIngredientManager.selectedIngredient != null,
     //      check if can place ingredient. Return null if can't
+
+    private void InitializeHoverLogic()
+    {
+        if (DragIngredientManager.Instance == null)
+            return;
+
+        if (DragIngredientManager.hoveredCooker == this)
+            return;
+
+        // initialize important hover logic upon entering the cooker collision
+        lastGridCell = -Vector2I.One;
+        DragIngredientManager.hoveredCooker = this;
+    }
+
+    private void TryPlaceIngredientInCell()
+    {
+        Array<int> cells = new Array<int>();
+        // Check cells for if they can be placed.
+
+        DragIngredientManager.Instance.draggedIngredient.UpdateTakenCookerSlots(curGridIndex);;
+    }
+
+    private Ingredient TryGetHoveredIngredient()
+    {
+        // iterate through ingredients in cooker and check if they contain the current hovered cell
+        foreach (Ingredient ingredient in IngredientsInCooker)
+        {
+            if (ingredient.takenSlotsInCooker.Contains(curGridIndex))
+                return ingredient;
+        }
+
+        return null;
+    }
 
     #endregion
 }

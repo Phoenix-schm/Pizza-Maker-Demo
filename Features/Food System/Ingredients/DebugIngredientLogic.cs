@@ -4,7 +4,6 @@ using System;
 
 namespace Features.FoodSystem.Ingredients;
 
-[Tool]
 public partial class DebugIngredientLogic : Node
 {
     // Debug mesh sizes used for visualizing on the grid

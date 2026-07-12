@@ -116,6 +116,7 @@ public partial class CookerGridTexture : PanelContainer
         
         // TODO: Create check for if hovering over a filled slot
 
+        // Replace SelectedIngredient with general Array<int> that can be filled in at any time
         for (int i = 0; i < SelectedIngredient.takenSlotsInCooker.Count; i++)
         {
             int index = SelectedIngredient.takenSlotsInCooker[i];
