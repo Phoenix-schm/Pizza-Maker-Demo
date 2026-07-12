@@ -51,7 +51,7 @@ public partial class Ingredient : Node3D
     /// Used for highlighting cells and checking which cells an ingredient takes up
     /// </summary>
     /// <param name="startingCell"></param>
-    public void UpdateTakenCookerSlots(int startingCell)
+    public void UpdateTakenCookerSlots(int startingCell, Cooker hoveredCooker)
     {
         takenSlotsInCooker.Clear();
         for (int x = 0; x < IngredientBase.GetCellSize(orientation).X; x++)
@@ -59,7 +59,7 @@ public partial class Ingredient : Node3D
             for (int y = 0; y < IngredientBase.GetCellSize(orientation).Y; y++)
             {
                 // Calculation for translating a (x, y) coordinate into a flat index position
-                int fauxCurIndex = startingCell + x + (y * parentCooker.CookerGrid.CellCount.X);
+                int fauxCurIndex = startingCell + x + (y * hoveredCooker.CookerGrid.CellCount.X);
                 takenSlotsInCooker.Add(fauxCurIndex);
             }
         }
