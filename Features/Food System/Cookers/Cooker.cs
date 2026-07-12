@@ -259,7 +259,7 @@ public partial class Cooker : StaticBody3D
         // check if there's any overlap between the potential takenCells and cells already taken
         foreach (Ingredient ingredient in IngredientsInCooker)
         {
-            if (!tempTakenCells.Any(x => ingredient.takenSlotsInCooker.Contains(x)))
+            if (tempTakenCells.Any(x => ingredient.takenSlotsInCooker.Contains(x)))
             {
                 isCellsFree = false;
                 break;
