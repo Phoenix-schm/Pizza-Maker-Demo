@@ -13,7 +13,7 @@ public partial class Cooker : StaticBody3D
     [Export] private MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
-
+    [Export] private Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
     [ExportCategory("Debugging")]
 
     // for iterating through ingredients and their takenSlots array
@@ -33,6 +33,7 @@ public partial class Cooker : StaticBody3D
 
     // *** Dragging Logic ***
     private Ingredient hoveredIngredient;
+    private bool canBePlaced;
 
     public override void _Ready()
     {
@@ -76,7 +77,9 @@ public partial class Cooker : StaticBody3D
         if (DragIngredientManager.Instance?.draggedIngredient != null)
         {
             // Send manager curWorldPos(placing ingredient) and if it can be placed
-            OnSendValidPlacement?.Invoke(curWorldPos, true);
+            Vector3 validGlobalPosition = IngredientHolder.ToGlobal(curWorldPos);
+            
+            OnSendValidPlacement?.Invoke(validGlobalPosition, true);
         }
         else
         {
@@ -166,7 +169,11 @@ public partial class Cooker : StaticBody3D
     {
         Array<int> cells = new Array<int>();
         // Check cells for if they can be placed.
-
+        foreach (Ingredient ingredient in IngredientsInCooker)
+        {
+            if (ingredient.takenSlotsInCooker.Contains(curGridIndex))
+                GD.Print("Hovering over occupied cell");
+        }
         DragIngredientManager.Instance.draggedIngredient.UpdateTakenCookerSlots(curGridIndex, this);
     }
 
@@ -182,5 +189,40 @@ public partial class Cooker : StaticBody3D
         return null;
     }
 
+    public Ingredient TakeIngredient(Ingredient takenIngredient)
+    {
+        takenIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
+        IngredientsInCooker.Remove(takenIngredient);
+
+        lastGridCell = -Vector2I.One;
+
+        return takenIngredient;
+    }
+
+    public void PlaceIngredient(Ingredient placedIngredient)
+    {
+        IngredientsInCooker.Add(placedIngredient);
+        placedIngredient.Reparent(IngredientHolder);
+        placedIngredient.Position = curWorldPos;
+
+        lastGridCell = -Vector2I.One;
+    }
+
     #endregion
+
+    public override void _EnterTree()
+    {
+        if (DragIngredientManager.Instance == null)
+            return;
+        OnSendIngredient += DragIngredientManager.Instance.RecieveIngredient;
+        OnSendValidPlacement += DragIngredientManager.Instance.RecieveIngredientPlacement;
+    }
+
+    public override void _ExitTree()
+    {
+        if (DragIngredientManager.Instance == null)
+            return;
+        OnSendIngredient -= DragIngredientManager.Instance.RecieveIngredient;
+        OnSendValidPlacement -= DragIngredientManager.Instance.RecieveIngredientPlacement;
+    }
 }

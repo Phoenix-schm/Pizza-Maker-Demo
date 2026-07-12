@@ -14,7 +14,7 @@ public partial class DragIngredientManager : Node
     [ExportCategory("Raycasting")]
     [Export(PropertyHint.Layers3DPhysics)] private int CollisionMask { get; set; }
     [Export] private Node3D DraggingPlaneOrigin { get; set; } // for dragging ingredient in front of camera
-    [Export] private Node3D IngredientHolder { get; set; } // holds dragged ingredient for smoother movement
+    [Export] public Node3D IngredientHolder { get; set; } // holds dragged ingredient for smoother movement
     
 
     // only one cooker can be selected at a time
@@ -46,7 +46,11 @@ public partial class DragIngredientManager : Node
     {
         AlighObjectWithNormal();
 
-        draggedIngredient.GlobalPosition = worldMousePos;
+        if (canBePlaced)
+            draggedIngredient.GlobalPosition = hoveredPos;
+        else
+            draggedIngredient.GlobalPosition = worldMousePos;
+
         draggedIngredient.GlobalRotation = targetHolderRotation;
     }
 
@@ -55,32 +59,9 @@ public partial class DragIngredientManager : Node
         if (@event.IsActionPressed(StaticStringRef.primaryInteraction))
         {
             if (draggedIngredient == null)
-            {
-                if (hoveredPackage != null)
-                {
-                    draggedIngredient = hoveredPackage.SpawnIngredient();
-                    IngredientHolder.AddChild(draggedIngredient);
-                    draggedIngredient.Owner = GetTree().Root;
-                    SetProcess(true);
-                    return;
-                }
-
-                if (hoveredCooker != null && hoveredIngredient != null)
-                {
-
-                }
-            }
+                OnInteractWithoutIngredient();
             else if (draggedIngredient != null)
-            {
-                if (hoveredPackage != null)
-                {
-                    if (hoveredPackage.TryReturnIngredientToPackage(draggedIngredient))
-                    {
-                        SetProcess(false);
-                        draggedIngredient = null;
-                    }
-                }
-            }
+                OnInteractWithIngredient();
 
             // On Click on package, if draggedIngredient != null (TODO: and hasn't been cooked)
             //      return to package
@@ -106,12 +87,63 @@ public partial class DragIngredientManager : Node
         }
     }
 
+    private void OnInteractWithoutIngredient()
+    {
+        // if hovering over a package
+        if (hoveredPackage != null)
+        {
+            draggedIngredient = hoveredPackage.SpawnIngredient();
+            IngredientHolder.AddChild(draggedIngredient);
+            draggedIngredient.Owner = GetTree().Root;
+
+        }
+        // if hovering over a cooker and ingredient
+        else if (hoveredCooker != null && hoveredIngredient != null)
+        {
+            draggedIngredient = hoveredCooker.TakeIngredient(hoveredIngredient);
+            draggedIngredient.parentCooker = hoveredCooker;
+            draggedIngredient.Reparent(IngredientHolder);
+        }
+
+        if (draggedIngredient != null)
+            SetProcess(true);
+    }
+
+    private void OnInteractWithIngredient()
+    {
+        SetProcess(false);
+
+        if (hoveredCooker != null && hoveredIngredient == null & canBePlaced)
+            hoveredCooker.PlaceIngredient(draggedIngredient);
+        else if (draggedIngredient.parentCooker != null)
+            draggedIngredient.parentCooker.PlaceIngredient(draggedIngredient);
+        else if (draggedIngredient.parentPackage != null)
+            draggedIngredient.parentPackage.TryReturnIngredientToPackage(draggedIngredient);
+
+        ResetDraggingVariables();
+    }
+
+    private void SetDraggingVariables()
+    {
+
+    }
+
+    private void ResetDraggingVariables()
+    {
+        hoveredCooker = null;
+        hoveredPackage = null;
+        hoveredIngredient = null;
+        draggedIngredient = null;
+    }
 
     // if draggIngredient != null, move it around. Parent it to node3d(?)
 
     // TODO: Create IngredientHolder for holding dragged ingredients
     // TODO: Create IngredientPackage for spawning ingredient into the world
 
+    /// <summary>
+    /// Raycast function for positioning ingredient while moving
+    /// </summary>
     private void AlighObjectWithNormal()
     {
         // TODO: Create Drag State Machine to prevent overlapping dragging states
@@ -131,6 +163,7 @@ public partial class DragIngredientManager : Node
         {
             hoveredCooker = null;
             hoveredPackage = null;
+            canBePlaced = false;
 
             Plane draggingPlane = new(dragCamera.GlobalBasis.Z, DraggingPlaneOrigin.GlobalPosition);
             end = dragCamera.ProjectRayNormal(mousePos);
@@ -168,6 +201,19 @@ public partial class DragIngredientManager : Node
             // set position to whatever was hit
             worldMousePos = (Vector3)result["position"];
         }
+    }
+
+    public void RecieveIngredient(Ingredient _ingredient)
+    {
+        hoveredIngredient = _ingredient;
+        canBePlaced = false;
+    }
+
+    public void RecieveIngredientPlacement(Vector3 _validPlacement, bool _canBePlaced)
+    {
+        hoveredPos = _validPlacement;
+        hoveredIngredient = null;
+        canBePlaced = _canBePlaced;
     }
 
     public override void _EnterTree()

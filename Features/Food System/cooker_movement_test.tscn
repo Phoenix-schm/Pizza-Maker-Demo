@@ -35,9 +35,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4901161e-08, -0.76604384
 
 [node name="DragIngredientManager" type="Node" parent="Node3D" unique_id=410826514 node_paths=PackedStringArray("DraggingPlaneOrigin", "IngredientHolder")]
 script = ExtResource("1_m8b28")
-CollisionMask = 2
+CollisionMask = 3
 DraggingPlaneOrigin = NodePath("../Camera3D/DraggingPlane")
-IngredientHolder = NodePath("..")
+IngredientHolder = NodePath("../Camera3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" unique_id=2017015668]
 environment = SubResource("Environment_6woas")

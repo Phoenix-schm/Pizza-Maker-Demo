@@ -22,13 +22,14 @@ size = Vector3(0.75, 0.5, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46r5c"]
 resource_local_to_scene = true
 
-[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport", "IngredientsInCooker")]
+[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientsInCooker")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_wntaf")
 CookerMesh = NodePath("CollisionShape3D/GridPlane")
 CookerGrid = NodePath("GridSubviewport/GridTexture")
 GridViewport = NodePath("GridSubviewport")
+IngredientHolder = NodePath("IngredientHolder")
 IngredientsInCooker = []
 
 [node name="IngredientHolder" type="Node3D" parent="." unique_id=624685565]
