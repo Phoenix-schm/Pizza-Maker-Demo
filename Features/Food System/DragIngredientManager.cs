@@ -63,20 +63,6 @@ public partial class DragIngredientManager : Node
                 OnInteractWithoutIngredient();
             else if (draggedIngredient != null)
                 OnInteractWithIngredient();
-
-            // On Click on package, if draggedIngredient != null (TODO: and hasn't been cooked)
-            //      return to package
-            // On Click on package, if draggedIngredient == null,
-            //      instantiate PackedScene and populate with information based on storedIngredient resource
-
-            // Update with hovered ingredient information
-            // On Mouse Click, if hovered ingredient == null and holding ingredient
-            //      check if can place ingredient (hold logic in Cooker)
-            // On Mouse Click, if hovered ingredient != null and hovering over cooker
-            //      select ingredient
-
-            // On Mouse Click, if not hovered over cooker
-            //      return ingredient back to parent
         }
 
         if (draggedIngredient == null) // other logic should not occur
@@ -85,6 +71,7 @@ public partial class DragIngredientManager : Node
         if (@event.IsActionPressed(StaticStringRef.secondaryInteraction))
         {
             // On Mouse Right Click, rotate ingredient
+            draggedIngredient.FlipOrientation();
         }
     }
 

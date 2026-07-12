@@ -37,6 +37,9 @@ public partial class Ingredient : Node3D
                 (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
         }
 
+        orientation = IngredientBase.DefaultOrientation;
+        IngredientMesh.RotationDegrees = GetNewRotation();
+
         length = IngredientBase.GetCellLength();
     }
 
@@ -48,22 +51,25 @@ public partial class Ingredient : Node3D
         (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
     }
 
-    /// <summary>
-    /// Fills the array TakenSlotsInCooker with index grid cell positions
-    /// Used for highlighting cells and checking which cells an ingredient takes up
-    /// </summary>
-    /// <param name="startingCell"></param>
-    public void UpdateTakenCookerSlots(int startingCell, Cooker hoveredCooker)
+    public void FlipOrientation()
     {
-        takenSlotsInCooker.Clear();
-        for (int x = 0; x < IngredientBase.GetCellSize(orientation).X; x++)
+        orientation = orientation == eIngredientOrientation.Horizontal ? eIngredientOrientation.Vertical : eIngredientOrientation.Horizontal;
+        IngredientMesh.RotationDegrees = GetNewRotation(); 
+    }
+
+    private Vector3 GetNewRotation()
+    {
+        Vector3 newRotation = Vector3.Zero;
+        switch (orientation)
         {
-            for (int y = 0; y < IngredientBase.GetCellSize(orientation).Y; y++)
-            {
-                // Calculation for translating a (x, y) coordinate into a flat index position
-                int fauxCurIndex = startingCell + x + (y * hoveredCooker.CookerGrid.CellCount.X);
-                takenSlotsInCooker.Add(fauxCurIndex);
-            }
+            case eIngredientOrientation.Horizontal:
+                newRotation.Y = 0;
+                break;
+            case eIngredientOrientation.Vertical:
+                newRotation.Y = 90;
+                break;
         }
+
+        return newRotation;
     }
 }

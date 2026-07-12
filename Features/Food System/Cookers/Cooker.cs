@@ -52,6 +52,11 @@ public partial class Cooker : StaticBody3D
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
         InitializeHoverLogic();
+
+        // reset logic so that grid updates with ingredient rotation
+        if (@event.IsActionPressed(StaticStringRef.secondaryInteraction))
+            lastGridCell = -Vector2I.One;
+
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
         if (!normal.IsEqualApprox(Basis.Y))
@@ -159,10 +164,6 @@ public partial class Cooker : StaticBody3D
     #endregion
 
     #region IngredientDraggingLogic
-    // On Mouse Enter cooker area, send hover information to DragIngredientManager
-    //      Whether the cell being hovered over contains an ingredient or is null
-    // if null and DragIngredientManager.selectedIngredient != null,
-    //      check if can place ingredient. Return null if can't
 
     private void InitializeHoverLogic()
     {
@@ -206,8 +207,6 @@ public partial class Cooker : StaticBody3D
                 tempTakenCells.Add(fauxCurIndex);
             }
         }
-
-        //DragIngredientManager.Instance.draggedIngredient.UpdateTakenCookerSlots(curGridIndex, this);
     }
 
     private Ingredient TryGetHoveredIngredient()
