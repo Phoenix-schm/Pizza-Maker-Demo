@@ -31,6 +31,7 @@ public partial class IngredientPackage : StaticBody3D
     {
         GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {StoredIngredient.Name}");
         Ingredient newIngredient = IngredientScene.Instantiate() as Ingredient;
+
         newIngredient.IngredientBase = StoredIngredient;
         newIngredient.parentPackage = this;
 
