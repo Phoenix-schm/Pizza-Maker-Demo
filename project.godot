@@ -37,6 +37,11 @@ project/assembly_name="Pizza Maker Demo"
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Default"
+3d_physics/layer_2="Food System"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

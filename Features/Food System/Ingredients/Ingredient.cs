@@ -1,4 +1,5 @@
 using Features.FoodSystem.Cookers;
+using Features.FoodSystem.IngredientPackages;
 using Godot;
 using Godot.Collections;
 using System;
@@ -24,6 +25,7 @@ public partial class Ingredient : Node3D
 
     public Array<int> takenSlotsInCooker = new Array<int>();
     public Cooker parentCooker;
+    public IngredientPackage parentPackage;
 
     public override void _Ready()
     {

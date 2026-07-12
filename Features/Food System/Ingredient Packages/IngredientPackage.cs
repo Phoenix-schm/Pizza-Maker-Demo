@@ -27,9 +27,10 @@ public partial class IngredientPackage : StaticBody3D
 
     public Ingredient SpawnIngredient()
     {
-        GameLogger.Log(LogLevel.INFO, "Spawning ingredient");
+        GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {StoredIngredient.Name}");
         Ingredient newIngredient = IngredientScene.Instantiate() as Ingredient;
         newIngredient.IngredientBase = StoredIngredient;
+        newIngredient.parentPackage = this;
 
         return newIngredient;
     }
@@ -42,7 +43,7 @@ public partial class IngredientPackage : StaticBody3D
             wasReturned = false;
             return wasReturned;
         }
-        GameLogger.Log(LogLevel.INFO, "Deleting ingredient");
+        GameLogger.Log(LogLevel.INFO, $"Deleting ingredient: {returnedIngredient.IngredientBase.Name}");
         returnedIngredient.Reparent(this);
         // TODO: Tween ingredient back to parent
 

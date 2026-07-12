@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c53i0h4js5rbj"]
 
+[ext_resource type="Script" uid="uid://c7kws4v5frygu" path="res://Features/Food System/Ingredient Packages/IngredientPackage.cs" id="1_rcrwk"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_g3b8u"]
 size = Vector3(1.02, 0.47, 0.51)
 
@@ -10,6 +12,9 @@ albedo_color = Color(0.19879997, 0.71, 0.71, 1)
 size = Vector3(1.02, 0.47, 0.51)
 
 [node name="IngredientPackage" type="StaticBody3D" unique_id=963651810]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_rcrwk")
 
 [node name="TempMesh" type="MeshInstance3D" parent="." unique_id=1378149378]
 mesh = SubResource("BoxMesh_g3b8u")

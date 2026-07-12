@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://c8p3gjfpcnykw" path="res://Features/Food System/Cookers/cooker.tscn" id="1_8lb3h"]
 [ext_resource type="Script" uid="uid://dpppcinynivcx" path="res://Features/Food System/DragIngredientManager.cs" id="1_m8b28"]
 [ext_resource type="PackedScene" uid="uid://c53i0h4js5rbj" path="res://Features/Food System/Ingredient Packages/ingredient_package.tscn" id="3_44a8c"]
-[ext_resource type="Script" uid="uid://c7kws4v5frygu" path="res://Features/Food System/Ingredient Packages/IngredientPackage.cs" id="4_r16jn"]
 [ext_resource type="Script" uid="uid://c63mxfxf5fl1m" path="res://Features/Food System/Ingredients/Resources/RIngredientBase.cs" id="5_fiisl"]
 [ext_resource type="PackedScene" uid="uid://bxpx42gsogial" path="res://Features/Food System/Ingredients/ingredient.tscn" id="6_cn7bo"]
 
@@ -26,33 +25,37 @@ metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
 
 [node name="CookerMovementTest" type="Node3D" unique_id=1502741942]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=80463627]
-transform = Transform3D(1, 0, 0, 0, 0.94976616, 0.31296065, 0, -0.31296065, 0.94976616, 0, 0.62047243, 1.0524482)
+[node name="Node3D" type="Node3D" parent="." unique_id=289294950]
 
-[node name="Node3D" type="Node3D" parent="Camera3D" unique_id=2058557364]
+[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=80463627]
+transform = Transform3D(1, 0, 0, 0, 0.9497661, 0.31296062, 0, -0.31296062, 0.9497661, 0, 0.62047243, 1.0524482)
+
+[node name="DraggingPlane" type="Node3D" parent="Node3D/Camera3D" unique_id=2058557364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4901161e-08, -0.76604384)
 
-[node name="DragIngredientManager" type="Node" parent="." unique_id=410826514 node_paths=PackedStringArray("DraggingPlaneOrigin")]
+[node name="DragIngredientManager" type="Node" parent="Node3D" unique_id=410826514 node_paths=PackedStringArray("DraggingPlaneOrigin", "IngredientHolder")]
 script = ExtResource("1_m8b28")
-DraggingPlaneOrigin = NodePath("../Camera3D/Node3D")
+CollisionMask = 2
+DraggingPlaneOrigin = NodePath("../Camera3D/DraggingPlane")
+IngredientHolder = NodePath("..")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2017015668]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" unique_id=2017015668]
 environment = SubResource("Environment_6woas")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=686885335]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" unique_id=686885335]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Cookers" type="Node3D" parent="." unique_id=1992872157]
+[node name="Cookers" type="Node3D" parent="Node3D" unique_id=1992872157]
 
-[node name="Cooker" parent="Cookers" unique_id=290454206 instance=ExtResource("1_8lb3h")]
+[node name="Cooker" parent="Node3D/Cookers" unique_id=290454206 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.8878409, -0.4, 0, 0)
 
-[node name="Cooker2" parent="Cookers" unique_id=1453442107 instance=ExtResource("1_8lb3h")]
+[node name="Cooker2" parent="Node3D/Cookers" unique_id=1453442107 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.8878409, -0.4601504, 0, 0.4601504, 0.8878409, 0.4, 0, 0)
 
-[node name="IngredientPackage" parent="." unique_id=963651810 instance=ExtResource("3_44a8c")]
+[node name="IngredientPackage" parent="Node3D" unique_id=963651810 instance=ExtResource("3_44a8c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4748663)
-script = ExtResource("4_r16jn")
+collision_mask = 0
 StoredIngredient = SubResource("Resource_fiisl")
 IngredientScene = ExtResource("6_cn7bo")
