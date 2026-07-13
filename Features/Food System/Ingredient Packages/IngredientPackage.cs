@@ -6,14 +6,15 @@ using System;
 namespace Features.FoodSystem.IngredientPackages;
 public partial class IngredientPackage : StaticBody3D
 {
-    // TODO: IngredientPackage resource
-    // TODO: move stored ingredient to resoure
-    [Export] private RIngredientBase StoredIngredient { get; set; }
+    [Export] private R_IngredientPackages PackageInfo { get; set; }
     [Export] private PackedScene IngredientScene { get; set; }
 
     [ExportCategory("Debugging")]
     [Export] private bool OverrideIngredientSize { get; set; }
     [Export] private eIngredientSize debugSize { get; set; }
+
+    // TODO: Check for if player is holding PrimaryAction on Package. Call DragPackageManager
+    //       Remove OnClick event from DragIngredientManager(?) store action here for control on distinguishing between single click and held click
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
@@ -29,10 +30,10 @@ public partial class IngredientPackage : StaticBody3D
 
     public Ingredient SpawnIngredient()
     {
-        GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {StoredIngredient.Name}");
+        GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {PackageInfo.StoredIngredient.Name}");
         Ingredient newIngredient = IngredientScene.Instantiate() as Ingredient;
 
-        newIngredient.IngredientBase = StoredIngredient;
+        newIngredient.IngredientBase = PackageInfo.StoredIngredient;
         newIngredient.parentPackage = this;
 
         return newIngredient;
@@ -46,7 +47,7 @@ public partial class IngredientPackage : StaticBody3D
     public bool TryReturnIngredientToPackage(Ingredient returnedIngredient)
     {
         bool wasReturned = true;
-        if (returnedIngredient.IngredientBase != StoredIngredient)
+        if (returnedIngredient.IngredientBase != PackageInfo.StoredIngredient)
         {
             wasReturned = false;
             return wasReturned;

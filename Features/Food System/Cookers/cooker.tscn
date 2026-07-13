@@ -17,7 +17,7 @@ resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_46r5c")
 
 [sub_resource type="BoxMesh" id="BoxMesh_2vux0"]
-size = Vector3(0.75, 0.5, 0.5)
+size = Vector3(0.75, 0.106933594, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46r5c"]
 resource_local_to_scene = true
@@ -45,7 +45,7 @@ mesh = SubResource("PlaneMesh_2vux0")
 surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
 
 [node name="CookerBody2" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2134262855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20317383, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0066406317, 0)
 mesh = SubResource("BoxMesh_2vux0")
 surface_material_override/0 = SubResource("StandardMaterial3D_46r5c")
 

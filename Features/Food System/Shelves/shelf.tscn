@@ -92,7 +92,7 @@ HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1934473308]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, -0.15028661)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_a02qt")
 
@@ -112,6 +112,14 @@ CellCount = Vector2i(6, 2)
 MainLineWidth = 4.0
 HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
+
+[node name="ShelfBlock4" type="CollisionShape3D" parent="." unique_id=681446834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4382828, 0.2544889)
+shape = SubResource("BoxShape3D_jov7e")
+
+[node name="Block" type="MeshInstance3D" parent="ShelfBlock4" unique_id=692644785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04565847, 0)
+mesh = SubResource("BoxMesh_a02qt")
 
 [node name="ShelfBlock3" type="CollisionShape3D" parent="." unique_id=1791099445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08652477, 0.2544889)
@@ -144,7 +152,7 @@ HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=312663442]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, -0.15028661)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_3ydm5")
 
