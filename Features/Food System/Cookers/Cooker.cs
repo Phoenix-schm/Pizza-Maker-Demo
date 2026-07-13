@@ -6,6 +6,9 @@ using System;
 using System.Linq;
 
 namespace Features.FoodSystem.Cookers;
+
+public enum eCookerType { CuttingBoard, Oven}
+
 public partial class Cooker : StaticBody3D
 {
     public event Action<Ingredient> OnSendIngredient;           // will either send an ingredient or null
@@ -15,8 +18,8 @@ public partial class Cooker : StaticBody3D
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
     [Export] private Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
-    [ExportCategory("Ingredients")]
-
+    [ExportCategory("Ingredient Interaction")]
+    [Export] public eCookerType CookerType { get; set; }
     // for iterating through ingredients and their takenSlots array
     [Export] public Array<Ingredient> IngredientsInCooker { get; set; }
 
@@ -37,6 +40,7 @@ public partial class Cooker : StaticBody3D
     private Ingredient hoveredIngredient;
     private bool isCellsFree;               // are there already ingredients in cells
     private bool canFitInCooker;            // can ingredient fit within grid
+    private bool isAllowedCooker;           // if the cooker is a type the ingredient can use
     public Array<int> tempTakenCells = new Array<int>();   // Temporary cells for showing what cells the ingredient is taking up on the grid
 
     public override void _Ready()
@@ -70,11 +74,13 @@ public partial class Cooker : StaticBody3D
         if (DragIngredientManager.Instance?.draggedIngredient != null)
         {
             Ingredient curIngredient = DragIngredientManager.Instance.draggedIngredient;
+            isAllowedCooker = curIngredient.CanPlaceOnCooker(CookerType);
+
             // multiply back to actual size (within grid subviewport)
             // TODO: Modify calculation to push ingredient left/up and center it
+            // offset grid position with ingredient size so that it's centered with TakenSlots
             curGridPosition = new Vector2(curGridCell.X * cellSize.X, curGridCell.Y * cellSize.Y);
 
-            // offset grid position with ingredient size so that it's centered with TakenSlots
             curWorldPos = Get3DPositionFromGridPosition(curGridPosition + (cellSize * curIngredient.IngredientBase.GetCellSize(curIngredient.orientation)) / 2);
             TryPlaceIngredientInCell(curGridIndex, curIngredient);
             UpdateCookerGridTexture();
@@ -84,10 +90,12 @@ public partial class Cooker : StaticBody3D
 
         if (DragIngredientManager.Instance?.draggedIngredient != null)
         {
-            // Send manager curWorldPos(placing ingredient) and if it can be placed
+            // Check if cooker is a type that ingredient can be cooked on
+
+            // translate position 
             Vector3 validGlobalPosition = IngredientHolder.ToGlobal(curWorldPos);
             
-            OnSendValidPlacement?.Invoke(validGlobalPosition, isCellsFree && canFitInCooker, tempTakenCells);
+            OnSendValidPlacement?.Invoke(validGlobalPosition, isCellsFree && canFitInCooker && isAllowedCooker, tempTakenCells);
         }
         else
         {
@@ -214,7 +222,7 @@ public partial class Cooker : StaticBody3D
     {
         CookerGrid.inputPos = curGridCell;
         CookerGrid.SelectedIngredient = DragIngredientManager.Instance.draggedIngredient;
-        CookerGrid.canBePlaced = isCellsFree && canFitInCooker;
+        CookerGrid.canBePlaced = isCellsFree && canFitInCooker && isAllowedCooker;
         CookerGrid.QueueRedraw();
     }
 
@@ -307,6 +315,8 @@ public partial class Cooker : StaticBody3D
         IngredientsInCooker.Add(placedIngredient);
         placedIngredient.takenSlotsInCooker = tempCells.Duplicate();
         tempTakenCells.Clear();
+
+        placedIngredient.PlaceOnCooker(CookerType);
 
         // replace parent
         placedIngredient.parentPackage = null;

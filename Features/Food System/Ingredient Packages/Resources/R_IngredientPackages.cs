@@ -21,14 +21,16 @@ public partial class R_IngredientPackages : Resource
             case ePackageSize.SmallBottle:
                 newSize = new Vector3(1, 2, 1);
                 break;
-            case ePackageSize.MediumXShortPackage:  // hamburger meat package
+            case ePackageSize.MediumXShortPackage:  //  pizza crust package
                 newSize = new Vector3(2, .5f, 3);
                 break;
-            case ePackageSize.MediumShortPackage:   // hamburger bun package
+            case ePackageSize.MediumShortPackage:   // onion package
                 newSize = new Vector3(2, 1, 3);
                 break;
         }
 
         return newSize;
     }
+
+
 }

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://di3mynbirmcea"]
 
-[ext_resource type="Script" uid="uid://bgc5q3rj5gpe" path="res://Features/Food System/Shelves/Shelf.cs" id="1_3ydm5"]
 [ext_resource type="Script" uid="uid://d3kjsuyn6dqgw" path="res://Features/Food System/Shelves/ShelfGridTexture.cs" id="1_a02qt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
@@ -52,7 +51,6 @@ albedo_texture = SubResource("ViewportTexture_ss8c1")
 [node name="Shelf" type="StaticBody3D" unique_id=1636137252]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_3ydm5")
 
 [node name="ShelfBack" type="CollisionShape3D" parent="." unique_id=908104952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17871273, 0)
@@ -71,6 +69,7 @@ mesh = SubResource("BoxMesh_a02qt")
 
 [node name="BottomTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1681798696]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012763664, 0)
+visible = false
 mesh = SubResource("PlaneMesh_a02qt")
 surface_material_override/0 = SubResource("StandardMaterial3D_jov7e")
 
@@ -93,6 +92,7 @@ RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1934473308]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
+visible = false
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_a02qt")
 
@@ -114,11 +114,10 @@ HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="ShelfBlock4" type="CollisionShape3D" parent="." unique_id=681446834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4382828, 0.2544889)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48593324, 0.2544889)
 shape = SubResource("BoxShape3D_jov7e")
 
 [node name="Block" type="MeshInstance3D" parent="ShelfBlock4" unique_id=692644785]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04565847, 0)
 mesh = SubResource("BoxMesh_a02qt")
 
 [node name="ShelfBlock3" type="CollisionShape3D" parent="." unique_id=1791099445]
@@ -131,6 +130,7 @@ mesh = SubResource("BoxMesh_a02qt")
 
 [node name="BottomTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=369947447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012763664, 0)
+visible = false
 mesh = SubResource("PlaneMesh_a02qt")
 surface_material_override/0 = SubResource("StandardMaterial3D_qg26q")
 
@@ -153,6 +153,7 @@ RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=312663442]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
+visible = false
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_3ydm5")
 

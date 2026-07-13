@@ -1,3 +1,4 @@
+using Common;
 using Features.FoodSystem.Cookers;
 using Features.FoodSystem.IngredientPackages;
 using Godot;
@@ -23,9 +24,16 @@ public partial class Ingredient : Node3D
     public eIngredientOrientation orientation;
     public int length;                              // the cellSize.x * cellSize.y. Used for moving ingredient around grid
 
+    // *** Dragging Information ***
     public Array<int> takenSlotsInCooker = new Array<int>();
     public Cooker parentCooker;
     public IngredientPackage parentPackage;
+    // ***
+
+    // *** Cooking Information ***
+    private float maxCookingTime;
+    private float curCookTime;
+    private eCookerType curCookingType;
 
     public override void _Ready()
     {
@@ -41,6 +49,9 @@ public partial class Ingredient : Node3D
         IngredientMesh.RotationDegrees = GetNewRotation();
 
         length = IngredientBase.GetCellLength();
+
+        // should not be cooking on ready
+        SetPhysicsProcess(false);
     }
 
     private void DebugResize()
@@ -51,6 +62,7 @@ public partial class Ingredient : Node3D
         (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
     }
 
+    #region DraggingLogic
     public void FlipOrientation()
     {
         orientation = orientation == eIngredientOrientation.Horizontal ? eIngredientOrientation.Vertical : eIngredientOrientation.Horizontal;
@@ -72,4 +84,54 @@ public partial class Ingredient : Node3D
 
         return newRotation;
     }
+    #endregion
+
+    #region CookingLogic
+
+    public override void _PhysicsProcess(double delta)
+    {
+        curCookTime += (float)delta;
+
+        if (curCookTime >= maxCookingTime)
+        {
+            GameLogger.Debug("Finished cooking");
+            SetPhysicsProcess(false);
+        }
+    }
+
+    private RIngredientBase TransformIngredient()
+    {
+        //RIngredientBase transformIngredient = IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
+        //ingredientSize = IngredientBase.Size;
+        //if (debugLogic != null)
+        //    (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
+
+
+        return IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
+    }
+
+    public bool CanPlaceOnCooker(eCookerType cookerType)
+    {
+        if (!IngredientBase.CookingInformation.ContainsKey(cookerType))
+            return false;
+
+        return true;
+    }
+
+    public void PlaceOnCooker(eCookerType cookerType)
+    {
+        GameLogger.Debug($"Will start cooking on: {cookerType}");
+        maxCookingTime = IngredientBase.CookingInformation[cookerType].CookTime;
+        curCookTime = 0;
+        curCookingType = cookerType;
+
+        SetPhysicsProcess(true);
+    }
+
+    public void PauseCooking()
+    {
+        SetPhysicsProcess(false);
+    }
+
+    #endregion
 }

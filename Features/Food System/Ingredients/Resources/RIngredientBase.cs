@@ -1,5 +1,7 @@
 using Godot;
+using Godot.Collections;
 using System;
+using Features.FoodSystem.Cookers;
 
 namespace Features.FoodSystem.Ingredients;
 
@@ -12,6 +14,9 @@ public partial class RIngredientBase : Resource
     [Export] public eIngredientSize Size { get; set; }
     // the starting orientation of this ingredient. How it should be rotated
     [Export] public eIngredientOrientation DefaultOrientation { get; set; }
+    [Export] public bool IsPizzaCrust { get; set; } = false;
+
+    [Export] public Dictionary<eCookerType, R_IngredientCookerInfo> CookingInformation { get; set; } = new();
 
     /// <summary>
     /// Returns cells in x/y direction the ingredient takes up based on curOrientation
