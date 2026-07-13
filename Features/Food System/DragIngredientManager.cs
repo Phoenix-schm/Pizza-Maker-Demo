@@ -128,10 +128,15 @@ public partial class DragIngredientManager : Node
         // if can place ingredient on cooker
         if (hoveredCooker != null && hoveredIngredient == null & canBePlaced)
             hoveredCooker.PlaceIngredient(draggedIngredient, hoveredCells);
-        else if (hoveredPackage != null)
-            hoveredPackage.TryReturnIngredientToPackage(draggedIngredient);
 
+        bool? isReturned = hoveredPackage?.TryReturnIngredientToPackage(draggedIngredient);
         hoveredCooker?.ResetCookerGridTexture();
+
+        if (isReturned != null && isReturned == true)
+        {
+            draggedIngredient = null;
+            return;
+        }
 
         // if there is no hovered area, try return to parent
         if (draggedIngredient.parentCooker != null && !canBePlaced)

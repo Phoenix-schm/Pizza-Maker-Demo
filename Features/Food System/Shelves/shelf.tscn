@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://di3mynbirmcea"]
 
+[ext_resource type="Script" uid="uid://bgc5q3rj5gpe" path="res://Features/Food System/Shelves/Shelf.cs" id="1_3ydm5"]
 [ext_resource type="Script" uid="uid://d3kjsuyn6dqgw" path="res://Features/Food System/Shelves/ShelfGridTexture.cs" id="1_a02qt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
@@ -17,26 +18,41 @@ size = Vector3(0.65, 0.025, 0.3)
 [sub_resource type="PlaneMesh" id="PlaneMesh_a02qt"]
 size = Vector2(0.65, 0.3)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_a02qt"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ygom5"]
 viewport_path = NodePath("ShelfBlock2/BottomTexture/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jov7e"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_a02qt")
+albedo_texture = SubResource("ViewportTexture_ygom5")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ptdpq"]
 size = Vector2(0.65, 0.2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7k1wp"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_juo8o"]
 viewport_path = NodePath("ShelfBlock2/TopTexture/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a02qt"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_7k1wp")
+albedo_texture = SubResource("ViewportTexture_juo8o")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3ydm5"]
+viewport_path = NodePath("ShelfBlock3/BottomTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qg26q"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_3ydm5")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ss8c1"]
+viewport_path = NodePath("ShelfBlock3/TopTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ydm5"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ss8c1")
 
 [node name="Shelf" type="StaticBody3D" unique_id=1636137252]
 collision_layer = 0
 collision_mask = 0
+script = ExtResource("1_3ydm5")
 
 [node name="ShelfBack" type="CollisionShape3D" parent="." unique_id=908104952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17871273, 0)
@@ -76,7 +92,7 @@ HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1934473308]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.114117816, -0.15028661)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, -0.15028661)
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_a02qt")
 
@@ -108,7 +124,7 @@ mesh = SubResource("BoxMesh_a02qt")
 [node name="BottomTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=369947447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012763664, 0)
 mesh = SubResource("PlaneMesh_a02qt")
-surface_material_override/0 = SubResource("StandardMaterial3D_jov7e")
+surface_material_override/0 = SubResource("StandardMaterial3D_qg26q")
 
 [node name="SubViewport" type="SubViewport" parent="ShelfBlock3/BottomTexture" unique_id=997733315]
 disable_3d = true
@@ -128,9 +144,9 @@ HighlightColor = Color(1, 1, 1, 0.50980395)
 RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
 
 [node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=312663442]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.114117816, -0.15028661)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, -0.15028661)
 mesh = SubResource("PlaneMesh_ptdpq")
-surface_material_override/0 = SubResource("StandardMaterial3D_a02qt")
+surface_material_override/0 = SubResource("StandardMaterial3D_3ydm5")
 
 [node name="SubViewport" type="SubViewport" parent="ShelfBlock3/TopTexture" unique_id=279411197]
 disable_3d = true
