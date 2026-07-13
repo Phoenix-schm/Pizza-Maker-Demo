@@ -49,6 +49,9 @@ public partial class Cooker : StaticBody3D
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
+        if (IngredientsInCooker.Count == 0 && DragIngredientManager.Instance?.draggedIngredient == null)
+            return;
+
         InitializeHoverLogic();
 
         // reset logic so that grid updates with ingredient rotation
@@ -57,9 +60,8 @@ public partial class Cooker : StaticBody3D
 
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
-        if (!normal.IsEqualApprox(Basis.Y))
+        if (!normal.IsEqualApprox(GlobalBasis.Y))
             return;
-
         GetGridIndexFromInput(eventPosition);
         // Don't do extra calculations while on the same cell
         if (curGridCell == lastGridCell)
@@ -159,9 +161,8 @@ public partial class Cooker : StaticBody3D
         canFitInCooker = true;
         Vector2I fauxStartingPos = startingPos;
         Vector2I ingrediectCells = curIngredient.IngredientBase.GetCellSize(curIngredient.orientation);
-
         Rect2I ingredientGrid = new Rect2I(startingPos, ingrediectCells);
-        
+
         if (gridRect.Encloses(ingredientGrid))
             return startingPos;
         else if (ingredientGrid.Encloses(gridRect))
@@ -181,22 +182,24 @@ public partial class Cooker : StaticBody3D
             // over the edge to the right, so move left
             if (intersection.Size.X < ingrediectCells.X)
             {
-                fauxStartingPos.X -= 1;
+                fauxStartingPos.X--;
+                //GD.Print($"Ingredient cells x: {ingrediectCells.X}");
             }
             // over the edge going down, so move up
             if (intersection.Size.Y < ingrediectCells.Y)
             {
-                fauxStartingPos.Y -= 1;
+                fauxStartingPos.Y--;
             }
 
             // if can't fit at all
             if (fauxStartingPos.X < 0 || fauxStartingPos.Y < 0)
             {
+                //GD.PrintRich("[color=red]Is inside[/color]");
                 return Vector2I.Zero;
             }
 
             // can finally fit inside grid
-            if (gridRect.Encloses(intersection))
+            if (intersection.Size.X == ingrediectCells.X && intersection.Size.Y == ingrediectCells.Y)
                 canFitInCooker = true;
 
         } while (!canFitInCooker);

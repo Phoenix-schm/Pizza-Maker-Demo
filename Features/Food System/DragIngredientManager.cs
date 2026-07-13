@@ -53,6 +53,14 @@ public partial class DragIngredientManager : Node
     {
         AlighObjectWithNormal();
 
+        // soft bug fix to prevent jittery starting movement
+        if (startedDrag)
+        {
+            lastDraggingPosition = draggedIngredient.Position;
+            draggedIngredient.GlobalPosition = worldMousePos;
+            startedDrag = false;
+        }
+
         if (canBePlaced && hoveredCooker != null)
             draggedIngredient.GlobalPosition = StaticFunc.ExpDecay(draggedIngredient.GlobalPosition, hoveredPos, 16 * DragSpeed, (float)delta);
         else
@@ -60,12 +68,6 @@ public partial class DragIngredientManager : Node
 
         draggedIngredient.GlobalRotation = StaticFunc.ExpDecay(draggedIngredient.GlobalRotation, targetHolderRotation, 16 * RaycastRotationSpeed, (float)delta);
 
-        // soft bug fix to prevent jittery starting movement
-        if (startedDrag)
-        {
-            lastDraggingPosition = draggedIngredient.Position;
-            startedDrag = false;
-        }
 
         float targetZRotation = Mathf.Clamp((draggedIngredient.Position.X - lastDraggingPosition.X) * DragRotationWeight, -45, 45);
         if (draggedIngredient.orientation == eIngredientOrientation.Horizontal)

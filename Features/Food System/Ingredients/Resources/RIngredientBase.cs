@@ -34,7 +34,7 @@ public partial class RIngredientBase : Resource
                 newSize = new(2, 2);
                 break;
             case eIngredientSize.XL:
-                newSize = curOrientation == eIngredientOrientation.Vertical ? new(2, 4) : new Vector2I(4, 2);
+                newSize = curOrientation == eIngredientOrientation.Vertical ? new(2, 3) : new Vector2I(3, 2);
                 break;
         }
 

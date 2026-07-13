@@ -15,9 +15,9 @@ IngredientMesh = NodePath("MeshInstance3D")
 script = ExtResource("2_qg26q")
 DebugSizes = Dictionary[int, Vector3]({
 1: Vector3(0.075, 0.05, 0.075),
-2: Vector3(0.2, 0.05, 0.075),
-4: Vector3(0.2, 0.05, 0.2),
-8: Vector3(0.4, 0.05, 0.2)
+2: Vector3(0.15, 0.05, 0.075),
+4: Vector3(0.15, 0.05, 0.15),
+8: Vector3(0.3, 0.05, 0.2)
 })
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1968728370]
