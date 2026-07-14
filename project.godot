@@ -24,6 +24,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Pizza Maker Demo"
 
+[global_group]
+
+CookerModifier="Should be attached to Nodes holding a script that contains a CookingModifier function"
+
 [input]
 
 "Primary Interaction Button"={
