@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RIngredientBase" format=3 uid="uid://51ecasgfh4qt"]
+
+[ext_resource type="Script" uid="uid://ca8mc7coisjm7" path="res://Features/Food System/Ingredients/Resources/R_IngredientCookerInfo.cs" id="1_ekdch"]
+[ext_resource type="Script" uid="uid://c63mxfxf5fl1m" path="res://Features/Food System/Ingredients/Resources/RIngredientBase.cs" id="2_pbgai"]
+
+[resource]
+script = ExtResource("2_pbgai")
+Name = "Shredded  Cheese"
+Size = 1
+metadata/_custom_type_script = "uid://c63mxfxf5fl1m"

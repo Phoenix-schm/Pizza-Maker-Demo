@@ -58,4 +58,13 @@ public static class StaticFunc
 
         return a;
     }
+
+    public static Transform3D AlignWithY(Transform3D transform, Vector3 newY)
+    {
+        transform.Basis.Y = newY;
+        transform.Basis.X = -transform.Basis.Z.Cross(newY);
+        transform.Basis = transform.Basis.Orthonormalized();
+
+        return transform;
+    }
 }

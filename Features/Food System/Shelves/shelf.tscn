@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://di3mynbirmcea"]
+
+[ext_resource type="Script" uid="uid://d3kjsuyn6dqgw" path="res://Features/Food System/Shelves/ShelfGridTexture.cs" id="1_a02qt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
+size = Vector3(0.7, 0.7, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g3b8u"]
+size = Vector3(0.7, 0.7, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jov7e"]
+size = Vector3(0.65, 0.025, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a02qt"]
+size = Vector3(0.65, 0.025, 0.3)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a02qt"]
+size = Vector2(0.65, 0.3)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ygom5"]
+viewport_path = NodePath("ShelfBlock2/BottomTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jov7e"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ygom5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ptdpq"]
+size = Vector2(0.65, 0.2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_juo8o"]
+viewport_path = NodePath("ShelfBlock2/TopTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a02qt"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_juo8o")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3ydm5"]
+viewport_path = NodePath("ShelfBlock3/BottomTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qg26q"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_3ydm5")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ss8c1"]
+viewport_path = NodePath("ShelfBlock3/TopTexture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ydm5"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ss8c1")
+
+[node name="Shelf" type="StaticBody3D" unique_id=1636137252]
+collision_layer = 0
+collision_mask = 0
+
+[node name="ShelfBack" type="CollisionShape3D" parent="." unique_id=908104952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17871273, 0)
+shape = SubResource("BoxShape3D_g3b8u")
+
+[node name="BackgroundBlock" type="MeshInstance3D" parent="ShelfBack" unique_id=1202124378]
+mesh = SubResource("BoxMesh_g3b8u")
+
+[node name="ShelfBlock2" type="CollisionShape3D" parent="." unique_id=602048349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21300115, 0.2544889)
+shape = SubResource("BoxShape3D_jov7e")
+
+[node name="Block" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1827458262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0018642694, 0)
+mesh = SubResource("BoxMesh_a02qt")
+
+[node name="BottomTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1681798696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012763664, 0)
+visible = false
+mesh = SubResource("PlaneMesh_a02qt")
+surface_material_override/0 = SubResource("StandardMaterial3D_jov7e")
+
+[node name="SubViewport" type="SubViewport" parent="ShelfBlock2/BottomTexture" unique_id=380220942]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(922, 410)
+
+[node name="ShelfTexture" type="PanelContainer" parent="ShelfBlock2/BottomTexture/SubViewport" unique_id=1843336549]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a02qt")
+CellCount = Vector2i(6, 3)
+MainLineWidth = 4.0
+HighlightColor = Color(1, 1, 1, 0.50980395)
+RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
+
+[node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock2" unique_id=1934473308]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
+visible = false
+mesh = SubResource("PlaneMesh_ptdpq")
+surface_material_override/0 = SubResource("StandardMaterial3D_a02qt")
+
+[node name="SubViewport" type="SubViewport" parent="ShelfBlock2/TopTexture" unique_id=1906963362]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(922, 205)
+
+[node name="ShelfTexture" type="PanelContainer" parent="ShelfBlock2/TopTexture/SubViewport" unique_id=1530999930]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a02qt")
+CellCount = Vector2i(6, 2)
+MainLineWidth = 4.0
+HighlightColor = Color(1, 1, 1, 0.50980395)
+RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
+
+[node name="ShelfBlock4" type="CollisionShape3D" parent="." unique_id=681446834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48593324, 0.2544889)
+shape = SubResource("BoxShape3D_jov7e")
+
+[node name="Block" type="MeshInstance3D" parent="ShelfBlock4" unique_id=692644785]
+mesh = SubResource("BoxMesh_a02qt")
+
+[node name="ShelfBlock3" type="CollisionShape3D" parent="." unique_id=1791099445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08652477, 0.2544889)
+shape = SubResource("BoxShape3D_jov7e")
+
+[node name="Block" type="MeshInstance3D" parent="ShelfBlock3" unique_id=975302384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0018642694, 0)
+mesh = SubResource("BoxMesh_a02qt")
+
+[node name="BottomTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=369947447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012763664, 0)
+visible = false
+mesh = SubResource("PlaneMesh_a02qt")
+surface_material_override/0 = SubResource("StandardMaterial3D_qg26q")
+
+[node name="SubViewport" type="SubViewport" parent="ShelfBlock3/BottomTexture" unique_id=997733315]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(922, 410)
+
+[node name="ShelfTexture" type="PanelContainer" parent="ShelfBlock3/BottomTexture/SubViewport" unique_id=1452904438]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a02qt")
+CellCount = Vector2i(6, 3)
+MainLineWidth = 4.0
+HighlightColor = Color(1, 1, 1, 0.50980395)
+RedHighlightColor = Color(0.55, 0, 0, 0.5568628)
+
+[node name="TopTexture" type="MeshInstance3D" parent="ShelfBlock3" unique_id=312663442]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11398934, 0.14564961)
+visible = false
+mesh = SubResource("PlaneMesh_ptdpq")
+surface_material_override/0 = SubResource("StandardMaterial3D_3ydm5")
+
+[node name="SubViewport" type="SubViewport" parent="ShelfBlock3/TopTexture" unique_id=279411197]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(922, 205)
+
+[node name="ShelfTexture" type="PanelContainer" parent="ShelfBlock3/TopTexture/SubViewport" unique_id=176806427]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a02qt")
+CellCount = Vector2i(6, 2)
+MainLineWidth = 4.0
+HighlightColor = Color(1, 1, 1, 0.50980395)
+RedHighlightColor = Color(0.55, 0, 0, 0.5568628)

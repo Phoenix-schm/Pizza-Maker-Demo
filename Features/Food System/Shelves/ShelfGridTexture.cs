@@ -1,13 +1,11 @@
-using Features.FoodSystem.Ingredients;
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
-namespace Features.FoodSystem.Cookers;
-/// <summary>
-/// Cooker: Textures the panel in a grid based on the inputted CellSize
-/// </summary>
+namespace Features.FoodSystem.Shelves;
+
 [Tool]
-public partial class CookerGridTexture : PanelContainer
+public partial class ShelfGridTexture : PanelContainer
 {
     [Export] public Vector2I CellCount { get; set; } = new Vector2I(6, 4);
     [Export] private float MainLineWidth { get; set; } = 2;
@@ -23,36 +21,18 @@ public partial class CookerGridTexture : PanelContainer
 
     public Vector2 cellSize;    // the size of each cell in the grid relative to the current SubViewport
 
-    public Cooker parentCooker;
-    public Vector2I inputPos;
-    public bool canBePlaced;
-    public Ingredient SelectedIngredient
-    { get { return selectedIngredient; } 
-      set {
-            selectedIngredient = value;
-
-            if (value != null)
-                itemSize = value.IngredientBase.GetCellSize(value.orientation);
-            else
-                itemSize = -Vector2I.One;
-          } }
-    private Ingredient selectedIngredient;
-    private Vector2I itemSize;
 
     public async override void _Ready()
     {
         // Wait a from for screen to initialize. Otherwise errors will occur due to SubViewport not having size initialized
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         InitializeGrid();
-        
+
         QueueRedraw();
     }
 
     public override void _Draw()
     {
-        if (SelectedIngredient != null)
-            DrawSelectedCells(itemSize, inputPos, canBePlaced);
-        
         // Draw grid on top of selection cells
         DrawGrid();
     }
@@ -106,28 +86,5 @@ public partial class CookerGridTexture : PanelContainer
                 lineWidth
                 );
         }
-    }
-
-    private void DrawSelectedCells(Vector2I _itemSize, Vector2I _inputPosition, bool _canBePlaced)
-    {
-        if (_itemSize.X <= 0 || _itemSize.Y <= 0)
-        {
-            return;
-        }
-
-        for (int i = 0; i < parentCooker.tempTakenCells.Count; i++)
-        {
-            int index = parentCooker.tempTakenCells[i];
-
-            // reverse index into vector coordinates
-            int xCoord = Mathf.FloorToInt(index % CellCount.X);
-            int yCoord = Mathf.FloorToInt(index / CellCount.X);
-
-            DrawRect(
-                new Rect2(new Vector2(xCoord, yCoord) * cellSize, cellSize),
-                _canBePlaced ? HighlightColor : RedHighlightColor
-                );
-        }
-
     }
 }

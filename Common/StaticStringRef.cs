@@ -11,4 +11,7 @@ public static class StaticStringRef
     public static readonly StringName rotation = "rotation";
     public static readonly StringName position = "position";
     public static readonly StringName scale = "scale";
+
+    public static readonly StringName primaryInteraction = "Primary Interaction Button";
+    public static readonly StringName secondaryInteraction = "Secondary Interaction Button";
 }

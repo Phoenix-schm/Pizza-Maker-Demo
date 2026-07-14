@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="R_IngredientPackages" format=3 uid="uid://dg0axoj3knp16"]
+
+[ext_resource type="Script" uid="uid://t43gd3x3ejfp" path="res://Features/Food System/Ingredient Packages/Resources/R_IngredientPackages.cs" id="1_inxu6"]
+[ext_resource type="Resource" uid="uid://bp41ioi5ihfm1" path="res://Features/Food System/Ingredients/Resources/cheese_block.tres" id="1_naodc"]
+
+[resource]
+script = ExtResource("1_inxu6")
+StoredIngredient = ExtResource("1_naodc")
+metadata/_custom_type_script = "uid://t43gd3x3ejfp"

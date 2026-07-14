@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bxpx42gsogial"]
+
+[ext_resource type="Script" uid="uid://bsgvvhsd3dlqa" path="res://Features/Food System/Ingredients/Ingredient.cs" id="1_gwjbu"]
+[ext_resource type="Script" uid="uid://dh3uuud72lpyy" path="res://Features/Food System/Ingredients/DebugIngredientLogic.cs" id="2_qg26q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g3b8u"]
+resource_local_to_scene = true
+size = Vector3(0.3, 0.05, 0.2)
+
+[node name="Ingredient" type="Node3D" unique_id=904508852 node_paths=PackedStringArray("IngredientMesh")]
+script = ExtResource("1_gwjbu")
+IngredientMesh = NodePath("MeshInstance3D")
+
+[node name="DebugIngredientLogic" type="Node" parent="." unique_id=1235489543]
+script = ExtResource("2_qg26q")
+DebugSizes = Dictionary[int, Vector3]({
+1: Vector3(0.075, 0.05, 0.075),
+2: Vector3(0.15, 0.05, 0.075),
+4: Vector3(0.15, 0.05, 0.15),
+8: Vector3(0.3, 0.05, 0.2)
+})
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1968728370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.021564253, 0)
+mesh = SubResource("BoxMesh_g3b8u")

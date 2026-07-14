@@ -9,35 +9,45 @@ size = Vector3(0.75, 0.1, 0.5)
 [sub_resource type="PlaneMesh" id="PlaneMesh_2vux0"]
 size = Vector2(0.75, 0.5)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_wntaf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_46r5c"]
 viewport_path = NodePath("GridSubviewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptdpq"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_wntaf")
+albedo_texture = SubResource("ViewportTexture_46r5c")
 
 [sub_resource type="BoxMesh" id="BoxMesh_2vux0"]
-size = Vector3(0.75, 0.494, 0.5)
+size = Vector3(0.75, 0.106933594, 0.5)
 
-[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46r5c"]
+resource_local_to_scene = true
+
+[node name="Cooker" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientsInCooker")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_wntaf")
-CookerMesh = NodePath("CollisionShape3D/CookerBody")
+CookerMesh = NodePath("CollisionShape3D/GridPlane")
 CookerGrid = NodePath("GridSubviewport/GridTexture")
 GridViewport = NodePath("GridSubviewport")
+IngredientHolder = NodePath("IngredientHolder")
+IngredientsInCooker = []
+
+[node name="IngredientHolder" type="Node3D" parent="." unique_id=624685565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=949194756]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 shape = SubResource("BoxShape3D_g3b8u")
 
-[node name="CookerBody" type="MeshInstance3D" parent="CollisionShape3D" unique_id=613281164]
+[node name="GridPlane" type="MeshInstance3D" parent="CollisionShape3D" unique_id=613281164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 mesh = SubResource("PlaneMesh_2vux0")
 surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
 
 [node name="CookerBody2" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2134262855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20317383, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0066406317, 0)
 mesh = SubResource("BoxMesh_2vux0")
-surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
+surface_material_override/0 = SubResource("StandardMaterial3D_46r5c")
 
 [node name="GridSubviewport" type="SubViewport" parent="." unique_id=1565629765]
 disable_3d = true
@@ -53,3 +63,5 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_2vux0")
+HighlightColor = Color(1, 1, 1, 0.56078434)
+RedHighlightColor = Color(0.55, 0, 0, 0.6313726)
