@@ -34,6 +34,7 @@ public partial class Ingredient : Node3D
     private float maxCookingTime;
     private float curCookTime;
     private eCookerType curCookingType;
+    private bool isCooking;
 
     public override void _Ready()
     {
@@ -110,12 +111,33 @@ public partial class Ingredient : Node3D
         return IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
     }
 
+    public RIngredientBase OnInteract()
+    {
+
+        // IngredientIsPackage script
+        // - Add to ingredient scene, turn off
+        // - if ingredient is/becomes a package, turn on and override OnInteract function
+
+        // Called in Cooker.TakeIngredient
+        // if is single click pick up and move around
+        // if is ingredient package and secondary action
+        //      // pick up ingredient inside
+        return null;
+    }
+
+    // Cooker Modifiers script
+    // - What occurs hen an ingredient lands on the Cooker
+    // - Whether to wait for some other button press
+
     public bool CanPlaceOnCooker(eCookerType cookerType)
     {
-        if (!IngredientBase.CookingInformation.ContainsKey(cookerType))
-            return false;
+        if (IngredientBase.IsPizzaCrust && cookerType == eCookerType.Oven)
+            return true;
 
-        return true;
+        if (IngredientBase.CookingInformation.ContainsKey(cookerType))
+            return true;
+
+        return false;
     }
 
     public void PlaceOnCooker(eCookerType cookerType)
@@ -124,6 +146,7 @@ public partial class Ingredient : Node3D
         maxCookingTime = IngredientBase.CookingInformation[cookerType].CookTime;
         curCookTime = 0;
         curCookingType = cookerType;
+        isCooking = true;
 
         SetPhysicsProcess(true);
     }

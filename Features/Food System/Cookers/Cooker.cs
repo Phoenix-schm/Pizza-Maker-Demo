@@ -18,6 +18,7 @@ public partial class Cooker : StaticBody3D
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
     [Export] private Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
+    [Export] private Vector2I CookerSize { get; set; } = new Vector2I(6, 4);
     [ExportCategory("Ingredient Interaction")]
     [Export] public eCookerType CookerType { get; set; }
     // for iterating through ingredients and their takenSlots array
@@ -47,6 +48,7 @@ public partial class Cooker : StaticBody3D
     {
         planeSize = (CookerMesh.Mesh as PlaneMesh).Size;
         CookerGrid.parentCooker = this;
+        CookerGrid.CellCount = CookerSize;
 
         gridRect = new Rect2I(Vector2I.Zero, CookerGrid.CellCount);
     }
