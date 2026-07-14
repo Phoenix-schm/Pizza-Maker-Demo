@@ -11,8 +11,8 @@ public enum eCookerType { CuttingBoard, Oven}
 
 public partial class Cooker : StaticBody3D
 {
-    public event Action<Ingredient> OnSendIngredient;           // will either send an ingredient or null
-    public event Action<Vector3, bool, Array<int>> OnSendValidPlacement;    // will send a valid placement
+    public event Action OnSendIngredient;           // will either send an ingredient or null
+    public event Action<Vector3, bool> OnSendValidPlacement;    // will send a valid placement
 
     [Export] private MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
@@ -39,6 +39,12 @@ public partial class Cooker : StaticBody3D
 
     // *** Dragging Logic ***
     private Ingredient hoveredIngredient;
+
+    private bool CanBePlaced
+    {
+        get { return isCellsFree && canFitInCooker && isAllowedCooker; }
+    }
+
     private bool isCellsFree;               // are there already ingredients in cells
     private bool canFitInCooker;            // can ingredient fit within grid
     private bool isAllowedCooker;           // if the cooker is a type the ingredient can use
@@ -61,7 +67,7 @@ public partial class Cooker : StaticBody3D
         InitializeHoverLogic();
 
         // reset logic so that grid updates with ingredient rotation
-        if (@event.IsActionPressed(StaticStringRef.secondaryInteraction))
+        if (@event.IsActionPressed(StaticStringRef.a_secondaryInteraction))
             lastGridCell = -Vector2I.One;
 
         // If the mouse isn't hitting an upwards facing part of the collision
@@ -97,12 +103,12 @@ public partial class Cooker : StaticBody3D
             // translate position 
             Vector3 validGlobalPosition = IngredientHolder.ToGlobal(curWorldPos);
             
-            OnSendValidPlacement?.Invoke(validGlobalPosition, isCellsFree && canFitInCooker && isAllowedCooker, tempTakenCells);
+            OnSendValidPlacement?.Invoke(validGlobalPosition, isCellsFree && canFitInCooker && isAllowedCooker);
         }
         else
         {
             // send manager if the cell contains an ingredient or null
-            OnSendIngredient?.Invoke(hoveredIngredient);
+            OnSendIngredient?.Invoke();
         }
 
         lastGridCell = curGridCell;
@@ -240,12 +246,12 @@ public partial class Cooker : StaticBody3D
         if (DragIngredientManager.Instance == null)
             return;
 
-        if (DragIngredientManager.hoveredCooker == this)
-            return;
-
         // initialize important hover logic upon entering the cooker collision
-        lastGridCell = -Vector2I.One;
-        DragIngredientManager.Instance.UpdateHoverVariables(this);
+        if (DragIngredientManager.hoveredStorage != this)
+        {
+            lastGridCell = -Vector2I.One;
+            DragIngredientManager.Instance.UpdateHoverVariables(this);
+        }
     }
 
     /// <summary>
@@ -298,31 +304,33 @@ public partial class Cooker : StaticBody3D
     /// </summary>
     /// <param name="takenIngredient"></param>
     /// <returns></returns>
-    public Ingredient TakeIngredient(Ingredient takenIngredient)
+    public Ingredient TakeIngredient()
     {
-        takenIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
-        IngredientsInCooker.Remove(takenIngredient);
+        hoveredIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
+        IngredientsInCooker.Remove(hoveredIngredient);
 
         lastGridCell = -Vector2I.One;
 
-        return takenIngredient;
+        return hoveredIngredient;
     }
 
     /// <summary>
     /// Places ingredient on Cooker
     /// </summary>
     /// <param name="placedIngredient"></param>
-    public void PlaceIngredient(Ingredient placedIngredient, Array<int> tempCells)
+    public bool TryPlaceIngredient(Ingredient placedIngredient)
     {
+        if (!CanBePlaced)
+            return false;
+
         IngredientsInCooker.Add(placedIngredient);
-        placedIngredient.takenSlotsInCooker = tempCells.Duplicate();
+        placedIngredient.takenSlotsInCooker = tempTakenCells.Duplicate();
         tempTakenCells.Clear();
 
         placedIngredient.PlaceOnCooker(CookerType);
 
         // replace parent
-        placedIngredient.parentPackage = null;
-        placedIngredient.parentCooker = this;
+        placedIngredient.parentStorage = this;
 
         placedIngredient.Reparent(IngredientHolder);
         placedIngredient.Position = curWorldPos;
@@ -330,9 +338,11 @@ public partial class Cooker : StaticBody3D
         ResetCookerGridTexture();
         lastGridCell = -Vector2I.One;
         UpdateCookerGridTexture();
+
+        return true;
     }
 
-    public void ReturnIngredientToParent(Ingredient returningIngredient)
+    public bool TryReturnIngredientToParent(Ingredient returningIngredient)
     {
         IngredientsInCooker.Add(returningIngredient);
         // take starting index the ingredient was originally taking
@@ -348,7 +358,8 @@ public partial class Cooker : StaticBody3D
 
         returningIngredient.Reparent(IngredientHolder);
         returningIngredient.Position = oldWorldPos;
-        returningIngredient.GlobalRotation = GlobalRotation; 
+        returningIngredient.GlobalRotation = GlobalRotation;
+        return true;
     }
 
     #endregion

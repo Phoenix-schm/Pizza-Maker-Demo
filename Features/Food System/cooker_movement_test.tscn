@@ -87,7 +87,6 @@ transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.6975
 
 [node name="Cooker2" parent="Node3D/Cookers" unique_id=1453442107 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.69755304, 0.4, 0, 0)
-CookerType = 1
 
 [node name="Shelf" parent="Node3D" unique_id=1636137252 instance=ExtResource("6_fiisl")]
 transform = Transform3D(1, 0, 0, 0, 0.99113196, 0.13288139, 0, -0.13288139, 0.99113196, 0.39150357, -0.63410926, -0.39458764)
@@ -102,7 +101,7 @@ debugSize = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16526878, -0.08322565, 0.26094204)
 collision_mask = 0
 
-[node name="IngredientPackage3" type="StaticBody3D" parent="Node3D/Shelf" unique_id=350009882]
+[node name="IngredientPackage3" type="StaticBody3D" parent="Node3D/Shelf" unique_id=350009882 groups=["Ingredient Storage"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.096972704, 0.07374941, 0.26094204)
 collision_layer = 2
 collision_mask = 0
@@ -132,7 +131,7 @@ debugSize = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16526878, -0.08322565, 0.26094204)
 collision_mask = 0
 
-[node name="IngredientPackage3" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1666970735]
+[node name="IngredientPackage3" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1666970735 groups=["Ingredient Storage"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16801363, -0.06773178, 0.26094204)
 collision_layer = 2
 collision_mask = 0
@@ -149,7 +148,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_pdpum")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017217875, -2.9802322e-08)
 shape = SubResource("BoxShape3D_5dkge")
 
-[node name="IngredientPackage5" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1730301389]
+[node name="IngredientPackage5" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1730301389 groups=["Ingredient Storage"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16801363, 0.028152464, 0.26094204)
 collision_layer = 2
 collision_mask = 0
@@ -166,7 +165,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_pdpum")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017217875, -2.9802322e-08)
 shape = SubResource("BoxShape3D_5dkge")
 
-[node name="IngredientPackage4" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1522215698]
+[node name="IngredientPackage4" type="StaticBody3D" parent="Node3D/Shelf2" unique_id=1522215698 groups=["Ingredient Storage"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16801363, -0.024678372, 0.26094204)
 collision_layer = 2
 collision_mask = 0

@@ -26,8 +26,9 @@ public partial class Ingredient : Node3D
 
     // *** Dragging Information ***
     public Array<int> takenSlotsInCooker = new Array<int>();
-    public Cooker parentCooker;
-    public IngredientPackage parentPackage;
+    public Node parentStorage;          // node that stored ingredient
+    //public Cooker parentCooker;
+    //public IngredientPackage parentPackage;
     // ***
 
     // *** Cooking Information ***
@@ -113,7 +114,6 @@ public partial class Ingredient : Node3D
 
     public RIngredientBase OnInteract()
     {
-
         // IngredientIsPackage script
         // - Add to ingredient scene, turn off
         // - if ingredient is/becomes a package, turn on and override OnInteract function

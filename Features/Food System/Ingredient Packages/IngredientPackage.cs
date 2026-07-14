@@ -22,19 +22,17 @@ public partial class IngredientPackage : StaticBody3D
         if (DragIngredientManager.Instance == null)
             return;
 
-        if (DragIngredientManager.hoveredPackage != this)
-        {
+        if (DragIngredientManager.hoveredStorage != this)
             DragIngredientManager.Instance.UpdateHoverVariables(this);
-        }
     }
 
-    public Ingredient SpawnIngredient()
+    public Ingredient TakeIngredient()
     {
         GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {PackageInfo.StoredIngredient.Name}");
         Ingredient newIngredient = IngredientScene.Instantiate() as Ingredient;
 
         newIngredient.IngredientBase = PackageInfo.StoredIngredient;
-        newIngredient.parentPackage = this;
+        newIngredient.parentStorage = this;
 
         return newIngredient;
     }
@@ -44,7 +42,7 @@ public partial class IngredientPackage : StaticBody3D
     /// </summary>
     /// <param name="returnedIngredient"></param>
     /// <returns></returns>
-    public bool TryReturnIngredientToPackage(Ingredient returnedIngredient)
+    public bool TryReturnIngredientToParent(Ingredient returnedIngredient)
     {
         bool wasReturned = true;
         if (returnedIngredient.IngredientBase != PackageInfo.StoredIngredient)
@@ -56,10 +54,18 @@ public partial class IngredientPackage : StaticBody3D
         returnedIngredient.Reparent(this);
         // TODO: Tween ingredient back to parent
 
-        // Remove references to ingredient
-        returnedIngredient.parentCooker?.IngredientsInCooker.Remove(returnedIngredient);
         // TODO: Await tween to finish
         returnedIngredient.QueueFree();
         return wasReturned;
+    }
+
+    /// <summary>
+    /// Duplicate logic for sake of use interface methods
+    /// </summary>
+    /// <param name="placedIngredient"></param>
+    /// <returns></returns>
+    public bool TryPlaceIngredient(Ingredient placedIngredient)
+    {
+        return TryReturnIngredientToParent(placedIngredient);
     }
 }
