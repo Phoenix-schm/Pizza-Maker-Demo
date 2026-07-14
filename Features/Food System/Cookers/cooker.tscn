@@ -9,12 +9,12 @@ size = Vector3(0.75, 0.1, 0.5)
 [sub_resource type="PlaneMesh" id="PlaneMesh_2vux0"]
 size = Vector2(0.75, 0.5)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_46r5c"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_g3b8u"]
 viewport_path = NodePath("GridSubviewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptdpq"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_46r5c")
+albedo_texture = SubResource("ViewportTexture_g3b8u")
 
 [sub_resource type="BoxMesh" id="BoxMesh_2vux0"]
 size = Vector3(0.75, 0.106933594, 0.5)

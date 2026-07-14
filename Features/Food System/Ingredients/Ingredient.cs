@@ -27,8 +27,6 @@ public partial class Ingredient : Node3D
     // *** Dragging Information ***
     public Array<int> takenSlotsInCooker = new Array<int>();
     public Node parentStorage;          // node that stored ingredient
-    //public Cooker parentCooker;
-    //public IngredientPackage parentPackage;
     // ***
 
     // *** Cooking Information ***
@@ -36,6 +34,7 @@ public partial class Ingredient : Node3D
     private float curCookTime;
     private eCookerType curCookingType;
     private bool isCooking;
+    private Action onCookIngredient;
 
     public override void _Ready()
     {
@@ -92,6 +91,8 @@ public partial class Ingredient : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
+        // use for cooking cutting board
+        // emit particles when done
         curCookTime += (float)delta;
 
         if (curCookTime >= maxCookingTime)
@@ -99,6 +100,12 @@ public partial class Ingredient : Node3D
             GameLogger.Debug("Finished cooking");
             SetPhysicsProcess(false);
         }
+
+        // when place in oven,
+        //      keep cooking until burnt
+
+
+        onCookIngredient?.Invoke();
     }
 
     private RIngredientBase TransformIngredient()
@@ -112,18 +119,18 @@ public partial class Ingredient : Node3D
         return IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
     }
 
-    public RIngredientBase OnInteract()
-    {
-        // IngredientIsPackage script
-        // - Add to ingredient scene, turn off
-        // - if ingredient is/becomes a package, turn on and override OnInteract function
+    //public RIngredientBase OnInteract()
+    //{
+    //    // IngredientIsPackage script
+    //    // - Add to ingredient scene, turn off
+    //    // - if ingredient is/becomes a package, turn on and override OnInteract function
 
-        // Called in Cooker.TakeIngredient
-        // if is single click pick up and move around
-        // if is ingredient package and secondary action
-        //      // pick up ingredient inside
-        return null;
-    }
+    //    // Called in Cooker.TakeIngredient
+    //    // if is single click pick up and move around
+    //    // if is ingredient package and secondary action
+    //    //      // pick up ingredient inside
+    //    return null;
+    //}
 
     // Cooker Modifiers script
     // - What occurs hen an ingredient lands on the Cooker
@@ -131,8 +138,9 @@ public partial class Ingredient : Node3D
 
     public bool CanPlaceOnCooker(eCookerType cookerType)
     {
-        if (IngredientBase.IsPizzaCrust && cookerType == eCookerType.Oven)
-            return true;
+
+        //if (IngredientBase.IsPizzaCrust && cookerType == eCookerType.Oven)
+        //    return true;
 
         if (IngredientBase.CookingInformation.ContainsKey(cookerType))
             return true;
@@ -147,6 +155,8 @@ public partial class Ingredient : Node3D
         curCookTime = 0;
         curCookingType = cookerType;
         isCooking = true;
+
+        // Use cook ingredient action
 
         SetPhysicsProcess(true);
     }

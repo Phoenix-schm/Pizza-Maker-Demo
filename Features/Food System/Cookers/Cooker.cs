@@ -61,6 +61,8 @@ public partial class Cooker : StaticBody3D
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
+        // TODO: Send input to cookingModifier 
+
         if (IngredientsInCooker.Count == 0 && DragIngredientManager.Instance?.draggedIngredient == null)
             return;
 
@@ -103,7 +105,7 @@ public partial class Cooker : StaticBody3D
             // translate position 
             Vector3 validGlobalPosition = IngredientHolder.ToGlobal(curWorldPos);
             
-            OnSendValidPlacement?.Invoke(validGlobalPosition, isCellsFree && canFitInCooker && isAllowedCooker);
+            OnSendValidPlacement?.Invoke(validGlobalPosition, CanBePlaced);
         }
         else
         {
@@ -230,7 +232,7 @@ public partial class Cooker : StaticBody3D
     {
         CookerGrid.inputPos = curGridCell;
         CookerGrid.SelectedIngredient = DragIngredientManager.Instance.draggedIngredient;
-        CookerGrid.canBePlaced = isCellsFree && canFitInCooker && isAllowedCooker;
+        CookerGrid.canBePlaced = CanBePlaced;
         CookerGrid.QueueRedraw();
     }
 
@@ -327,7 +329,7 @@ public partial class Cooker : StaticBody3D
         placedIngredient.takenSlotsInCooker = tempTakenCells.Duplicate();
         tempTakenCells.Clear();
 
-        placedIngredient.PlaceOnCooker(CookerType);
+        //placedIngredient.PlaceOnCooker(CookerType);
 
         // replace parent
         placedIngredient.parentStorage = this;

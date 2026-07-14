@@ -21,14 +21,8 @@ public partial class DragIngredientManager : Node
     [Export(PropertyHint.Range, "10, 150, 10")] private float DragRotationWeight { get; set; } = 85;
 
     // only one cooker can be selected at a time
-    // TODO: tell hoveredCooker.CookerGrid about selectedIngredient
     public static Node hoveredStorage;
-
-    //public static Cooker hoveredCooker;
-    //public static IngredientPackage hoveredPackage;
-    //private Ingredient hoveredIngredient;
     private Vector3 hoveredPos;
-    //private Array<int> hoveredCells;
     private bool canBePlaced;
 
     public Ingredient draggedIngredient;
@@ -136,8 +130,6 @@ public partial class DragIngredientManager : Node
 
         draggedIngredient = null;
     }
-
-    // TODO: Create IngredientHolder for holding dragged ingredients
 
     /// <summary>
     /// Raycast function for positioning ingredient while moving
