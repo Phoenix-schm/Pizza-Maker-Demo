@@ -63,6 +63,7 @@ public partial class DragIngredientManager : Node
             draggedIngredient.GlobalPosition = StaticFunc.ExpDecay(draggedIngredient.GlobalPosition, worldMousePos, 16 * DragSpeed, (float)delta);
 
         draggedIngredient.GlobalRotation = StaticFunc.ExpDecay(draggedIngredient.GlobalRotation, targetHolderRotation, 16 * RaycastRotationSpeed, (float)delta);
+        //GD.Print(draggedIngredient.GlobalRotation);
 
         // TODO: Move to ingredient
         float targetZRotation = Mathf.Clamp((draggedIngredient.Position.X - lastDraggingPosition.X) * DragRotationWeight, -45, 45);
@@ -70,7 +71,6 @@ public partial class DragIngredientManager : Node
             draggedIngredient.IngredientMesh.RotationDegrees = StaticFunc.ExpDecay(draggedIngredient.IngredientMesh.RotationDegrees, new Vector3(0, draggedIngredient.IngredientMesh.RotationDegrees.Y, targetZRotation), 16, (float)delta * 12);
         else
             draggedIngredient.IngredientMesh.RotationDegrees = StaticFunc.ExpDecay(draggedIngredient.IngredientMesh.RotationDegrees, new Vector3(targetZRotation, draggedIngredient.IngredientMesh.RotationDegrees.Y, 0), 16, (float)delta * 12);
-
         lastDraggingPosition = draggedIngredient.Position;
     }
 
@@ -208,8 +208,10 @@ public partial class DragIngredientManager : Node
         {
             if (hoveredStorage is Cooker cooker)
                 cooker.ResetCookerGridTexture();
+            else
+                canBePlaced = false;
 
-            canBePlaced = false;
+            //canBePlaced = false;
             hoveredStorage = hoveredNode;
         }
     }

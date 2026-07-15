@@ -30,6 +30,8 @@ public partial class Ingredient : Node3D
     // ***
 
     // *** Cooking Information ***
+    private eCookerType? originCookerType = null;     // override to allow an ingredient to be placed back on the cooker they came from
+
     private float maxCookingTime;
     private float curCookTime;
     private eCookerType curCookingType;
@@ -98,6 +100,7 @@ public partial class Ingredient : Node3D
         if (curCookTime >= maxCookingTime)
         {
             GameLogger.Debug("Finished cooking");
+            originCookerType = curCookingType;
             SetPhysicsProcess(false);
         }
 
@@ -138,9 +141,11 @@ public partial class Ingredient : Node3D
 
     public bool CanPlaceOnCooker(eCookerType cookerType)
     {
+        if (originCookerType != null && originCookerType == cookerType)
+            return true;
 
-        //if (IngredientBase.IsPizzaCrust && cookerType == eCookerType.Oven)
-        //    return true;
+        if (IngredientBase.IsPizzaCrust && cookerType == eCookerType.Oven)
+            return true;
 
         if (IngredientBase.CookingInformation.ContainsKey(cookerType))
             return true;

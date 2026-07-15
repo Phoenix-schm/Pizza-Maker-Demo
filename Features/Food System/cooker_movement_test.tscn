@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8p3gjfpcnykw" path="res://Features/Food System/Cookers/cooker.tscn" id="1_8lb3h"]
 [ext_resource type="Script" uid="uid://dpppcinynivcx" path="res://Features/Food System/DragIngredientManager.cs" id="1_m8b28"]
+[ext_resource type="PackedScene" uid="uid://baiyb0yarirre" path="res://Features/Food System/Cookers/Cooker Scenes/oven.tscn" id="3_5dkge"]
 [ext_resource type="PackedScene" uid="uid://c53i0h4js5rbj" path="res://Features/Food System/Ingredient Packages/ingredient_package.tscn" id="3_44a8c"]
 [ext_resource type="Script" uid="uid://c63mxfxf5fl1m" path="res://Features/Food System/Ingredients/Resources/RIngredientBase.cs" id="5_fiisl"]
 [ext_resource type="Script" uid="uid://t43gd3x3ejfp" path="res://Features/Food System/Ingredient Packages/Resources/R_IngredientPackages.cs" id="6_5re3l"]
@@ -24,6 +25,9 @@ sky = SubResource("Sky_m8b28")
 [sub_resource type="Resource" id="Resource_pdpum"]
 script = ExtResource("5_fiisl")
 Size = 4
+CookingInformation = Dictionary[int, ExtResource("6_pdpum")]({
+0: null
+})
 metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
 
 [sub_resource type="Resource" id="Resource_5re3l"]
@@ -43,7 +47,10 @@ size = Vector3(0.3, 0.04, 0.2)
 
 [sub_resource type="Resource" id="Resource_252dy"]
 script = ExtResource("5_fiisl")
-Size = 4
+Size = 8
+CookingInformation = Dictionary[int, ExtResource("6_pdpum")]({
+0: null
+})
 metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
 
 [sub_resource type="Resource" id="Resource_5dkge"]
@@ -87,6 +94,12 @@ transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.6975
 
 [node name="Cooker2" parent="Node3D/Cookers" unique_id=1453442107 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.69755304, 0.4, 0, 0)
+visible = false
+collision_layer = 0
+input_ray_pickable = false
+
+[node name="Cooker3" parent="Node3D/Cookers" unique_id=1275532803 instance=ExtResource("3_5dkge")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0.44892678, -0.19174816, -0.13255702)
 
 [node name="Shelf" parent="Node3D" unique_id=1636137252 instance=ExtResource("6_fiisl")]
 transform = Transform3D(1, 0, 0, 0, 0.99113196, 0.13288139, 0, -0.13288139, 0.99113196, 0.39150357, -0.63410926, -0.39458764)

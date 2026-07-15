@@ -14,27 +14,30 @@ public partial class Cooker : StaticBody3D
     public event Action OnSendIngredient;           // will either send an ingredient or null
     public event Action<Vector3, bool> OnSendValidPlacement;    // will send a valid placement
 
+    [Export] private CollisionShape3D GridCollision { get; set; }
     [Export] private MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
-    [Export] private Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
+    [Export] public Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
     [Export] private Vector2I CookerSize { get; set; } = new Vector2I(6, 4);
     [ExportCategory("Ingredient Interaction")]
     [Export] public eCookerType CookerType { get; set; }
     // for iterating through ingredients and their takenSlots array
     [Export] public Array<Ingredient> IngredientsInCooker { get; set; }
 
-    Vector2 planeSize;
-    Vector2 cellSize;
-    Rect2I gridRect;
+    private Vector2 planeSize;
+    private Vector2 cellSize;
+    protected Rect2I gridRect;
 
     //  *** Positioning Information ***
-    private Vector2I curGridCell;                   // The Vector2I cell position the mouse is hovering over
-    private Vector2I lastGridCell = -Vector2I.One;
+    protected Vector2I curGridCell;                   // The Vector2I cell position the mouse is hovering over
+    protected Vector2I lastGridCell = -Vector2I.One;
 
     private int curGridIndex;                       // The curGridCell flattened to an int
     private Vector2 curGridPosition;                // The Vector2 position the mouse takes up within the SubViewport
     private Vector3 curWorldPos;                    // the curGridPosition translated into 3D coordinates. Used for the blocky grid movement
+
+    private int gridCollisionIdx;
     // ***
 
     // *** Dragging Logic ***
@@ -46,8 +49,9 @@ public partial class Cooker : StaticBody3D
     }
 
     private bool isCellsFree;               // are there already ingredients in cells
-    private bool canFitInCooker;            // can ingredient fit within grid
+    protected bool canFitInCooker;            // can ingredient fit within grid
     private bool isAllowedCooker;           // if the cooker is a type the ingredient can use
+    
     public Array<int> tempTakenCells = new Array<int>();   // Temporary cells for showing what cells the ingredient is taking up on the grid
 
     public override void _Ready()
@@ -56,15 +60,17 @@ public partial class Cooker : StaticBody3D
         CookerGrid.parentCooker = this;
         CookerGrid.CellCount = CookerSize;
 
+        this.MoveChild(GridCollision, 0);
+
         gridRect = new Rect2I(Vector2I.Zero, CookerGrid.CellCount);
     }
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
         // TODO: Send input to cookingModifier 
-
         if (IngredientsInCooker.Count == 0 && DragIngredientManager.Instance?.draggedIngredient == null)
             return;
+
 
         InitializeHoverLogic();
 
@@ -74,8 +80,24 @@ public partial class Cooker : StaticBody3D
 
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
-        if (!normal.IsEqualApprox(GlobalBasis.Y))
+        if (!IsCorrectNormal(normal))
+        {
+            OnSendValidPlacement?.Invoke(-Vector3.One, false);
+            ResetCookerGridTexture();
             return;
+        }
+        else
+            lastGridCell = -Vector2I.One;
+
+        if (!IsCorrectCollision(shapeIdx))
+        {
+            OnSendValidPlacement?.Invoke(-Vector3.One, false);
+            ResetCookerGridTexture();
+            return;
+        }
+        else
+            lastGridCell = -Vector2I.One;
+
         GetGridIndexFromInput(eventPosition);
         // Don't do extra calculations while on the same cell
         if (curGridCell == lastGridCell)
@@ -116,6 +138,15 @@ public partial class Cooker : StaticBody3D
         lastGridCell = curGridCell;
     }
 
+    public virtual bool IsCorrectNormal(Vector3 normal)
+    {
+        return normal.IsEqualApprox(CookerMesh.GlobalBasis.Y);
+    }
+    public virtual bool IsCorrectCollision(int shapeidx)
+    {
+        return shapeidx == 0;
+    }
+
     #region TranslatePositionInformation
     /// <summary>
     /// Translates the 3D event position into a grid based position on the viewport
@@ -146,7 +177,7 @@ public partial class Cooker : StaticBody3D
 
         if (DragIngredientManager.Instance?.draggedIngredient != null)
             curGridCell = PushGridCellOffEdges(curGridCell, DragIngredientManager.Instance.draggedIngredient);
-
+        
         // Convert grid cell Vector into singular index position
         curGridIndex = curGridCell.X + (curGridCell.Y * CookerGrid.CellCount.X);
 
@@ -174,7 +205,7 @@ public partial class Cooker : StaticBody3D
     /// <param name="startingPos"></param>
     /// <param name="curIngredient"></param>
     /// <returns></returns>
-    private Vector2I PushGridCellOffEdges(Vector2I startingPos, Ingredient curIngredient)
+    protected virtual Vector2I PushGridCellOffEdges(Vector2I startingPos, Ingredient curIngredient)
     {
         canFitInCooker = true;
         Vector2I fauxStartingPos = startingPos;
