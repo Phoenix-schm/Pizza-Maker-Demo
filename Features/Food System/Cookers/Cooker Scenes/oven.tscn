@@ -28,6 +28,8 @@ viewport_path = NodePath("GridSubviewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptdpq"]
 resource_local_to_scene = true
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.4117647)
 albedo_texture = SubResource("ViewportTexture_6tikf")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
@@ -71,7 +73,7 @@ mesh = SubResource("PlaneMesh_2vux0")
 surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
 
 [node name="IngredientHolder" type="Node3D" parent="." unique_id=624685565]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.29523277, 0.068817854)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.123055845, 0.06881785)
 
 [node name="Bottom" type="CollisionShape3D" parent="." unique_id=949194756]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.073600665, 7.450581e-09)

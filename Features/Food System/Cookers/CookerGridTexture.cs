@@ -50,6 +50,8 @@ public partial class CookerGridTexture : PanelContainer
 
     public override void _Draw()
     {
+        if (!Visible)
+            return;
         if (SelectedIngredient != null)
             DrawSelectedCells(itemSize, inputPos, canBePlaced);
         

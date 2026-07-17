@@ -26,7 +26,7 @@ public partial class Cooker : StaticBody3D
     [Export] public Array<Ingredient> IngredientsInCooker { get; set; }
 
     private Vector2 planeSize;
-    private Vector2 cellSize;
+    protected Vector2 cellSize;
     protected Rect2I gridRect;
 
     //  *** Positioning Information ***
@@ -48,7 +48,7 @@ public partial class Cooker : StaticBody3D
         get { return isCellsFree && canFitInCooker && isAllowedCooker; }
     }
 
-    private bool isCellsFree;               // are there already ingredients in cells
+    protected bool isCellsFree;               // are there already ingredients in cells
     protected bool canFitInCooker;            // can ingredient fit within grid
     private bool isAllowedCooker;           // if the cooker is a type the ingredient can use
     
@@ -113,7 +113,9 @@ public partial class Cooker : StaticBody3D
             // offset grid position with ingredient size so that it's centered with TakenSlots
             curGridPosition = new Vector2(curGridCell.X * cellSize.X, curGridCell.Y * cellSize.Y);
 
-            curWorldPos = Get3DPositionFromGridPosition(curGridPosition + (cellSize * curIngredient.IngredientBase.GetCellSize(curIngredient.orientation)) / 2);
+            Vector2 scaledPos = curGridPosition + ScaleIngredientPosWithCellSize(curIngredient);
+            curWorldPos = Get3DPositionFromGridPosition(scaledPos);
+
             TryPlaceIngredientInCell(curGridIndex, curIngredient);
             UpdateCookerGridTexture();
         }
@@ -195,8 +197,12 @@ public partial class Cooker : StaticBody3D
         Vector2 unScaledTarget = currentPosition / (Vector2)GridViewport.Size;
         unScaledTarget *= planeSize;
         unScaledTarget -= planeSize / 2;
-
         return new Vector3(unScaledTarget.X, 0, unScaledTarget.Y);
+    }
+
+    protected virtual Vector2 ScaleIngredientPosWithCellSize(Ingredient curIngredient)
+    {
+        return (cellSize * curIngredient.IngredientBase.GetCellSize(curIngredient.orientation)) / 2;
     }
 
     /// <summary>
@@ -293,7 +299,7 @@ public partial class Cooker : StaticBody3D
     /// </summary>
     /// <param name="startingCell"></param>
     /// <param name="_curIngredient"></param>
-    private void TryPlaceIngredientInCell(int startingCell, Ingredient _curIngredient)
+    protected virtual void TryPlaceIngredientInCell(int startingCell, Ingredient _curIngredient)
     {
         isCellsFree = true;
         // TODO: Check cells for if they can be placed.
@@ -308,6 +314,14 @@ public partial class Cooker : StaticBody3D
             }
         }
 
+        CheckIfTempCellsAreTaken();
+    }
+
+    /// <summary>
+    /// Iterates through ingredients and checks if their takenSlotsInCooker overlaps with tempTakenSlots
+    /// </summary>
+    protected void CheckIfTempCellsAreTaken()
+    {
         // check if there's any overlap between the potential takenCells and cells already taken
         foreach (Ingredient ingredient in IngredientsInCooker)
         {
@@ -387,7 +401,8 @@ public partial class Cooker : StaticBody3D
         Vector2 oldGridPos = new Vector2(xCoord * cellSize.X, yCoord * cellSize.Y);
 
         // offset grid position with ingredient size so that it's centered with TakenSlots
-        Vector3 oldWorldPos = Get3DPositionFromGridPosition(oldGridPos + (cellSize * returningIngredient.IngredientBase.GetCellSize(returningIngredient.orientation)) / 2);
+        Vector2 scaledPos = oldGridPos + ScaleIngredientPosWithCellSize(returningIngredient);
+        Vector3 oldWorldPos = Get3DPositionFromGridPosition(scaledPos);
 
         returningIngredient.Reparent(IngredientHolder);
         returningIngredient.Position = oldWorldPos;

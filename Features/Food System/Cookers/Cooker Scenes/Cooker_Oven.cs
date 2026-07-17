@@ -1,13 +1,13 @@
 using Features.FoodSystem.Ingredients;
 using Godot;
-using Microsoft.VisualBasic;
-using System;
-using System.Linq;
 
 namespace Features.FoodSystem.Cookers;
+/// <summary>
+/// Cooker that only uses X axis for moving ingredients around grid.
+/// NOTE: Must move ingredient holder down from center to position correctly
+/// </summary>
 public partial class Cooker_Oven : Cooker
 {
-
     /// <summary>
     /// Pushes the inputted starting position up/left based on grid size and ingredient size
     /// </summary>
@@ -29,7 +29,6 @@ public partial class Cooker_Oven : Cooker
         else if (ingredientGrid.Encloses(gridRect))
         {
             // ingredient can't fit inside cooker at all
-            GD.Print("ingredient too big");
             canFitInCooker = false;
             return Vector2I.Zero;
         }
@@ -47,11 +46,8 @@ public partial class Cooker_Oven : Cooker
                 fauxStartingPos.X--;
                 //GD.Print($"Ingredient cells x: {ingrediectCells.X}");
             }
-            // over the edge going down, so move up
-            //if (intersection.Size.Y < ingrediectCells.Y)
-            //{
-            //    fauxStartingPos.Y--;
-            //}
+
+            // ignore y axis
 
             // if can't fit at all
             if (fauxStartingPos.X < 0)
@@ -70,6 +66,25 @@ public partial class Cooker_Oven : Cooker
     }
 
     // override temp variables to only use x axis
+    protected override void TryPlaceIngredientInCell(int startingCell, Ingredient _curIngredient)
+    {
+        isCellsFree = true;
+        tempTakenCells.Clear();
 
-    // override curGridPos to use only x axis
+        for (int x = 0; x < _curIngredient.IngredientBase.GetCellSize(_curIngredient.orientation).X; x++)
+        {
+            // Calculation only requires x axis
+            int fauxCurIndex = startingCell + x;
+            tempTakenCells.Add(fauxCurIndex);
+        }
+
+        CheckIfTempCellsAreTaken();
+    }
+
+    protected override Vector2 ScaleIngredientPosWithCellSize(Ingredient curIngredient)
+    {
+        // ignore y axis in order to only move in x axis
+        Vector2 ingredientPos = new(cellSize.X * curIngredient.IngredientBase.GetCellSize(curIngredient.orientation).X / 2, 0);
+        return ingredientPos;
+    }
 }
