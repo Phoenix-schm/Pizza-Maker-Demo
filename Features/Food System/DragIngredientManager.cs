@@ -84,18 +84,18 @@ public partial class DragIngredientManager : Node
                 OnInteractWithIngredient();
         }
 
-        if (draggedIngredient == null) // other logic should not occur
-            return;
-
+        // TODO: Add logic for handling right click & hold logic on IngredientIsPackage type ingredients
+        //      move them around
         if (@event.IsActionPressed(StaticStringRef.a_secondaryInteraction))
         {
             // On Mouse Right Click, rotate ingredient
-            draggedIngredient.FlipOrientation();
+            draggedIngredient?.FlipOrientation();
         }
     }
 
     private void OnInteractWithoutIngredient()
     {
+
         // if there is a hoveredStorage, try and take ingredient
         if (hoveredStorage != null && hoveredStorage.IsInGroup(StaticStringRef.G_IngredientStorage))
         {
@@ -171,13 +171,14 @@ public partial class DragIngredientManager : Node
             }
             else // Hitting "something" that's allowed, but don't want it to be interactable
             {
+                UpdateHoverVariables();
                 newNormal = (Vector3)result["normal"];
                 Transform3D newTransform = StaticFunc.AlignWithY(draggedIngredient.GlobalTransform, newNormal);
-                Vector3 newRotation = draggedIngredient.Rotation;
-
+                Vector3 newRotation = draggedIngredient.GlobalRotation;
                 newRotation.X = newTransform.Basis.GetEuler().X;
                 if (Mathf.RadToDeg(newTransform.Basis.GetEuler().X) > 55 || Mathf.RadToDeg(newTransform.Basis.GetEuler().X) <= 0) // greater than certaion angle, less than 360
                     newRotation.X = 0;
+                GD.Print(newRotation);
 
                 targetHolderRotation = newRotation;
             }

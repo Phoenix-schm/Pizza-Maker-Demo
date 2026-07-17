@@ -71,7 +71,6 @@ public partial class Cooker : StaticBody3D
         if (IngredientsInCooker.Count == 0 && DragIngredientManager.Instance?.draggedIngredient == null)
             return;
 
-
         InitializeHoverLogic();
 
         // reset logic so that grid updates with ingredient rotation
@@ -80,16 +79,7 @@ public partial class Cooker : StaticBody3D
 
         // If the mouse isn't hitting an upwards facing part of the collision
         // (mimics the needed collision of a plane)
-        if (!IsCorrectNormal(normal))
-        {
-            OnSendValidPlacement?.Invoke(-Vector3.One, false);
-            ResetCookerGridTexture();
-            return;
-        }
-        else
-            lastGridCell = -Vector2I.One;
-
-        if (!IsCorrectCollision(shapeIdx))
+        if (!IsCorrectNormal(normal) || !IsCorrectCollision(shapeIdx))
         {
             OnSendValidPlacement?.Invoke(-Vector3.One, false);
             ResetCookerGridTexture();

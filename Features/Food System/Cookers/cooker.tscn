@@ -66,3 +66,5 @@ size_flags_vertical = 3
 script = ExtResource("2_2vux0")
 HighlightColor = Color(1, 1, 1, 0.56078434)
 RedHighlightColor = Color(0.55, 0, 0, 0.6313726)
+
+[node name="Node" type="Node" parent="." unique_id=1911467225]

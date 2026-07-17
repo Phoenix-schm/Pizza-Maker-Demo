@@ -30,13 +30,13 @@ public partial class Ingredient : Node3D
     // ***
 
     // *** Cooking Information ***
-    private eCookerType? originCookerType = null;     // override to allow an ingredient to be placed back on the cooker they came from
+    public eCookerType? originCookerType = null;     // override to allow an ingredient to be placed back on the cooker they came from
 
-    private float maxCookingTime;
-    private float curCookTime;
-    private eCookerType curCookingType;
-    private bool isCooking;
-    private Action onCookIngredient;
+    public float maxCookingTime;
+    public float curCookTime;
+    public eCookerType curCookingType;
+    public bool isCooking;
+    public Action<Ingredient, float> onCookIngredient;
 
     public override void _Ready()
     {
@@ -95,20 +95,20 @@ public partial class Ingredient : Node3D
     {
         // use for cooking cutting board
         // emit particles when done
-        curCookTime += (float)delta;
+        //curCookTime += (float)delta;
 
-        if (curCookTime >= maxCookingTime)
-        {
-            GameLogger.Debug("Finished cooking");
-            originCookerType = curCookingType;
-            SetPhysicsProcess(false);
-        }
+        //if (curCookTime >= maxCookingTime)
+        //{
+        //    GameLogger.Debug("Finished cooking");
+        //    originCookerType = curCookingType;
+        //    SetPhysicsProcess(false);
+        //}
 
         // when place in oven,
         //      keep cooking until burnt
 
 
-        onCookIngredient?.Invoke();
+        onCookIngredient?.Invoke(this, (float)delta);
     }
 
     private RIngredientBase TransformIngredient()
@@ -122,23 +122,6 @@ public partial class Ingredient : Node3D
         return IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
     }
 
-    //public RIngredientBase OnInteract()
-    //{
-    //    // IngredientIsPackage script
-    //    // - Add to ingredient scene, turn off
-    //    // - if ingredient is/becomes a package, turn on and override OnInteract function
-
-    //    // Called in Cooker.TakeIngredient
-    //    // if is single click pick up and move around
-    //    // if is ingredient package and secondary action
-    //    //      // pick up ingredient inside
-    //    return null;
-    //}
-
-    // Cooker Modifiers script
-    // - What occurs hen an ingredient lands on the Cooker
-    // - Whether to wait for some other button press
-
     public bool CanPlaceOnCooker(eCookerType cookerType)
     {
         if (originCookerType != null && originCookerType == cookerType)
@@ -151,24 +134,6 @@ public partial class Ingredient : Node3D
             return true;
 
         return false;
-    }
-
-    public void PlaceOnCooker(eCookerType cookerType)
-    {
-        GameLogger.Debug($"Will start cooking on: {cookerType}");
-        maxCookingTime = IngredientBase.CookingInformation[cookerType].CookTime;
-        curCookTime = 0;
-        curCookingType = cookerType;
-        isCooking = true;
-
-        // Use cook ingredient action
-
-        SetPhysicsProcess(true);
-    }
-
-    public void PauseCooking()
-    {
-        SetPhysicsProcess(false);
     }
 
     #endregion
