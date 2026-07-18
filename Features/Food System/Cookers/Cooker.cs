@@ -1,4 +1,5 @@
 using Common;
+using Features.FoodSystem.Cookers.Modifiers;
 using Features.FoodSystem.Ingredients;
 using Godot;
 using Godot.Collections;
@@ -43,6 +44,9 @@ public partial class Cooker : StaticBody3D
     // *** Dragging Logic ***
     private Ingredient hoveredIngredient;
 
+    // *** CookingLogic ***
+    private CookingModifier cookingModifier;
+
     private bool CanBePlaced
     {
         get { return isCellsFree && canFitInCooker && isAllowedCooker; }
@@ -63,15 +67,25 @@ public partial class Cooker : StaticBody3D
         this.MoveChild(GridCollision, 0);
 
         gridRect = new Rect2I(Vector2I.Zero, CookerGrid.CellCount);
+
+        foreach (Node child in GetChildren())
+        {
+            if (child is CookingModifier cm)
+            {
+                cookingModifier = cm;
+                cookingModifier.ParentCooker = this;
+                break;
+            }
+        }
     }
 
     public override void _InputEvent(Camera3D camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, int shapeIdx)
     {
+        InitializeHoverLogic();
+
         // TODO: Send input to cookingModifier 
         if (IngredientsInCooker.Count == 0 && DragIngredientManager.Instance?.draggedIngredient == null)
             return;
-
-        InitializeHoverLogic();
 
         // reset logic so that grid updates with ingredient rotation
         if (@event.IsActionPressed(StaticStringRef.a_secondaryInteraction))
@@ -343,8 +357,16 @@ public partial class Cooker : StaticBody3D
     /// <returns></returns>
     public Ingredient TakeIngredient()
     {
+        if (hoveredIngredient == null)
+            return null;
+
         hoveredIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
         IngredientsInCooker.Remove(hoveredIngredient);
+
+        if (cookingModifier != null)
+        {
+            hoveredIngredient.onCookIngredient = cookingModifier.CookIngredient;
+        }
 
         lastGridCell = -Vector2I.One;
 
@@ -358,13 +380,23 @@ public partial class Cooker : StaticBody3D
     public bool TryPlaceIngredient(Ingredient placedIngredient)
     {
         if (!CanBePlaced)
+        {
+            GD.Print("Cant be placed");
             return false;
+        }
+
+        GD.Print("Was placed");
 
         IngredientsInCooker.Add(placedIngredient);
         placedIngredient.takenSlotsInCooker = tempTakenCells.Duplicate();
         tempTakenCells.Clear();
 
-        //placedIngredient.PlaceOnCooker(CookerType);
+        ////placedIngredient.PlaceOnCooker(CookerType);
+        if (cookingModifier != null)
+        {
+            placedIngredient.maxCookingTime = placedIngredient.IngredientBase.CookingInformation[CookerType].CookTime;
+            placedIngredient.onCookIngredient = cookingModifier.CookIngredient;
+        }
 
         // replace parent
         placedIngredient.parentStorage = this;

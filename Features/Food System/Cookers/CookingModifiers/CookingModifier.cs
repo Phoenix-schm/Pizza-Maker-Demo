@@ -5,6 +5,7 @@ using System;
 namespace Features.FoodSystem.Cookers.Modifiers;
 public abstract partial class CookingModifier : Node
 {
+    [Export] public Cooker ParentCooker { get; set; }
     public virtual void OnPlaceIngredient(Cooker parentCooker, Ingredient placedIngredient)
     {
         placedIngredient.maxCookingTime = placedIngredient.IngredientBase.CookingInformation[parentCooker.CookerType].CookTime;

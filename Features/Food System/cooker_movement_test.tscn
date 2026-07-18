@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxpx42gsogial" path="res://Features/Food System/Ingredients/ingredient.tscn" id="6_cn7bo"]
 [ext_resource type="PackedScene" uid="uid://di3mynbirmcea" path="res://Features/Food System/Shelves/shelf.tscn" id="6_fiisl"]
 [ext_resource type="Script" uid="uid://ca8mc7coisjm7" path="res://Features/Food System/Ingredients/Resources/R_IngredientCookerInfo.cs" id="6_pdpum"]
+[ext_resource type="Resource" uid="uid://dg0axoj3knp16" path="res://Features/Food System/Ingredient Packages/Resources/cheese_package.tres" id="7_252dy"]
 [ext_resource type="Script" uid="uid://c7kws4v5frygu" path="res://Features/Food System/Ingredient Packages/IngredientPackage.cs" id="7_cn7bo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8lb3h"]
@@ -22,19 +23,8 @@ sky_material = SubResource("ProceduralSkyMaterial_8lb3h")
 background_mode = 2
 sky = SubResource("Sky_m8b28")
 
-[sub_resource type="Resource" id="Resource_pdpum"]
-script = ExtResource("5_fiisl")
-Size = 4
-CookingInformation = Dictionary[int, ExtResource("6_pdpum")]({
-0: null
-})
-metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
-
-[sub_resource type="Resource" id="Resource_5re3l"]
-script = ExtResource("6_5re3l")
-StoredIngredient = SubResource("Resource_pdpum")
-PackageSize = 1
-metadata/_custom_type_script = "uid://t43gd3x3ejfp"
+[sub_resource type="BoxMesh" id="BoxMesh_g3b8u"]
+size = Vector3(0.1, 0.05, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5re3l"]
 size = Vector3(0.3, 0.04, 0.2)
@@ -92,13 +82,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.054396108, -0.3326111)
 [node name="Cooker" parent="Node3D/Cookers" unique_id=290454206 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.69755304, -0.4, 0, 0)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Cookers/Cooker" unique_id=642827298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31028783, 0.11960697, -0.057674266)
+mesh = SubResource("BoxMesh_g3b8u")
+
 [node name="Cooker2" parent="Node3D/Cookers" unique_id=1453442107 instance=ExtResource("1_8lb3h")]
 transform = Transform3D(1, 0, 0, 0, 0.69755304, -0.7165332, 0, 0.7165332, 0.69755304, 0.4, 0, 0)
 visible = false
 collision_layer = 0
 input_ray_pickable = false
 
-[node name="Cooker3" parent="Node3D/Cookers" unique_id=1275532803 instance=ExtResource("3_5dkge")]
+[node name="Oven" parent="Node3D/Cookers" unique_id=1275532803 instance=ExtResource("3_5dkge")]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0.44892678, -0.19174816, -0.13255702)
 
 [node name="Shelf" parent="Node3D" unique_id=1636137252 instance=ExtResource("6_fiisl")]
@@ -119,7 +113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.096972704, 0.07374941, 0.26
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("7_cn7bo")
-PackageInfo = SubResource("Resource_5re3l")
+PackageInfo = ExtResource("7_252dy")
 IngredientScene = ExtResource("6_cn7bo")
 
 [node name="TempMesh" type="MeshInstance3D" parent="Node3D/Shelf/IngredientPackage3" unique_id=1378149378]

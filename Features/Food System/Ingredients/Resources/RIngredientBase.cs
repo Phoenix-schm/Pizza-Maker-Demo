@@ -16,7 +16,7 @@ public partial class RIngredientBase : Resource
     [Export] public eIngredientOrientation DefaultOrientation { get; set; }
     [Export] public bool IsPizzaCrust { get; set; } = false;
 
-    [Export] public Dictionary<eCookerType, R_IngredientCookerInfo> CookingInformation { get; set; } = new();
+    [Export] public Dictionary<eCookerType, R_IngredientCookerInfo> CookingInformation { get; set; } = [];
 
     /// <summary>
     /// Returns cells in x/y direction the ingredient takes up based on curOrientation

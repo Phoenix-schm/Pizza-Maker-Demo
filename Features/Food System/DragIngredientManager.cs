@@ -123,6 +123,7 @@ public partial class DragIngredientManager : Node
         SetProcess(false);
         // if can be placed where player clicked
         bool? isPlaced = (bool?)hoveredStorage?.Call(StaticStringRef.f_TryPlaceIngredient, draggedIngredient);
+        GD.Print(isPlaced);
 
         // else, return ingredient to its parent
         if (isPlaced == null || (bool)!isPlaced)
@@ -178,7 +179,6 @@ public partial class DragIngredientManager : Node
                 newRotation.X = newTransform.Basis.GetEuler().X;
                 if (Mathf.RadToDeg(newTransform.Basis.GetEuler().X) > 55 || Mathf.RadToDeg(newTransform.Basis.GetEuler().X) <= 0) // greater than certaion angle, less than 360
                     newRotation.X = 0;
-                GD.Print(newRotation);
 
                 targetHolderRotation = newRotation;
             }

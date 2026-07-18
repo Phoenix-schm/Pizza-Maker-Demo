@@ -34,9 +34,10 @@ public partial class Ingredient : Node3D
 
     public float maxCookingTime;
     public float curCookTime;
-    public eCookerType curCookingType;
+    public eCookerType? curCookingType = null;
     public bool isCooking;
     public Action<Ingredient, float> onCookIngredient;
+    public bool isBurnt = false;
 
     public override void _Ready()
     {
@@ -119,7 +120,7 @@ public partial class Ingredient : Node3D
         //    (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
 
 
-        return IngredientBase.CookingInformation[curCookingType].AssociatedIngredient;
+        return IngredientBase.CookingInformation[(eCookerType)curCookingType].AssociatedIngredient;
     }
 
     public bool CanPlaceOnCooker(eCookerType cookerType)
