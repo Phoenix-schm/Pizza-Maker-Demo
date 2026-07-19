@@ -15,6 +15,7 @@ public partial class RIngredientBase : Resource
     // the starting orientation of this ingredient. How it should be rotated
     [Export] public eIngredientOrientation DefaultOrientation { get; set; }
     [Export] public bool IsPizzaCrust { get; set; } = false;
+    [Export] public PackedScene IngredientMesh { get; set; }
 
     [Export] public Dictionary<eCookerType, R_IngredientCookerInfo> CookingInformation { get; set; } = [];
 

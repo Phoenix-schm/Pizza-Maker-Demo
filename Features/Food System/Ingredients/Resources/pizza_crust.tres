@@ -5,22 +5,22 @@
 [ext_resource type="Script" uid="uid://c63mxfxf5fl1m" path="res://Features/Food System/Ingredients/Resources/RIngredientBase.cs" id="2_sty5h"]
 [ext_resource type="Resource" uid="uid://51ecasgfh4qt" path="res://Features/Food System/Ingredients/Resources/cheese_pile.tres" id="3_bdtjw"]
 
-[sub_resource type="Resource" id="Resource_ta3r5"]
-script = ExtResource("1_bbvuv")
-CookTime = 5.0
-AssociatedIngredient = ExtResource("2_bdtjw")
-metadata/_custom_type_script = "uid://ca8mc7coisjm7"
-
 [sub_resource type="Resource" id="Resource_7u5ws"]
 script = ExtResource("1_bbvuv")
 CookTime = 5.0
 AssociatedIngredient = ExtResource("3_bdtjw")
 metadata/_custom_type_script = "uid://ca8mc7coisjm7"
 
+[sub_resource type="Resource" id="Resource_ta3r5"]
+script = ExtResource("1_bbvuv")
+CookTime = 5.0
+AssociatedIngredient = ExtResource("2_bdtjw")
+metadata/_custom_type_script = "uid://ca8mc7coisjm7"
+
 [resource]
 script = ExtResource("2_sty5h")
 Name = "Pizza Crust"
-Size = 4
+Size = 8
 IsPizzaCrust = true
 CookingInformation = Dictionary[int, ExtResource("1_bbvuv")]({
 0: SubResource("Resource_7u5ws"),

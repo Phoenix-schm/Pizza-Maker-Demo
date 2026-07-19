@@ -71,7 +71,7 @@ public partial class CookingModifier_Oven : CookingModifier
     {
         cookingIngredient.curCookTime += delta;
 
-        if (cookingIngredient.originCookerType != null && cookingIngredient.curCookTime >= cookingIngredient.maxCookingTime && cookingIngredient.curCookTime < TimeTilBurnt)
+        if (cookingIngredient.originCookerType == null && cookingIngredient.curCookTime >= cookingIngredient.maxCookingTime && cookingIngredient.curCookTime < TimeTilBurnt)
         {
             //  increase cook time
             // if hit cook time

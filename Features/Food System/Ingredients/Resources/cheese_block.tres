@@ -1,18 +1,13 @@
 [gd_resource type="Resource" script_class="RIngredientBase" format=3 uid="uid://bp41ioi5ihfm1"]
 
 [ext_resource type="Script" uid="uid://ca8mc7coisjm7" path="res://Features/Food System/Ingredients/Resources/R_IngredientCookerInfo.cs" id="1_y3t3s"]
+[ext_resource type="Resource" uid="uid://51ecasgfh4qt" path="res://Features/Food System/Ingredients/Resources/cheese_pile.tres" id="2_p5h45"]
 [ext_resource type="Script" uid="uid://c63mxfxf5fl1m" path="res://Features/Food System/Ingredients/Resources/RIngredientBase.cs" id="2_wrync"]
-
-[sub_resource type="Resource" id="Resource_y3t3s"]
-script = ExtResource("2_wrync")
-Name = "Grated Cheese"
-Size = 2
-metadata/_custom_type_script = "uid://c63mxfxf5fl1m"
 
 [sub_resource type="Resource" id="Resource_naodc"]
 script = ExtResource("1_y3t3s")
 CookTime = 5.0
-AssociatedIngredient = SubResource("Resource_y3t3s")
+AssociatedIngredient = ExtResource("2_p5h45")
 metadata/_custom_type_script = "uid://ca8mc7coisjm7"
 
 [resource]

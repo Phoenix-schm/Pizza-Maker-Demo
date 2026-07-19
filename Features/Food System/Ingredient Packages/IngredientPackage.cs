@@ -13,6 +13,11 @@ public partial class IngredientPackage : StaticBody3D
     [Export] private bool OverrideIngredientSize { get; set; }
     [Export] private eIngredientSize debugSize { get; set; }
 
+    public override void _Ready()
+    {
+        AddToGroup(StaticStringRef.G_IngredientStorage);
+    }
+
     // TODO: Check for if player is holding PrimaryAction on Package. Call DragPackageManager
     //       Remove OnClick event from DragIngredientManager(?) store action here for control on distinguishing between single click and held click
 
@@ -29,10 +34,16 @@ public partial class IngredientPackage : StaticBody3D
     public Ingredient TakeIngredient()
     {
         GameLogger.Log(LogLevel.INFO, $"Spawning ingredient: {PackageInfo.StoredIngredient.Name}");
-        Ingredient newIngredient = IngredientScene.Instantiate() as Ingredient;
+        Ingredient newIngredient = new();
 
         newIngredient.IngredientBase = PackageInfo.StoredIngredient;
+        Node3D ingredientMesh = IngredientScene.Instantiate() as Node3D;
+        newIngredient.IngredientMesh = ingredientMesh;
         newIngredient.parentStorage = this;
+
+        AddChild(newIngredient);
+        newIngredient.AddChild(ingredientMesh);
+        newIngredient.Owner = GetTree().Root;
 
         return newIngredient;
     }

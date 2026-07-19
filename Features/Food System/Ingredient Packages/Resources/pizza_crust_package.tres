@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_IngredientPackages" format=3 uid="uid://bxwqt8jqfulwm"]
+
+[ext_resource type="Script" uid="uid://t43gd3x3ejfp" path="res://Features/Food System/Ingredient Packages/Resources/R_IngredientPackages.cs" id="1_0xydo"]
+[ext_resource type="Resource" uid="uid://6q1hxi0h3fiy" path="res://Features/Food System/Ingredients/Resources/pizza_crust.tres" id="1_6gqml"]
+
+[resource]
+script = ExtResource("1_0xydo")
+StoredIngredient = ExtResource("1_6gqml")
+PackageSize = 1
+metadata/_custom_type_script = "uid://t43gd3x3ejfp"

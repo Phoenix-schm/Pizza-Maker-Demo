@@ -1,0 +1,46 @@
+[gd_scene format=4 uid="uid://d1j0uqym5cqp8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0lfy"]
+resource_name = "MainTexture"
+cull_mode = 2
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_g5bkv"]
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.02983409, 0.088093944),
+"format": 34896613377,
+"index_count": 66,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAgABAAQABAABAAMAAgAFAAAABQADAAAAAgAEAAYAAgAGAAUABAADAAcABQAHAAMABgAEAAgACAAEAAcABgAJAAUACQAHAAUABgAIAAoABgAKAAkACgAIAAsACQAMAAcACgAMAAkACAAHAAwACgALAAwACwAIAAwA"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 13,
+"vertex_data": PackedByteArray("ZMf/5p1UAAD//wAA//8AAFPQOLcXugAA//8AAAAAAACqqgAA//8AAFKE///bKQAA4ITTviPWAACqqgAAAAAAAFVVAAD//wAAVVVI0pc8AABVVV2rJ60AAAAAAAD//wAA1hYAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_skhkt"]
+resource_name = "PizzaMakerScene_Cube_008"
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.02983409, 0.088093944),
+"attribute_data": PackedByteArray("L8o8l//UbIwvymyM/9Q8ly/KNoX/1DaF/9Sbga54dUAZhwoySXwKMhmHdUBJfG8uGYfUKkl81CoZh28uMr2K1M3AuskyvbrJzcCK1Je5itSXubrJ/LWK1DmwdUDUs6U1ObClNdSzdUDUs3VAb7elNdSzpTVvt3VASXwKMhmHby5JfG8uGYcKMi/KbIz/1NGIL8rRiP/UbIwvytGI/9Q2hS/KNoX/1NGI"),
+"format": 34896613399,
+"index_count": 66,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABwAIAAkABwAKAAgACwAMAA0ACwAOAAwADwAQABEADwASABAAEwAPABEAEwARABQAFQATABQAFgAXABgAFgAZABcAGgAbABwAGgAdABsAHgAfACAAHgAhAB8AIgAjACQAIgAlACMAJgAnACgAJgApACcA"),
+"material": SubResource("StandardMaterial3D_f0lfy"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 42,
+"vertex_data": PackedByteArray("ZMf/5p1UZ0D//wAA//9QNlPQOLcXuuU7//8AAAAA4jxVVV2rJ60/N1VVAAD//z83AAAAAP//PzdVVV2rJ60PFdYWAAAAAAAAVVVI0pc8rggAAAAA//+qB1KE///bKTke//8AAAAAeB5kx//mnVRgHqqqAAAAAFYeqqoAAP///z///wAAAAD/P6qqAAAAAP8///8AAP///z9VVQAA////P9YWAAAAAP8/AAAAAP///z9T0Di3F7oNBFKE///bKRgJZMf/5p1UOALghNO+I9YUBOCE074j1oMHVVVI0pc8pwhShP//2ymaAFVVXasnrcUBVVVI0pc8OweqqgAAAAB2DVKE///bKSUV1hYAAAAAtgRT0Di3F7quVKqqAAD//6pU4ITTviPWp1T//wAA//+xVOCE074j1lRQVVUAAP//gUdVVV2rJ60MPaqqAAD//01XBdH+Uc/UC3+K0/dvP9OAbKOgo6CjoKOgo6CjoL6AccJ3z00SpXMFurZyXrnW205Sq90JVe/c8VOj3IBTAAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f1eFD7l3x98GlMSFAGLFSgKPytwMuYGPuxZ6QLkFyAEImrZYH7bEOjF53ZxQ1LAIGMe6F5G/uhmRurobkcy6FZG8qKSdP6AGn7CYQaBsshCc")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_g5bkv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v15ju"]
+albedo_color = Color(0.89294344, 0.62385833, 0.2438918, 1)
+
+[node name="SmallCheesePile" type="MeshInstance3D" unique_id=1712645887]
+transform = Transform3D(0.59839123, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("ArrayMesh_skhkt")
+surface_material_override/0 = SubResource("StandardMaterial3D_v15ju")

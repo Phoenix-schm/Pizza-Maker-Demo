@@ -95,7 +95,6 @@ public partial class DragIngredientManager : Node
 
     private void OnInteractWithoutIngredient()
     {
-
         // if there is a hoveredStorage, try and take ingredient
         if (hoveredStorage != null && hoveredStorage.IsInGroup(StaticStringRef.G_IngredientStorage))
         {
@@ -123,7 +122,6 @@ public partial class DragIngredientManager : Node
         SetProcess(false);
         // if can be placed where player clicked
         bool? isPlaced = (bool?)hoveredStorage?.Call(StaticStringRef.f_TryPlaceIngredient, draggedIngredient);
-        GD.Print(isPlaced);
 
         // else, return ingredient to its parent
         if (isPlaced == null || (bool)!isPlaced)
@@ -168,7 +166,7 @@ public partial class DragIngredientManager : Node
             }
             else if (result["collider"].Obj is Cooker cooker)
             {
-                targetHolderRotation = cooker.GlobalRotation;
+                targetHolderRotation = cooker.IngredientOrientation.GlobalRotation;
             }
             else // Hitting "something" that's allowed, but don't want it to be interactable
             {

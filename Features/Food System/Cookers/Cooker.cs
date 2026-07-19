@@ -16,10 +16,11 @@ public partial class Cooker : StaticBody3D
     public event Action<Vector3, bool> OnSendValidPlacement;    // will send a valid placement
 
     [Export] private CollisionShape3D GridCollision { get; set; }
-    [Export] private MeshInstance3D CookerMesh { get; set; }
+    [Export] public MeshInstance3D CookerMesh { get; set; }
     [Export] public CookerGridTexture CookerGrid { get; set; }
     [Export] private SubViewport GridViewport { get; set; }
     [Export] public Node3D IngredientHolder { get; set; } // A controllable node3D where ingredients can position themselves relative to
+    [Export] public Node3D IngredientOrientation { get; set; } // quick fix for how ingredients should be oriented if ingredient holder is in unintuitive rotation
     [Export] private Vector2I CookerSize { get; set; } = new Vector2I(6, 4);
     [ExportCategory("Ingredient Interaction")]
     [Export] public eCookerType CookerType { get; set; }
@@ -60,6 +61,8 @@ public partial class Cooker : StaticBody3D
 
     public override void _Ready()
     {
+        AddToGroup(StaticStringRef.G_IngredientStorage);
+
         planeSize = (CookerMesh.Mesh as PlaneMesh).Size;
         CookerGrid.parentCooker = this;
         CookerGrid.CellCount = CookerSize;
@@ -343,8 +346,10 @@ public partial class Cooker : StaticBody3D
         foreach (Ingredient ingredient in IngredientsInCooker)
         {
             if (ingredient.takenSlotsInCooker.Contains(curGridIndex))
+            {
                 // TODO: Create hover ingredient tweeen
                 return ingredient;
+            }
         }
 
         return null;
@@ -359,6 +364,7 @@ public partial class Cooker : StaticBody3D
     {
         if (hoveredIngredient == null)
             return null;
+
 
         hoveredIngredient.Reparent(DragIngredientManager.Instance.IngredientHolder);
         IngredientsInCooker.Remove(hoveredIngredient);
@@ -381,11 +387,8 @@ public partial class Cooker : StaticBody3D
     {
         if (!CanBePlaced)
         {
-            GD.Print("Cant be placed");
             return false;
         }
-
-        GD.Print("Was placed");
 
         IngredientsInCooker.Add(placedIngredient);
         placedIngredient.takenSlotsInCooker = tempTakenCells.Duplicate();
@@ -428,7 +431,7 @@ public partial class Cooker : StaticBody3D
 
         returningIngredient.Reparent(IngredientHolder);
         returningIngredient.Position = oldWorldPos;
-        returningIngredient.GlobalRotation = GlobalRotation;
+        returningIngredient.GlobalRotation = IngredientOrientation.GlobalRotation;
         return true;
     }
 

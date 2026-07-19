@@ -17,7 +17,7 @@ public partial class Ingredient : Node3D
     [Export] private bool UseDebug { get; set; } = true;
 
     [ExportCategory("Node Communication")]
-    [Export] public MeshInstance3D IngredientMesh { get; set; }
+    [Export] public Node3D IngredientMesh { get; set; }
 
     private DebugIngredientLogic debugLogic;
     private eIngredientSize ingredientSize;
@@ -41,14 +41,14 @@ public partial class Ingredient : Node3D
 
     public override void _Ready()
     {
-        if (UseDebug)
-        {
-            debugLogic = GetNodeOrNull("DebugIngredientLogic") as DebugIngredientLogic;
-            ingredientSize = IngredientBase.Size;
-            if (debugLogic != null)
-                (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
-        }
+        //if (UseDebug)
+        //{
+        //    debugLogic = GetNodeOrNull("DebugIngredientLogic") as DebugIngredientLogic;
+        //    if (debugLogic != null)
+        //        (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
+        //}
 
+        ingredientSize = IngredientBase.Size;
         orientation = IngredientBase.DefaultOrientation;
         IngredientMesh.RotationDegrees = GetNewRotation();
 
@@ -60,10 +60,10 @@ public partial class Ingredient : Node3D
 
     private void DebugResize()
     {
-        if (!UseDebug || debugLogic == null)
-            return;
+        //if (!UseDebug || debugLogic == null)
+        //    return;
 
-        (IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
+        //(IngredientMesh.Mesh as BoxMesh).Size = debugLogic.DebugSizes[IngredientBase.Size];
     }
 
     #region DraggingLogic

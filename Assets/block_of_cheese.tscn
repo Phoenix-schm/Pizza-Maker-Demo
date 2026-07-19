@@ -1,0 +1,45 @@
+[gd_scene format=4 uid="uid://wbjrfedyxqbm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0lfy"]
+resource_name = "MainTexture"
+cull_mode = 2
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_filiw"]
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.094488144, 0.088093944),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAgABAAQABAABAAMAAgAFAAAABQADAAAAAgAEAAYAAgAGAAUABAADAAcABgAEAAcABQAHAAMABgAHAAUA"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAA//8AAP///////wAA//8AAAAAAAAAAAAA//8AAAAA//8AAAAAAAD/////AAAAAAAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_7yl02"]
+resource_name = "PizzaMakerScene_Cube_004"
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.094488144, 0.088093944),
+"attribute_data": PackedByteArray("f4PZa0+OCGF/gwhhT47Za3+DCGFPjjhWf4M4Vk+OCGF/gzhWT45nS3+DZ0tPjjhWf4NnS0+Ol0B/g5dAT45nS654OFZ/g2dLrnhnS3+DOFZPjjhWH5lnS0+OZ0sfmThW"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_f0lfy"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAAqir//wAA//+qKv///////6oq//8AAAAAqir/////////PwAAAAD///8/AAD//////z///wAA////PwAA/////6oqAAAAAAAAqioAAP//AACqKgAAAAD//6oqAAD//wAAAAD//wAAAAAAAP////8AAAAAAAAAAAAAAAD///////8AAAAA//8AAAAA/////wAAAAAAAP////8AAAAAAAD///8///8AAAAA/z8AAAAAAAD/P///AAD///8/qqpUVaqqVFWqqlRVqqpUVf9//3//f/9//3//f/9//39UVaqqVFWqqlRVqqpUVaqq/z//v/8//7//P/+//z//v/9//7//f/+//3//v/9//78AAP9/AAD/fwAA/38AAP9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_filiw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v15ju"]
+albedo_color = Color(0.89294344, 0.62385833, 0.2438918, 1)
+
+[node name="BlockOfCheese" type="MeshInstance3D" unique_id=1904719161]
+mesh = SubResource("ArrayMesh_7yl02")
+surface_material_override/0 = SubResource("StandardMaterial3D_v15ju")

@@ -152,6 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27773792, 0.28705457, 0.264
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OvenDoor" unique_id=1755451785]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28025737, 0, 0)
+visible = false
 shape = SubResource("BoxShape3D_ptdpq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="OvenDoor/CollisionShape3D" unique_id=832777635]

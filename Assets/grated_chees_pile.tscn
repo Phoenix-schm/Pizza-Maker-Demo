@@ -1,0 +1,45 @@
+[gd_scene format=4 uid="uid://b7cuvmxsrn26f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0lfy"]
+resource_name = "MainTexture"
+cull_mode = 2
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8vayt"]
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.049257427, 0.088093944),
+"format": 34896613377,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAgABAAQABAABAAMAAgAFAAAABQADAAAAAgAEAAYAAgAGAAUABAADAAcABQAHAAMABgAEAAgACAAEAAcABgAJAAUACQAHAAUABgAIAAoABgAKAAkACAAHAAsACQALAAcACgAIAAwADAAIAAsACgANAAkADQALAAkACgAMAA4ACgAOAA0ADAALAA8ADgAMAA8ADQAPAAsADgAPAA0A"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("hNzM1QAAAAD//wAA//8AAFPQzNUXugAA//8AAAAAAACqqgAA//8AAKqq///bKQAAqqpApiPWAACqqgAAAAAAAFVVAAD//wAAVVVP5NspAABVVRjLI9YAAFVVAAAAAAAAAAAAAP//AADxJMzVuTYAALwnBm091wAAAAAAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_68daq"]
+resource_name = "PizzaMakerScene_Cube_007"
+_surfaces = [{
+"aabb": AABB(-0.10201999, -0.047244012, -0.044046972, 0.20403998, 0.049257427, 0.088093944),
+"attribute_data": PackedByteArray("EqTZa+KuCGESpAhh4q7ZaxKk01nirjhWEqQ4VuKu01kSpDhW4q5nSxKkZ0virjhWEqQyROKul0ASpJdA4q4yRHegOFYSpGdLd6BnSxKkOFYYtjhWsrlnSxi2Z0uyuThWfbI4Vn2yZ0virjhW4q5nS0GZOFbcnGdLQZlnS9ycOFbcnDhWd6BnS9ycZ0t3oDhWEqRnS+KuzUcSpM1H4q5nSxKkzUfirjJEEqQyROKuzUcSpAhh4q5tXRKkbV3irghhEqRtXeKu01kSpNNZ4q5tXQ=="),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAUABYAGAAWABkAGgAYABkAGgAZABsAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0AMAAxADIAMAAzADEA"),
+"material": SubResource("StandardMaterial3D_f0lfy"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 52,
+"vertex_data": PackedByteArray("hNzM1QAAITr//wAA//9nMlPQzNUXuig1//8AAAAA3TZVVRjLI9YAPgAAAAD//2IbvCcGbT3XXidVVQAA//8tMbwnBm0914cbAAAAAAAAUBXxJMzVuTbGDQAAAAD//6Ehqqr//9spAAD//wAAAADxAYTczNUAABwBqqoAAAAA9wBVVRjLI9YZCvEkzNW5NkYKVVVP5Nsphgq8JwZtPdfcCaqqAAD///8///8AAAAA/z+qqgAAAAD/P///AAD///8/VVUAAP///z9VVQAAAAD/PwAAAAD///8/AAAAAAAA/z9T0MzVF7p9Caqq///bKRoJhNzM1QAA0AiqqkCmI9bVCaqqQKYj1u0AVVVP5NspIACqqv//2ylzAFVVGMsj1l8A8STM1bk2egdVVQAAAACmB1VVT+TbKb0JAAAAAAAAzgVVVU/k2ylJCKqqAAAAAEkIqqr//9spSQhVVQAAAABKCFPQzNUXuihOqqoAAP//b02qqkCmI9YtPf//AAD///tVqqpApiPWVz5VVQAA//9cPlVVGMsj1mA+qqoAAP//Uz4XwXZhqsOCb9bC+2pIwvZno5FxmKaEUZmxiAuZRozNmFJtG7XYaJOw8WOdq1ZyMLpSQSS6UNbxTn/OJEcxzddFiHr2tq56DLfjei23VXrWtgAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/aIpxthSKm7bVibi2sopOtvzFGwDbgDC64jlVAKo5ZwCKvU4vM74TMInGzjlAt/cnssRjO7LEYzuxxGE7tMRlOz2hN5G4oF2Rcpfmk9Wnao/TkgeR1ZIGkdaSBpHRkgeR")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_8vayt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v15ju"]
+albedo_color = Color(0.89294344, 0.62385833, 0.2438918, 1)
+
+[node name="GratedCheesPile" type="MeshInstance3D" unique_id=374664521]
+mesh = SubResource("ArrayMesh_68daq")
+surface_material_override/0 = SubResource("StandardMaterial3D_v15ju")
