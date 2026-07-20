@@ -1,13 +1,13 @@
 [gd_scene format=4 uid="uid://hqc4d3o7m7ye"]
 
 [ext_resource type="Script" uid="uid://dpppcinynivcx" path="res://Features/Food System/DragIngredientManager.cs" id="1_cltjt"]
+[ext_resource type="PackedScene" uid="uid://baiyb0yarirre" path="res://Features/Food System/Cookers/Cooker Scenes/oven.tscn" id="2_7ml7t"]
 [ext_resource type="Script" uid="uid://c7kws4v5frygu" path="res://Features/Food System/Ingredient Packages/IngredientPackage.cs" id="2_cr2a4"]
 [ext_resource type="Resource" uid="uid://dg0axoj3knp16" path="res://Features/Food System/Ingredient Packages/Resources/cheese_package.tres" id="3_7ml7t"]
 [ext_resource type="PackedScene" uid="uid://wbjrfedyxqbm" path="res://Assets/block_of_cheese.tscn" id="4_otgo1"]
 [ext_resource type="Resource" uid="uid://bxwqt8jqfulwm" path="res://Features/Food System/Ingredient Packages/Resources/pizza_crust_package.tres" id="5_xi4a8"]
 [ext_resource type="PackedScene" uid="uid://dncg1oknd8nql" path="res://Assets/pizza_crust.tscn" id="6_i4r1l"]
 [ext_resource type="Script" uid="uid://2kvo8g80ijb7" path="res://Features/Food System/Cookers/Cooker.cs" id="7_4cw5v"]
-[ext_resource type="Script" uid="uid://blq2nbl2x3jxp" path="res://Features/Food System/Cookers/Cooker Scenes/Cooker_Oven.cs" id="7_cr2a4"]
 [ext_resource type="Script" uid="uid://cga2bwfdorrdc" path="res://Features/Food System/Cookers/CookerGridTexture.cs" id="8_1pwhf"]
 [ext_resource type="PackedScene" uid="uid://b7cuvmxsrn26f" path="res://Assets/grated_chees_pile.tscn" id="9_xnnl5"]
 [ext_resource type="PackedScene" uid="uid://d1j0uqym5cqp8" path="res://Assets/small_cheese_pile.tscn" id="10_a1i4v"]
@@ -19,6 +19,54 @@ background_mode = 2
 resource_name = "MainTexture"
 cull_mode = 2
 roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_iggpr"]
+_surfaces = [{
+"aabb": AABB(-0.37564048, -0.3220976, -0.36308584, 0.7536173, 0.56466234, 0.41856226),
+"format": 34359742465,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEAAwABAAQAAgADAAUAAAAGAAQAAgAHAAAABwAGAAAAAgAFAAcABAAGAAgABwAIAAYAAwAEAAkABQADAAkABAAIAAkABQAJAAcACQAIAAcA"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("81PAvvrppL4kGHk781PAvuJieD49O2M981PAvmOQhr4+O2M9LYbBPuJieD49O2M981PAvuJieD49O2O9LYbBPmOQhr4+O2M981PAvjg9Ij1j5rm+LYbBPvrppL4kGHk7LYbBPjg9Ij1j5rm+LYbBPuJieD49O2O9")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2c2it"]
+resource_name = "PizzaMakerScene_Cube_009"
+_surfaces = [{
+"aabb": AABB(-0.37564048, -0.3220976, -0.36308584, 0.7536173, 0.56466234, 0.41856226),
+"attribute_data": PackedByteArray("Hw8+Px4NLT+N30g/rzwiPx8PPj+vPCI/jd9IPx4NLT8fDz4/rzwiP43fSD9AbBc/Hw8+P0BsFz+N30g/rzwiPx8PPj9AbBc/jd9IP9KbDD8fDz4/0psMP43fSD9AbBc/jd9IP9KbDD+N30g/0psMPx8PPj/Smww/sD4zP0BsFz8fDz4/0psMP7A+Mz/Smww/Hw8+P0BsFz+N30g/QGwXP/yvUz/Smww/jd9IP9KbDD/8r1M/QGwXPx8PPj/Smww/jd9IP2PLAT8fDz4/Y8sBP43fSD/Smww/Hw8+Px4NLT+N30g/Hg0tP43fSD8eDS0//K9TP9KbDD+N30g/0psMP43fSD/Smww//K9TP9KbDD8="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADwAQABEADwASABAAEwAUABUAEwAWABQAFwAYABkAFwAaABgAGwAcAB0AHgAfACAAHgAhAB8A"),
+"material": SubResource("StandardMaterial3D_riqne"),
+"name": "MainTexture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 34,
+"vertex_data": PackedByteArray("81PAvvrppL4kGHk781PAvuJieD49O2M981PAvmOQhr4+O2M981PAvuJieD49O2O981PAvmOQhr4+O2M9LYbBPuJieD49O2M9LYbBPmOQhr4+O2M981PAvuJieD49O2M9LYbBPmOQhr4+O2M9LYbBPuJieD49O2O9LYbBPvrppL4kGHk7LYbBPuJieD49O2M9LYbBPuJieD49O2O9LYbBPjg9Ij1j5rm+LYbBPvrppL4kGHk781PAvmOQhr4+O2M9LYbBPvrppL4kGHk781PAvvrppL4kGHk7LYbBPmOQhr4+O2M9LYbBPuJieD49O2M981PAvuJieD49O2O9LYbBPuJieD49O2O981PAvuJieD49O2M9LYbBPvrppL4kGHk781PAvjg9Ij1j5rm+81PAvvrppL4kGHk7LYbBPjg9Ij1j5rm+81PAvvrppL4kGHk781PAvjg9Ij1j5rm+81PAvuJieD49O2O981PAvuJieD49O2O9LYbBPjg9Ij1j5rm+LYbBPuJieD49O2O981PAvjg9Ij1j5rm+AAD/fyiMAAAAAP9//38AAAAA/38oiwAAAAD/fwCBAAD/f/9//38AAP9//3//fwAA/3//f/9/AAD/f/9//38AAP///38oiwAA////fwCBAAD///9/KIwAAP///3//fwAA////f////7////9/////v////3////+//39iRP///z//f2JE////P/9/YkT///8//39iRP///z//f///AAD/P/9///8AAP8//3///wAA/z//f///AAD/P4u/AABzwAAAi78AAHPAAACLvwAAc8AAAIu/AABzwAAAAAD/f////78AAP9/////vwAA/3////+/4LL//////z/gsv//////P+Cy//////8/4LL//////z8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_iggpr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jpxi"]
+albedo_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0gdiy"]
+size = Vector3(0.75, 0.5, 0.06)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ptdpq"]
+size = Vector2(0.75, 0.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ob015"]
+viewport_path = NodePath("Building/CuttingBoard/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_252dy"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ob015")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lsb8y"]
 _surfaces = [{
@@ -167,177 +215,6 @@ albedo_color = Color(0.81562644, 0.68506336, 0.48040938, 1)
 height = 0.055
 radius = 0.15
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_44a8c"]
-size = Vector3(0.485, 0.055, 0.45)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_g3b8u"]
-size = Vector2(0.45, 0.465)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_5re3l"]
-viewport_path = NodePath("Node3D2/PizzaMakerScene/Oven/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptdpq"]
-resource_local_to_scene = true
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.5803922)
-albedo_texture = SubResource("ViewportTexture_5re3l")
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_lfjyu"]
-_surfaces = [{
-"aabb": AABB(-0.27037144, -0.2667829, -0.2667829, 0.54074275, 0.5164479, 0.5335658),
-"format": 34359742465,
-"index_count": 312,
-"index_data": PackedByteArray("AAABAAIAAAACAAMAAgABAAQAAAAFAAEAAgAEAAYAAwACAAYAAQAHAAQAAQAFAAcACAAFAAAACAAAAAMABgAEAAkAAwAGAAoABgAJAAoABAALAAkABAAHAAsACgAJAAwAAwAKAA0ACQAOAAwACQALAA4ACgAMAA8ADQAKAA8AEAADAA0ACAADABAADQAPABEAEgAIABAAEAANABMAEwANABEAEgAQABMAEQAPABQAFQAIABIAEwARABYAFgARABQAEgATABcAFwATABYAGAAVABIAFQAZAAgAFQAYABkACAAZAAUAGAASABoAGgASABcAGQAYABoABQAZABsAGQAaABsABQAbAAcAGgAXABwAGwAaABwAHAAXAB0AFwAWAB0AGwAcAB4AHQAWAB8AHAAdACAAIAAdAB8AHgAcACAAFgAUAB8AHgAhABsAGwAhACIAGwAiAAcABwAiACMAIgAhACQAIgAkACMAHgAkACEABwAjAAsACwAjACQACwAkAB4ACwAeACUAHgAgACUACwAlAA4AJQAgACYAIAAfACYAJQAnAA4ADgAnACgAJQApACcAKQAoACcAJQAmACoAKgApACUAKwAmAB8AKgAmACsAKgAsACkALQApACwAKgAtACwAKAApAC0AKgAuAC0AKgArAC4AKAAtAC8AMAAvAC0AMAAtAC4AKAAvADAAMAAuACsADgAoADEAKAAwADEADAAOADEADAAxADIAMAAyADEADwAMADIADwAyABQAMAAzADIAMwAUADIAMAArADMAMwA0ABQANAAzACsAHwAUADQANAArADUAKwAfADUAHwA0ADUA"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 54,
-"vertex_data": PackedByteArray("H+ZjPsWXiL7Fl4i+TGyKPsWXiL7Fl4g+TGyKPsWXiL7Fl4i+HW6KPi4fab7Fl4i+TGyKPi4fab7Fl4g+H+ZjPsWXiL7Fl4g+TGyKPi4fab7Fl4i+H+ZjPi4fab7Fl4g+JuZjvsWXiL7Fl4i+TGyKPr66qrzFl4g+TGyKPr66qrzFl4i+H+ZjPr66qrzFl4g+TGyKPl7FkLvFl4g+HW6KPr66qrzFl4i+H+ZjPl7FkLvFl4g+TGyKPl7FkLvFl4i+IG6Kvi4fab7Fl4i+HW6KPl7FkLvFl4i+TWyKvi4fab7Fl4i+IG6Kvr66qrzFl4i+HW6KPq3oSj7Fl4i+TWyKvsWXiL7Fl4i+IG6Kvl7FkLvFl4i+TWyKvr66qrzFl4i+TWyKvsWXiL7Fl4g+JuZjvsWXiL7Fl4g+TWyKvi0fab7Fl4g+JuZjvi4fab7Fl4g+TWyKvry6qrzFl4g+TWyKvl7FkLvFl4i+JuZjvr66qrzFl4g+IG6Kvq3oSj7Fl4i+TWyKvl7FkLvFl4g+JuZjvi4fab50GRW+H+ZjPi4fab50GRW+H+ZjPr66qrx0GRW+JuZjvr66qrx0GRW+JuZjvl7FkLvFl4g+v2WKvq7oSj7Fl4g+H+ZjPl7FkLt0GRW+H+ZjPtoYFj50GRW+JuZjvl7FkLt0GRW+JuZjvtoYFj7Fl4g+JuZjvhCbfz7Fl4g+JuZjvtoYFj50GRW+sLoqvjN7UT50GRW+sLoqvjN7UT7Fl4g+qroqPjN7UT50GRW+qroqPjN7UT7Fl4g+H+ZjPtoYFj7Fl4g+vmWKPq3oSj7Fl4g+H+ZjPhCbfz7Fl4g+H+ZjPiyofz7Fl4i+JuZjviyofz7Fl4i+")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_x216h"]
-resource_name = "PizzaMakerScene_Cube_002"
-_surfaces = [{
-"aabb": AABB(-0.27037144, -0.2667829, -0.2667829, 0.54074275, 0.5164479, 0.5335658),
-"attribute_data": PackedByteArray("JrFDP77/LD/ipUQ/UC8iP+KlRD++/yw/JrFDP1AvIj8vyjo/vv8sPy/KOj9QLyI/c9U5P77/LD9z1Tk/UC8iP+fvQD+Ai1Q/3tZJPxG7ST/e1kk/gItUP+fvQD8Ru0k/oUxNP3LbNj9Rdk8/evQtP1F2Tz9y2zY/oUxNP3r0LT/xIks/cts2P/EiSz969C0/QflIP3LbNj9B+Ug/evQtP5LPRj9y2zY/ks9GP3r0LT/ipUQ/cts2P5LPRj8t0Dc/4qVEPy3QNz/ipUQ/evQtP+KlRD++/yw/ks9GP77/LD+Sz0Y/LdA3P0H5SD9y2zY/QflIPy3QNz+Sz0Y/cts2P/EiSz9y2zY/8SJLPy3QNz+hTE0/cts2P+KlRD+UOiE/ks9GP51TGD+Sz0Y/lDohP+KlRD9QLyI/ks9GP1AvIj/ipUQ/nVMYP0H5SD+UOiE/QflIP1AvIj+Sz0Y/4l4XP+KlRD/iXhc/QflIP+JeFz9B+Ug/nVMYP/EiSz/iXhc/8SJLP5Q6IT/xIks/UC8iP1vBTD+UOiE/oUxNPw4vIj+hTE0/vBwgP6l1Tz+UOiE/8SJLP51TGD+hTE0/4l4XP6m6TD+dUxg/qXVPP55TGD9Rdk8/lDohP6FMTT8jXxc/oUxNP+JpGT+Sz0Y/nVMYP5LPRj+UOiE/ks9GP5Q6IT+Sz0Y/nVMYP/EiSz+dUxg/8SJLP5Q6IT/xIks/lDohP/EiSz+dUxg/4qVEP77/LD+Sz0Y/UC8iP5LPRj++/yw/4qVEP1AvIj9B+Ug/UC8iP0H5SD++/yw/8SJLP1AvIj/xIks/vv8sP/EiSz++/yw/oUxNP1AvIj+hTE0/vv8sP/EiSz9QLyI/ks9GP3r0LT9B+Ug/vv8sP0H5SD969C0/ks9GP77/LD/xIks/vv8sP/EiSz969C0/oUxNP77/LD/ipUQ/nKBCP5LPRj8t0Dc/ks9GP5ygQj/ipUQ/LdA3P0H5SD8t0Dc/QflIP5ygQj/xIks/LdA3P/EiSz+coEI/8SJLP5ygQj+hTE0/LdA3P6FMTT+coEI/8SJLPy3QNz+Sz0Y/lDohP0H5SD+dUxg/QflIP5Q6IT+Sz0Y/nVMYP0H5SD+dUxg/ks9GP51TGD+Sz0Y/nVMYP0H5SD+dUxg/QflIP5Q6IT9B+Ug/nVMYP0H5SD+dUxg/QflIP5Q6IT+Sz0Y/lDohP0H5SD+UOiE/QflIP5Q6IT+Sz0Y/lDohP6m6TD+dUxg/oUxNP3ZxGT+pukw/nVMYP6FMTT/iaRk/qbpMP5Q6IT+hTE0/vBwgP1vBTD+UOiE/oUxNP7wcID+hTE0/vBwgP6FMTT92cRk/oUxNP+JpGT+hTE0/vBwgP/EiSz+UOiE/qbpMP5Q6IT9bwUw/lDohP/EiSz+UOiE/qbpMP51TGD/xIks/nVMYP/EiSz+dUxg/qbpMP51TGD/xIks/nVMYP6m6TD+UOiE/8SJLP5Q6IT+hTE0/dnEZP6m6TD+dUxg/oUxNP7wcID+pdU8/nlMYP6FMTT9y2zY/UXZPP3LbNj+hTE0/I18XP6l1Tz+UOiE/oUxNP3r0LT+hTE0/Di8iP1F2Tz969C0/"),
-"format": 34359742487,
-"index_count": 312,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAADAAAABAAFAAMABgAFAAQABgAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAAPAAwAEAARAA8AEgARABAAEgATABEAFAATABIAFAAVABMAFgAVABQAFwAWABQAGAAWABcAFgAZABUAGQAaABUAFQAaABsAHAAdAB4AHAAfAB0AHgAdACAAHgAgACEAIQAgACIAIwAkACUAJgAjACUAJgAlACcAIwAoACQAJwAlACkAJwApACoAKAArACQAKAAsACsAJAArAC0AJAAtAC4ALgAtAC8AKgApADAAKgAwADEAMQAwADIAMQAyADMANAAzADIANAA1ADMAKQA2ADAAKQAuADYALgAvADYANgAvADcANgA3ADgANAA5ADoAOAA7ADkANAA8ADkAOAA5ADwAPQA+AD8APQBAAD4AQQBCAEMAQQBEAEIARQBGAEcARQBIAEYARwBGAEkARwBJAEoASgBJAEsASgBLAEwATQBOAE8ATQBQAE4AUQBSAFMAUQBUAFIAUwBSAFUAUwBVAFYAVgBVAFcAWABZAFoAWABbAFkAWgBZAFwAWgBcAF0AXQBcAF4AXQBeAF8AYABhAGIAYABjAGEAZABlAGYAZABnAGUAaABpAGoAaABrAGkAbABtAG4AbABvAG0AcABxAHIAcABzAHEAdAB1AHYAdAB3AHUAeAB5AHoAeAB7AHkAfAB9AH4AfAB/AH0AgACBAIIAgACDAIEAhACFAIYAhACHAIUAiACJAIoAiQCIAIsAiwCIAIwAiQCLAI0AjgCPAJAAjgCRAI8AkgCTAJQAkgCVAJMA"),
-"material": SubResource("StandardMaterial3D_riqne"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 150,
-"vertex_data": PackedByteArray("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/38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/+/8AAP+//3/7/wAA/7//f/v/AAD/v/9/+/8AAP+//////6OUrPX/////YUWw4v////+dvTDh/////8pl5PL//////3//////////f/////////9//////////3////////+aOTIj//////9/AAD/////AAAAgP////+aOTIj//////9/////////ZMbM3P//////fwAA//////9/AAD/f/9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f/9/////f/9//3////9//38DgPz//3//f/9/////f/9//3/+//9//3//f////3//f/9//v//f/9/xX/h//9//3//f/7//3//fwGA/f//f/9/AoD9//9//3//f////3//f9J+aP//f/9//3/+//9//3//f/7//3//fwR9gf7/f///////v/9///////+//3///////7//f///////v/9///////+//3///////7//f///////v/9///////+/////f/9///////9//3///////3//f///////f/9///////9//3///////3//f///////f/9///////9//3////j/AoD8f/3/+P8CgPx//f/4/wKA/H/9//j/AoD8f/3//3//f/9/////f/9//3////9//3//f////3//f/9/////f/9/AID+//9//38AgP7//3//fwGA/f8AAP9//3///wAA/3//f///AAD/f/9///8AAP9//3///wAA/3//f///AAD/f/9///8AAP9//3///wAA/3//f///BgACgAKA/f8GAAKAAoD9/wYAAoACgP3/BgACgAKA/f//f/9//3////9//3//f////3//f/9/////f/9//3///////3////+/////f////7////9/////v////3////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vzbBN0F3gD3ANsE3QXeAPcA2wTdB////vzbBN0F3gD3AyD43Qf9//7/IPjdB/3//v8g+N0H/f/+/yD43Qf///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////vwAA/3////+/AAD/f////78AAP9/////vwAA/3////+/////f////7////9/////v////3////+/////f////7//f/9//3/+//9//3//f/7//3//f/9/////f/9//3/+//9//3//f////3//f/9//v+cPZq9m7UdI5w9mr3MvD0fnD2avZu9zR6cPZq997R1I2LCmr2eL+fpYsKavV9AIOJiwpq9OS6N6mLCmr1jQjHh")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_lfjyu")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8h0l"]
-albedo_color = Color(0.28925207, 0.2892521, 0.28925207, 1)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_i0ae5"]
-_surfaces = [{
-"aabb": AABB(-0.44511515, -0.19642189, -0.013412923, 0.44511515, 0.43222952, 0.026825845),
-"format": 34359742465,
-"index_count": 84,
-"index_data": PackedByteArray("AAABAAIAAAADAAEAAAACAAQAAwAAAAUAAAAEAAUAAwAFAAYAAQADAAYABQAHAAYABQAEAAcAAQAGAAcAAgAIAAQACAAHAAQAAQAJAAIAAgAJAAgACgABAAcACQALAAgACgAHAAwACQANAAsADgABAAoACQABAA4ADgAKAAwACQAOAA0ABwAIAA8ABwAPAAwADwAIAAsADgAMAA8ADQAPAAsADQAOAA8A"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 16,
-"vertex_data": PackedByteArray("AACAMtIiSb7gwVs8IubjvtRsmDzgwVs8AACAMtRsmDzgwVs8IubjvtIiSb7gwVs8AACAMtRsmDzgwVu8AACAMtIiSb7gwVu8IubjvtIiSb7gwVu8IubjvtRsmDzgwVu8AACAMjYVNj7gwVu8AACAMjYVNj7gwVs8IubjvjYVNj7gwVs80K1kvY93cT7gwVu8IubjvjYVNj7gwVu80K1kvY93cT7gwVs8Z1DHvo93cT7gwVs8Z1DHvo93cT7gwVu8")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_gkqhn"]
-resource_name = "PizzaMakerScene_Cube_003"
-_surfaces = [{
-"aabb": AABB(-0.44511515, -0.19642189, -0.013412923, 0.44511515, 0.43222952, 0.026825845),
-"attribute_data": PackedByteArray("7pE3P8LrgD6euzk/qDtePp67OT/E64A+7pE3P6g7Xj5y1Tk/di+BPiptOz9k/ZI+ctU5P2T9kj4i/zs/JmuDPiptOz92L4E+Iv87P7LBkD7ukTc/wuuAPp67OT+oO14+7pE3P6g7Xj6euzk/xOuAPiptOz9k/ZI+ctU5P3YvgT5y1Tk/ZP2SPiL/Oz8ma4M+Iv87P7LBkD4qbTs/di+BPiptOz92L4E+ctU5P3YvgT4qbTs/di+BPnLVOT92L4E+Iv87P7LBkD4i/zs/JmuDPiL/Oz+ywZA+Iv87PyZrgz4i/zs/JmuDPiptOz92L4E+Iv87PyZrgz4qbTs/di+BPu6RNz/C64A+nrs5P8TrgD7ukTc/wuuAPp67OT/E64A+nrs5P6g7Xj7ukTc/qDtePp67OT+oO14+7pE3P6g7Xj5y1Tk/ZP2SPiptOz9k/ZI+ctU5P2T9kj4qbTs/ZP2SPiptOz9k/ZI+Iv87P7LBkD4qbTs/ZP2SPiL/Oz+ywZA+7pE3P6g7Xj7ukTc/wuuAPu6RNz+oO14+7pE3P8LrgD4="),
-"format": 34359742487,
-"index_count": 84,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABQAEAAcABwAEAAgABQAHAAkACgALAAwACgANAAsADgAPABAADwAOABEAEQAOABIADwARABMAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0AMAAxADIAMAAzADEA"),
-"material": SubResource("StandardMaterial3D_riqne"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 52,
-"vertex_data": PackedByteArray("AACAMtIiSb7gwVs8IubjvtRsmDzgwVs8AACAMtRsmDzgwVs8IubjvtIiSb7gwVs8IubjvtRsmDzgwVs8AACAMjYVNj7gwVs8AACAMtRsmDzgwVs8Z1DHvo93cT7gwVs8IubjvjYVNj7gwVs80K1kvY93cT7gwVs8AACAMtIiSb7gwVu8IubjvtRsmDzgwVu8IubjvtIiSb7gwVu8AACAMtRsmDzgwVu8AACAMjYVNj7gwVu8IubjvtRsmDzgwVu8AACAMtRsmDzgwVu8Z1DHvo93cT7gwVu80K1kvY93cT7gwVu8IubjvjYVNj7gwVu8IubjvjYVNj7gwVs8IubjvtRsmDzgwVu8IubjvjYVNj7gwVu8IubjvtRsmDzgwVs80K1kvY93cT7gwVs8Z1DHvo93cT7gwVu80K1kvY93cT7gwVu8Z1DHvo93cT7gwVs8Z1DHvo93cT7gwVs8IubjvjYVNj7gwVu8Z1DHvo93cT7gwVu8IubjvjYVNj7gwVs8AACAMtIiSb7gwVs8AACAMtRsmDzgwVu8AACAMtIiSb7gwVu8AACAMtRsmDzgwVs8IubjvtRsmDzgwVs8IubjvtIiSb7gwVu8IubjvtRsmDzgwVu8IubjvtIiSb7gwVs8AACAMtRsmDzgwVs8AACAMjYVNj7gwVu8AACAMtRsmDzgwVu8AACAMjYVNj7gwVs8AACAMjYVNj7gwVs80K1kvY93cT7gwVu8AACAMjYVNj7gwVu80K1kvY93cT7gwVs8IubjvtIiSb7gwVs8AACAMtIiSb7gwVu8IubjvtIiSb7gwVu8AACAMtIiSb7gwVs8/3//f/9//v//f/9//3/+//9//3//f/7//3//f/9/////f/9//3/+//9//3//f/7//3//f/9/////f/9//3/+//9//3//f////3//f/9//v///////38AAP//////fwAA//////9/AAD//////38AAP//////fwAA//////9/AAD//////38AAP//////fwAA//////9/AAD//////38AAAAA/3////+/AAD/f////78AAP9/////vwAA/3////+//3///////7//f///////v/9///////+//3///////7/IPse+////v8g+x77///+/yD7Hvv///7/IPse+////v////3////+/////f////7////9/////v////3////+/AAD/f////78AAP9/////vwAA/3////+/AAD/f////7////9/////v////3////+/////f////7////9/////vzbBx77///+/NsHHvv///782wce+////vzbBx77///+//38AAP///7//fwAA////v/9/AAD///+//38AAP///78=")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_i0ae5")
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_jpjtf"]
-_surfaces = [{
-"aabb": AABB(-0.025343616, -0.09965543, -0.014305622, 0.05068723, 0.19931085, 0.022744171),
-"format": 34896613377,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_gwwvt"]
-resource_name = "PizzaMakerScene_Cube_010"
-_surfaces = [{
-"aabb": AABB(-0.025343616, -0.09965543, -0.014305622, 0.05068723, 0.19931085, 0.022744171),
-"attribute_data": PackedByteArray("EqQ8l+KubIzirjyXEqRsjBKkbIzirpuB4q5sjBKkm4ESpJuB4q7LduKum4ESpMt2EqTLduKu+mvirst2EqT6a0GZm4ESpMt2EqSbgUGZy3birpuBsrnLdrK5m4Hirst2"),
-"format": 34896613399,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_riqne"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 24,
-"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_jpjtf")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qy8g"]
-albedo_color = Color(0.06303825, 0.06303826, 0.06303825, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_g3b8u"]
-size = Vector3(0.058, 0.559, 0.529)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r16jn"]
-size = Vector3(0.058, 0.449, 0.529)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_iggpr"]
-_surfaces = [{
-"aabb": AABB(-0.37564048, -0.3220976, -0.36308584, 0.7536173, 0.56466234, 0.41856226),
-"format": 34359742465,
-"index_count": 48,
-"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEAAwABAAQAAgADAAUAAAAGAAQAAgAHAAAABwAGAAAAAgAFAAcABAAGAAgABwAIAAYAAwAEAAkABQADAAkABAAIAAkABQAJAAcACQAIAAcA"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 10,
-"vertex_data": PackedByteArray("81PAvvrppL4kGHk781PAvuJieD49O2M981PAvmOQhr4+O2M9LYbBPuJieD49O2M981PAvuJieD49O2O9LYbBPmOQhr4+O2M981PAvjg9Ij1j5rm+LYbBPvrppL4kGHk7LYbBPjg9Ij1j5rm+LYbBPuJieD49O2O9")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_2c2it"]
-resource_name = "PizzaMakerScene_Cube_009"
-_surfaces = [{
-"aabb": AABB(-0.37564048, -0.3220976, -0.36308584, 0.7536173, 0.56466234, 0.41856226),
-"attribute_data": PackedByteArray("Hw8+Px4NLT+N30g/rzwiPx8PPj+vPCI/jd9IPx4NLT8fDz4/rzwiP43fSD9AbBc/Hw8+P0BsFz+N30g/rzwiPx8PPj9AbBc/jd9IP9KbDD8fDz4/0psMP43fSD9AbBc/jd9IP9KbDD+N30g/0psMPx8PPj/Smww/sD4zP0BsFz8fDz4/0psMP7A+Mz/Smww/Hw8+P0BsFz+N30g/QGwXP/yvUz/Smww/jd9IP9KbDD/8r1M/QGwXPx8PPj/Smww/jd9IP2PLAT8fDz4/Y8sBP43fSD/Smww/Hw8+Px4NLT+N30g/Hg0tP43fSD8eDS0//K9TP9KbDD+N30g/0psMP43fSD/Smww//K9TP9KbDD8="),
-"format": 34359742487,
-"index_count": 48,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADwAQABEADwASABAAEwAUABUAEwAWABQAFwAYABkAFwAaABgAGwAcAB0AHgAfACAAHgAhAB8A"),
-"material": SubResource("StandardMaterial3D_riqne"),
-"name": "MainTexture",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 34,
-"vertex_data": PackedByteArray("81PAvvrppL4kGHk781PAvuJieD49O2M981PAvmOQhr4+O2M981PAvuJieD49O2O981PAvmOQhr4+O2M9LYbBPuJieD49O2M9LYbBPmOQhr4+O2M981PAvuJieD49O2M9LYbBPmOQhr4+O2M9LYbBPuJieD49O2O9LYbBPvrppL4kGHk7LYbBPuJieD49O2M9LYbBPuJieD49O2O9LYbBPjg9Ij1j5rm+LYbBPvrppL4kGHk781PAvmOQhr4+O2M9LYbBPvrppL4kGHk781PAvvrppL4kGHk7LYbBPmOQhr4+O2M9LYbBPuJieD49O2M981PAvuJieD49O2O9LYbBPuJieD49O2O981PAvuJieD49O2M9LYbBPvrppL4kGHk781PAvjg9Ij1j5rm+81PAvvrppL4kGHk7LYbBPjg9Ij1j5rm+81PAvvrppL4kGHk781PAvjg9Ij1j5rm+81PAvuJieD49O2O981PAvuJieD49O2O9LYbBPjg9Ij1j5rm+LYbBPuJieD49O2O981PAvjg9Ij1j5rm+AAD/fyiMAAAAAP9//38AAAAA/38oiwAAAAD/fwCBAAD/f/9//38AAP9//3//fwAA/3//f/9/AAD/f/9//38AAP///38oiwAA////fwCBAAD///9/KIwAAP///3//fwAA////f////7////9/////v////3////+//39iRP///z//f2JE////P/9/YkT///8//39iRP///z//f///AAD/P/9///8AAP8//3///wAA/z//f///AAD/P4u/AABzwAAAi78AAHPAAACLvwAAc8AAAIu/AABzwAAAAAD/f////78AAP9/////vwAA/3////+/4LL//////z/gsv//////P+Cy//////8/4LL//////z8=")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_iggpr")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jpxi"]
-albedo_color = Color(0.61745477, 0.61745477, 0.6174547, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0gdiy"]
-size = Vector3(0.75, 0.5, 0.06)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ptdpq"]
-size = Vector2(0.75, 0.5)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_x216h"]
-viewport_path = NodePath("Node3D2/PizzaMakerScene/StaticBody3D/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_252dy"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_x216h")
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_5n32l"]
 _surfaces = [{
 "aabb": AABB(-0.83950627, -0.83950627, -0.83950627, 1.6790125, 1.6790125, 1.6790125),
@@ -435,127 +312,14 @@ transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071068, 0, -0.7071068, 0.70710
 [node name="OmniLight3D" type="OmniLight3D" parent="Node3D" unique_id=1513088597]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0667963, -0.53248465)
 
-[node name="Node3D2" type="Node3D" parent="." unique_id=1103007775]
+[node name="Building" type="Node3D" parent="." unique_id=1103007775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29559907, 0, -0.029786766)
 
-[node name="PizzaMakerScene" type="Node3D" parent="Node3D2" unique_id=596115981]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111254334, 0, 0.039838552)
+[node name="Oven" parent="Building" unique_id=290454206 instance=ExtResource("2_7ml7t")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0.37317672, 0.61957496, -0.26212347)
 
-[node name="Window" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene" unique_id=1150903915]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3213953, -1.5215049)
-mesh = SubResource("ArrayMesh_cn7bo")
-surface_material_override/0 = SubResource("StandardMaterial3D_5re3l")
-
-[node name="Floor" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene" unique_id=728559354]
-transform = Transform3D(2.8759801, 0, 0, 0, 1, 0, 0, 0, 2.0539439, 0, 0, 0)
-mesh = SubResource("ArrayMesh_pdpum")
-surface_material_override/0 = SubResource("StandardMaterial3D_5dkge")
-
-[node name="Shelf_001" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene" unique_id=1779065866]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0019863844, 0.38805255, -0.3719257)
-mesh = SubResource("ArrayMesh_252dy")
-surface_material_override/0 = SubResource("StandardMaterial3D_dbpql")
-
-[node name="CheesePackage" type="StaticBody3D" parent="Node3D2/PizzaMakerScene/Shelf_001" unique_id=1983606537 groups=["IngredientStorage"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64087653, 0, 0.26526374)
-script = ExtResource("2_cr2a4")
-PackageInfo = ExtResource("3_7ml7t")
-IngredientScene = ExtResource("4_otgo1")
-
-[node name="BlockOfCheese" parent="Node3D2/PizzaMakerScene/Shelf_001/CheesePackage" unique_id=1904719161 instance=ExtResource("4_otgo1")]
-surface_material_override/0 = null
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Shelf_001/CheesePackage" unique_id=2028606055]
-shape = SubResource("BoxShape3D_ptdpq")
-
-[node name="PizzaCrustPackage" type="StaticBody3D" parent="Node3D2/PizzaMakerScene/Shelf_001" unique_id=1883533811 groups=["IngredientStorage"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4340613, -0.022732794, 0.26526374)
-script = ExtResource("2_cr2a4")
-PackageInfo = ExtResource("5_xi4a8")
-IngredientScene = ExtResource("6_i4r1l")
-
-[node name="PizzaCrust2" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/Shelf_001/PizzaCrustPackage" unique_id=1552958400]
-mesh = SubResource("ArrayMesh_38q1w")
-surface_material_override/0 = SubResource("StandardMaterial3D_no1gw")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Shelf_001/PizzaCrustPackage" unique_id=230899212]
-shape = SubResource("CylinderShape3D_5re3l")
-
-[node name="Oven" type="StaticBody3D" parent="Node3D2/PizzaMakerScene" unique_id=1377381690 node_paths=PackedStringArray("GridCollision", "CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientOrientation", "IngredientsInCooker") groups=["IngredientStorage"]]
-transform = Transform3D(0.9651267, 0, -0.2617832, 0, 1, 0, 0.2617832, 0, 0.9651267, 0.49159124, 0.87286043, -0.35004342)
-script = ExtResource("7_cr2a4")
-GridCollision = NodePath("GridCollision")
-CookerMesh = NodePath("GridCollision/GridTexture")
-CookerGrid = NodePath("SubViewport/PanelContainer")
-GridViewport = NodePath("SubViewport")
-IngredientHolder = NodePath("IngredientHolder")
-IngredientOrientation = NodePath("IngredientOrientation")
-CookerSize = Vector2i(3, 2)
-CookerType = 1
-IngredientsInCooker = []
-
-[node name="IngredientHolder" type="Node3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=839446418]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.2, 0)
-
-[node name="IngredientOrientation" type="Node3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=2078782030]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-
-[node name="GridCollision" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=1113180584]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.00053954124, -0.017581224, 0.1947431)
-shape = SubResource("BoxShape3D_44a8c")
-
-[node name="GridTexture" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/Oven/GridCollision" unique_id=486051505]
-mesh = SubResource("PlaneMesh_g3b8u")
-surface_material_override/0 = SubResource("StandardMaterial3D_ptdpq")
-
-[node name="Oven_001" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=337416635]
-mesh = SubResource("ArrayMesh_x216h")
-surface_material_override/0 = SubResource("StandardMaterial3D_w8h0l")
-
-[node name="OvenDoor_001" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/Oven/Oven_001" unique_id=1458291890]
-transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 0.22255751, -0.031236112, 0.2733084)
-mesh = SubResource("ArrayMesh_gkqhn")
-surface_material_override/0 = SubResource("StandardMaterial3D_w8h0l")
-
-[node name="OvenHandle" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/Oven/Oven_001/OvenDoor_001" unique_id=1015065969]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38797456, 0.002143383, 0.019735955)
-mesh = SubResource("ArrayMesh_gwwvt")
-surface_material_override/0 = SubResource("StandardMaterial3D_2qy8g")
-
-[node name="Side" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=1011170126]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2408961, -0.040310025, 0.009416401)
-shape = SubResource("BoxShape3D_g3b8u")
-
-[node name="Side2" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=437050982]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23921359, -0.040310025, 0.009416401)
-shape = SubResource("BoxShape3D_g3b8u")
-
-[node name="Side3" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=293809091]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.014975748, -0.23312105, 0.009416401)
-shape = SubResource("BoxShape3D_g3b8u")
-
-[node name="Side4" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/Oven" unique_id=472842276]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.0005272506, 0.21790753, 0.009416401)
-shape = SubResource("BoxShape3D_r16jn")
-
-[node name="SubViewport" type="SubViewport" parent="Node3D2/PizzaMakerScene/Oven" unique_id=323165936]
-
-[node name="PanelContainer" type="PanelContainer" parent="Node3D2/PizzaMakerScene/Oven/SubViewport" unique_id=1375258374]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("8_1pwhf")
-CellCount = Vector2i(3, 2)
-LineColor = Color(0.73635507, 0.7363552, 0.73635507, 1)
-HighlightColor = Color(1, 1, 1, 0.5254902)
-RedHighlightColor = Color(0.55, 0, 0, 0.5294118)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Node3D2/PizzaMakerScene" unique_id=501303384 node_paths=PackedStringArray("GridCollision", "CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientOrientation", "IngredientsInCooker") groups=["IngredientStorage"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3938113, 0.81730056, -0.29039264)
+[node name="CuttingBoard" type="StaticBody3D" parent="Building" unique_id=501303384 node_paths=PackedStringArray("GridCollision", "CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientOrientation", "IngredientsInCooker") groups=["IngredientStorage"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5050656, 0.81730056, -0.25055408)
 script = ExtResource("7_4cw5v")
 GridCollision = NodePath("CollisionShape3D")
 CookerMesh = NodePath("CollisionShape3D/MeshInstance3D")
@@ -565,26 +329,26 @@ IngredientHolder = NodePath("IngredientHolder")
 IngredientOrientation = NodePath("IngredientHolder")
 IngredientsInCooker = []
 
-[node name="IngredientHolder" type="Node3D" parent="Node3D2/PizzaMakerScene/StaticBody3D" unique_id=159089295]
+[node name="IngredientHolder" type="Node3D" parent="Building/CuttingBoard" unique_id=159089295]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0.048543215, 0.048543215)
 
-[node name="CuttingBoard" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/StaticBody3D" unique_id=1874469849]
+[node name="CuttingBoard" type="MeshInstance3D" parent="Building/CuttingBoard" unique_id=1874469849]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071067, 0, -0.7071067, 0.7071068, 0, 0, 0)
 mesh = SubResource("ArrayMesh_2c2it")
 surface_material_override/0 = SubResource("StandardMaterial3D_5jpxi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/PizzaMakerScene/StaticBody3D" unique_id=37258570]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/CuttingBoard" unique_id=37258570]
 transform = Transform3D(1, 0, 0, 0, 0.70710665, 0.7071067, 0, -0.7071067, 0.70710665, 0, 0.019178232, 0.032003388)
 shape = SubResource("BoxShape3D_0gdiy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene/StaticBody3D/CollisionShape3D" unique_id=518346237]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/CuttingBoard/CollisionShape3D" unique_id=518346237]
 transform = Transform3D(1, 0, 0, 0, 0, -0.99999994, 0, 0.99999994, 0, 0, 0, 0.019842148)
 mesh = SubResource("PlaneMesh_ptdpq")
 surface_material_override/0 = SubResource("StandardMaterial3D_252dy")
 
-[node name="SubViewport" type="SubViewport" parent="Node3D2/PizzaMakerScene/StaticBody3D" unique_id=1354438300]
+[node name="SubViewport" type="SubViewport" parent="Building/CuttingBoard" unique_id=1354438300]
 
-[node name="PanelContainer" type="PanelContainer" parent="Node3D2/PizzaMakerScene/StaticBody3D/SubViewport" unique_id=138951747]
+[node name="PanelContainer" type="PanelContainer" parent="Building/CuttingBoard/SubViewport" unique_id=138951747]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -595,27 +359,70 @@ LineColor = Color(0.7699953, 0.7699953, 0.76999515, 1)
 HighlightColor = Color(1, 1, 1, 0.57254905)
 RedHighlightColor = Color(0.55, 0, 0, 0.5372549)
 
-[node name="PizzaMakerScene2" type="Node3D" parent="Node3D2" unique_id=942832592]
+[node name="PizzaMakerScene" type="Node3D" parent="Building" unique_id=596115981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111254334, 0, 0.039838552)
+
+[node name="Window" type="MeshInstance3D" parent="Building/PizzaMakerScene" unique_id=1150903915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3213953, -1.5215049)
+mesh = SubResource("ArrayMesh_cn7bo")
+surface_material_override/0 = SubResource("StandardMaterial3D_5re3l")
+
+[node name="Floor" type="MeshInstance3D" parent="Building/PizzaMakerScene" unique_id=728559354]
+transform = Transform3D(2.8759801, 0, 0, 0, 1, 0, 0, 0, 2.0539439, 0, 0, 0)
+mesh = SubResource("ArrayMesh_pdpum")
+surface_material_override/0 = SubResource("StandardMaterial3D_5dkge")
+
+[node name="Shelf_001" type="MeshInstance3D" parent="Building/PizzaMakerScene" unique_id=1779065866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0019863844, 0.38805255, -0.3719257)
+mesh = SubResource("ArrayMesh_252dy")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbpql")
+
+[node name="CheesePackage" type="StaticBody3D" parent="Building/PizzaMakerScene/Shelf_001" unique_id=1983606537 groups=["IngredientStorage"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64087653, 0, 0.26526374)
+script = ExtResource("2_cr2a4")
+PackageInfo = ExtResource("3_7ml7t")
+IngredientScene = ExtResource("4_otgo1")
+
+[node name="BlockOfCheese" parent="Building/PizzaMakerScene/Shelf_001/CheesePackage" unique_id=1904719161 instance=ExtResource("4_otgo1")]
+surface_material_override/0 = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/PizzaMakerScene/Shelf_001/CheesePackage" unique_id=2028606055]
+shape = SubResource("BoxShape3D_ptdpq")
+
+[node name="PizzaCrustPackage" type="StaticBody3D" parent="Building/PizzaMakerScene/Shelf_001" unique_id=1883533811 groups=["IngredientStorage"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4340613, -0.022732794, 0.26526374)
+script = ExtResource("2_cr2a4")
+PackageInfo = ExtResource("5_xi4a8")
+IngredientScene = ExtResource("6_i4r1l")
+
+[node name="PizzaCrust2" type="MeshInstance3D" parent="Building/PizzaMakerScene/Shelf_001/PizzaCrustPackage" unique_id=1552958400]
+mesh = SubResource("ArrayMesh_38q1w")
+surface_material_override/0 = SubResource("StandardMaterial3D_no1gw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/PizzaMakerScene/Shelf_001/PizzaCrustPackage" unique_id=230899212]
+shape = SubResource("CylinderShape3D_5re3l")
+
+[node name="PizzaMakerSceneMeshes" type="Node3D" parent="Building" unique_id=942832592]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21397644, 1.1920929e-07, 0.66740465)
 visible = false
 
-[node name="PizzaCrust" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene2" unique_id=931090086]
+[node name="PizzaCrust" type="MeshInstance3D" parent="Building/PizzaMakerSceneMeshes" unique_id=931090086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37334776, 0.08884919, -0.7764845)
 mesh = SubResource("ArrayMesh_38q1w")
 surface_material_override/0 = SubResource("StandardMaterial3D_no1gw")
 
-[node name="Cube" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene2" unique_id=796449001]
+[node name="Cube" type="MeshInstance3D" parent="Building/PizzaMakerSceneMeshes" unique_id=796449001]
 transform = Transform3D(0.10700764, 0, 0, 0, 0.10700764, 0, 0, 0, 0.10700764, -0.14685616, 0.40313593, -0.7808193)
 mesh = SubResource("ArrayMesh_8a0g0")
 surface_material_override/0 = SubResource("StandardMaterial3D_ry5od")
 
-[node name="Cube_001" type="MeshInstance3D" parent="Node3D2/PizzaMakerScene2" unique_id=1383259970]
+[node name="Cube_001" type="MeshInstance3D" parent="Building/PizzaMakerSceneMeshes" unique_id=1383259970]
 transform = Transform3D(0.10700764, 0, 0, 0, 0.10700764, 0, 0, 0, 0.10700764, -0.14685616, 0.40313593, -0.57042795)
 mesh = SubResource("ArrayMesh_vegmx")
 surface_material_override/0 = SubResource("StandardMaterial3D_ry5od")
 
-[node name="GratedCheesPile" parent="Node3D2/PizzaMakerScene2" unique_id=374664521 instance=ExtResource("9_xnnl5")]
+[node name="GratedCheesPile" parent="Building/PizzaMakerSceneMeshes" unique_id=374664521 instance=ExtResource("9_xnnl5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.52914304, 0.38837528, 0.008185178)
 
-[node name="SmallCheesePile" parent="Node3D2/PizzaMakerScene2" unique_id=1712645887 instance=ExtResource("10_a1i4v")]
+[node name="SmallCheesePile" parent="Building/PizzaMakerSceneMeshes" unique_id=1712645887 instance=ExtResource("10_a1i4v")]
 transform = Transform3D(0.59839123, 0, 0, 0, 1, 0, 0, 0, 1, -0.52914304, 0.38837528, 0.15196311)

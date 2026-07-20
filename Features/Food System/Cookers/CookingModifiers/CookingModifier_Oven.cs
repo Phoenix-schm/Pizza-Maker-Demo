@@ -29,6 +29,9 @@ public partial class CookingModifier_Oven : CookingModifier
     }
     private void OvenDoor_InputEvent(Node camera, InputEvent @event, Vector3 eventPosition, Vector3 normal, long shapeIdx)
     {
+        if (DragIngredientManager.hoveredStorage != null)
+            DragIngredientManager.Instance.UpdateHoverVariables();
+
         // send OvenDoor interaction to actual door logic
         if (!@event.IsActionPressed(StaticStringRef.a_primaryInteraction))
         {
@@ -39,7 +42,6 @@ public partial class CookingModifier_Oven : CookingModifier
 
         if (IsDoorOpen)
         {
-            GD.Print("door open");
             OvenDoor.RotationDegrees = OpenDoorRotation;
             foreach(Node child in ParentCooker.IngredientHolder.GetChildren())
             {
@@ -64,7 +66,7 @@ public partial class CookingModifier_Oven : CookingModifier
     public override void OnPlaceIngredient(Cooker parentCooker, Ingredient placedIngredient)
     {
         base.OnPlaceIngredient(parentCooker, placedIngredient);
-        SetPhysicsProcess(true);    // Allow ingredient to "cook" but OnInteractionWithCooker() will disable processmode in children
+        SetPhysicsProcess(false);    // Allow ingredient to "cook" but OnInteractionWithCooker() will disable processmode in children
     }
 
     public override void CookIngredient(Ingredient cookingIngredient, float delta)

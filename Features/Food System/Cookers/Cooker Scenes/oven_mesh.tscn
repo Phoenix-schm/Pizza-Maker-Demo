@@ -1,23 +1,4 @@
-[gd_scene format=4 uid="uid://baiyb0yarirre"]
-
-[ext_resource type="Script" uid="uid://blq2nbl2x3jxp" path="res://Features/Food System/Cookers/Cooker Scenes/Cooker_Oven.cs" id="1_6tikf"]
-[ext_resource type="Script" uid="uid://cga2bwfdorrdc" path="res://Features/Food System/Cookers/CookerGridTexture.cs" id="2_are0b"]
-[ext_resource type="Script" uid="uid://bl86gq12ua7wx" path="res://Features/Food System/Cookers/CookingModifiers/CookingModifier_Oven.cs" id="2_ob015"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6tikf"]
-size = Vector3(0.45, 0.04, 0.44)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ob015"]
-size = Vector2(0.45, 0.44)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_wlajd"]
-viewport_path = NodePath("CookerCollision/GridTexture/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3icso"]
-resource_local_to_scene = true
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.5803922)
-albedo_texture = SubResource("ViewportTexture_wlajd")
+[gd_scene format=4 uid="uid://blku46joey3pf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riqne"]
 resource_name = "MainTexture"
@@ -126,100 +107,16 @@ shadow_mesh = SubResource("ArrayMesh_jpjtf")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qy8g"]
 albedo_color = Color(0.06303825, 0.06303826, 0.06303825, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ptdpq"]
-size = Vector3(0.44040954, 0.43294433, 0.03790039)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ob015"]
-size = Vector3(0.058, 0.559, 0.529)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_22j80"]
-size = Vector3(0.058, 0.449, 0.529)
-
-[node name="Oven" type="StaticBody3D" unique_id=290454206 node_paths=PackedStringArray("GridCollision", "CookerMesh", "CookerGrid", "GridViewport", "IngredientHolder", "IngredientOrientation", "IngredientsInCooker") groups=["Ingredient Storage"]]
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("1_6tikf")
-GridCollision = NodePath("CookerCollision")
-CookerMesh = NodePath("CookerCollision/GridTexture")
-CookerGrid = NodePath("CookerCollision/GridTexture/SubViewport/PanelContainer")
-GridViewport = NodePath("CookerCollision/GridTexture/SubViewport")
-IngredientHolder = NodePath("IngredientHolder")
-IngredientOrientation = NodePath("IngredientOrientation")
-CookerSize = Vector2i(3, 2)
-CookerType = 1
-IngredientsInCooker = []
-
-[node name="CookerCollision" type="CollisionShape3D" parent="." unique_id=1606235899]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.24258062, 0.15154281)
-shape = SubResource("BoxShape3D_6tikf")
-
-[node name="GridTexture" type="MeshInstance3D" parent="CookerCollision" unique_id=207628271]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.012781173)
-mesh = SubResource("PlaneMesh_ob015")
-surface_material_override/0 = SubResource("StandardMaterial3D_3icso")
-
-[node name="SubViewport" type="SubViewport" parent="CookerCollision/GridTexture" unique_id=1255562768]
-size = Vector2i(461, 461)
-
-[node name="PanelContainer" type="PanelContainer" parent="CookerCollision/GridTexture/SubViewport" unique_id=1068724710]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("2_are0b")
-CellCount = Vector2i(3, 2)
-LineColor = Color(0.73635507, 0.7363552, 0.73635507, 1)
-HighlightColor = Color(1, 1, 1, 0.5254902)
-RedHighlightColor = Color(0.55, 0, 0, 0.5294118)
-
-[node name="Oven_CookingModifier" type="Node" parent="." unique_id=399751116 node_paths=PackedStringArray("OvenDoor")]
-script = ExtResource("2_ob015")
-OvenDoor = NodePath("../OvenDoor")
-OpenDoorRotation = Vector3(0, 130, 0)
-TimeTilBurnt = 10.0
-
-[node name="IngredientOrientation" type="Node3D" parent="." unique_id=157274295]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018182054, 0)
-
-[node name="IngredientHolder" type="Node3D" parent="." unique_id=624685565]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.039388746, 0.05147636, 0.06881785)
-
-[node name="OvenBody" type="MeshInstance3D" parent="." unique_id=1906871098]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011261225, 0.26075378, 0)
+[node name="Oven_001" type="MeshInstance3D" unique_id=1906871098]
 mesh = SubResource("ArrayMesh_x216h")
 surface_material_override/0 = SubResource("StandardMaterial3D_w8h0l")
 
-[node name="OvenDoor" type="StaticBody3D" parent="." unique_id=606444214]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23381874, 0.22951767, 0.2733084)
-
-[node name="OvenDoor_001" type="MeshInstance3D" parent="OvenDoor" unique_id=907050483]
+[node name="OvenDoor_001" type="MeshInstance3D" parent="." unique_id=907050483]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 0.22255751, -0.031236112, 0.2733084)
 mesh = SubResource("ArrayMesh_gkqhn")
 surface_material_override/0 = SubResource("StandardMaterial3D_w8h0l")
 
-[node name="OvenHandle" type="MeshInstance3D" parent="OvenDoor/OvenDoor_001" unique_id=674314381]
+[node name="OvenHandle" type="MeshInstance3D" parent="OvenDoor_001" unique_id=674314381]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38797456, 0.002143383, 0.019735955)
 mesh = SubResource("ArrayMesh_gwwvt")
 surface_material_override/0 = SubResource("StandardMaterial3D_2qy8g")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OvenDoor" unique_id=1755451785]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22511303, 0.022237003, 0.004487291)
-shape = SubResource("BoxShape3D_ptdpq")
-
-[node name="Collision_Side1" type="CollisionShape3D" parent="." unique_id=2030464140]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24965505, 0.26940653, 0.009416401)
-shape = SubResource("BoxShape3D_ob015")
-
-[node name="Collision_Side2" type="CollisionShape3D" parent="." unique_id=1517927749]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23045465, 0.26940653, 0.009416401)
-shape = SubResource("BoxShape3D_ob015")
-
-[node name="Collision_Side3" type="CollisionShape3D" parent="." unique_id=1282160953]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.023734696, 0.016975, 0.009416401)
-shape = SubResource("BoxShape3D_ob015")
-
-[node name="Collision_Side4" type="CollisionShape3D" parent="." unique_id=970935843]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.009286199, 0.49015447, 0.009416401)
-shape = SubResource("BoxShape3D_22j80")

@@ -308,6 +308,7 @@ public partial class Cooker : StaticBody3D
     /// <param name="_curIngredient"></param>
     protected virtual void TryPlaceIngredientInCell(int startingCell, Ingredient _curIngredient)
     {
+        
         isCellsFree = true;
         // TODO: Check cells for if they can be placed.
         tempTakenCells.Clear();
